@@ -1,0 +1,58 @@
+{
+  "author": "Friedemann Sommer <social@friedemannsommer.com>",
+  "bugs": {
+    "url": "https://github.com/friedemannsommer/astro-node-fastify/issues"
+  },
+  "dependencies": {
+    "@fastify/compress": "^7.0.3",
+    "@fastify/static": "^7.0.4",
+    "fastify": "^4.27.0"
+  },
+  "description": "Astro Fastify integration for Node.js",
+  "devDependencies": {
+    "@biomejs/biome": "1.8.0",
+    "@changesets/changelog-github": "0.5.0",
+    "@changesets/cli": "2.27.5",
+    "@types/node": "20.14.2",
+    "astro": "4.10.0",
+    "typescript": "5.4.5"
+  },
+  "engines": {
+    "node": "^18.17.1 || ^20.3.0 || >=21.0.0"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./preview": "./dist/preview.js",
+    "./standalone": "./dist/standalone.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "astro",
+    "fastify",
+    "compression"
+  ],
+  "license": "ISC",
+  "main": "./dist/index.js",
+  "name": "astro-node-fastify",
+  "peerDependencies": {
+    "astro": "^4.10.0"
+  },
+  "publishConfig": {
+    "provenance": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/friedemannsommer/astro-node-fastify.git"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "check:biome": "biome check src",
+    "check:ts": "npm run build -- --noEmit",
+    "release": "npm run build && changeset publish"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "version": "0.0.1"
+}

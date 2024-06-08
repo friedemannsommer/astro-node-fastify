@@ -1,0 +1,11 @@
+{
+    "extends": "astro/tsconfigs/strictest",
+    "compilerOptions": {
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "baseUrl": ".",
+        "target": "ES2020"
+    }
+}

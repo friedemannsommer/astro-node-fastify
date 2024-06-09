@@ -6,37 +6,23 @@ export type EncodingToken = 'br' | 'gzip' | 'deflate'
 // biome-ignore lint/complexity/noBannedTypes: we want to omit any functions from the resulting type
 export type TrustedProxy = Exclude<FastifyServerOptions['trustProxy'], Function>
 
+type PartialUndef<T> = {
+    [P in keyof T]?: T[P] | undefined
+}
+
 export interface UserOptions {
-    defaultHeaders?:
-        | {
-              assets?: OutgoingHttpHeaders | undefined
-              server?: OutgoingHttpHeaders | undefined
-          }
-        | undefined
+    assetCompression?: PartialUndef<AssetCompressionOptions> | undefined
+    cache?: PartialUndef<CacheOptions> | undefined
+    defaultHeaders?: PartialUndef<DefaultHeaderOptions> | undefined
     preCompressed?: boolean | undefined
-    server?:
-        | {
-              accessLogging?: boolean | undefined
-              connectionTimeout?: number | undefined
-              http2?: boolean | undefined
-              keepAliveTimeout?: number | undefined
-              logLevel?: Level | undefined
-              requestIdHeader?: string | undefined
-              trustProxy?: TrustedProxy | undefined
-          }
-        | undefined
-    request?:
-        | {
-              bodyLimit?: number | undefined
-              maxParamLength?: number | undefined
-              timeout?: number | undefined
-          }
-        | undefined
+    request?: PartialUndef<RequestOptions> | undefined
+    server?: PartialUndef<ServerOptions> | undefined
     supportedEncodings?: EncodingToken[] | undefined
 }
 
 export interface RuntimeOptions extends EnvironmentConfig {
-    defaultHeaders?: UserOptions['defaultHeaders']
+    cache?: PartialUndef<CacheOptions> | undefined
+    defaultHeaders?: PartialUndef<DefaultHeaderOptions> | undefined
     preCompressed: boolean
     supportedEncodings: EncodingToken[]
 }
@@ -58,23 +44,43 @@ export interface EnvironmentConfig {
           }
         | undefined
     port?: number | undefined
-    request?:
-        | {
-              bodyLimit?: number | undefined
-              maxParamLength?: number | undefined
-              timeout?: number | undefined
-          }
-        | undefined
-    server?:
-        | {
-              accessLogging?: boolean | undefined
-              connectionTimeout?: number | undefined
-              http2?: boolean | undefined
-              keepAliveTimeout?: number | undefined
-              logLevel?: Level | undefined
-              requestIdHeader?: string | undefined
-              trustProxy?: TrustedProxy | undefined
-          }
-        | undefined
+    request?: PartialUndef<RequestOptions> | undefined
+    server?: PartialUndef<ServerOptions> | undefined
     socket?: string | undefined
+}
+
+interface ServerOptions {
+    accessLogging: boolean
+    connectionTimeout: number
+    http2: boolean
+    keepAliveTimeout: number
+    logLevel: Level
+    requestIdHeader: string
+    trustProxy: TrustedProxy
+}
+
+interface RequestOptions {
+    bodyLimit: number
+    maxParamLength: number
+    timeout: number
+}
+
+interface DefaultHeaderOptions {
+    assets: OutgoingHttpHeaders
+    server: OutgoingHttpHeaders
+}
+
+interface AssetCompressionOptions {
+    compressibleFileExtensions: string[]
+    threshold: number
+}
+
+interface CacheOptions {
+    immutable: boolean
+    maxAge: number
+    mustRevalidate: boolean
+    noTransform: boolean
+    proxyRevalidate: boolean
+    staleIfError: number
+    staleWhileRevalidate: number
 }

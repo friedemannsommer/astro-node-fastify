@@ -1,4 +1,4 @@
-import type { EnvironmentConfig, RuntimeArguments } from './typings/config.js'
+import type { EnvironmentConfig, RuntimeArguments, RuntimeOptions } from './typings/config.js'
 import { getEnvironmentConfig } from './environment.js'
 import fastify, {
     type FastifyInstance,
@@ -7,7 +7,7 @@ import fastify, {
     type FastifyRequest
 } from 'fastify'
 import fastifyCompress from '@fastify/compress'
-import fastifyStatic, { type FastifyStaticOptions, type SetHeadersResponse } from '@fastify/static'
+import fastifyStatic, { type SetHeadersResponse } from '@fastify/static'
 import { readFile } from 'node:fs/promises'
 import { NodeApp } from 'astro/app/node'
 import type { OutgoingHttpHeaders } from 'node:http'
@@ -47,12 +47,6 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
         trustProxy: config.server?.trustProxy,
         useSemicolonDelimiter: false
     })
-    const baseStaticConfig: Partial<FastifyStaticOptions> = {
-        maxAge: 900000,
-        preCompressed: options.preCompressed,
-        setHeaders: setAssetHeaders(pathJoin(options.clientPath, options.assets), options.defaultHeaders?.assets),
-        wildcard: false
-    }
 
     await server.register(fastifyCompress, {
         encodings: options.supportedEncodings,
@@ -60,8 +54,14 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
     })
 
     await server.register(fastifyStatic, {
-        ...baseStaticConfig,
-        root: options.clientPath
+        preCompressed: options.preCompressed,
+        root: options.clientPath,
+        setHeaders: setAssetHeaders(
+            pathJoin(options.clientPath, options.assets),
+            options.defaultHeaders?.assets,
+            options.cache
+        ),
+        wildcard: false
     })
 
     server.all(
@@ -93,12 +93,19 @@ function getServerConfig(options: RuntimeArguments): EnvironmentConfig {
     }
 }
 
-function setAssetHeaders(staticPrefix: string, headers?: OutgoingHttpHeaders): (res: SetHeadersResponse) => void {
+function setAssetHeaders(
+    staticPrefix: string,
+    headers?: OutgoingHttpHeaders,
+    cache?: RuntimeOptions['cache']
+): (res: SetHeadersResponse) => void {
     const headerKeys: string[] | undefined = headers ? Object.keys(headers) : undefined
+    const dynamicAssetCacheControl = createCacheControlHeader(cache)
 
     return (res: SetHeadersResponse): void => {
         if (res.filename.startsWith(staticPrefix)) {
             res.setHeader('Cache-Control', 'public, max-age=604800, immutable')
+        } else if (dynamicAssetCacheControl !== undefined) {
+            res.setHeader('Cache-Control', dynamicAssetCacheControl)
         }
 
         if (headerKeys) {
@@ -144,4 +151,42 @@ function createAppHandler(app: NodeApp): (req: FastifyRequest, reply: FastifyRep
 
         return reply.code(404).send()
     }
+}
+
+function createCacheControlHeader(cache?: RuntimeOptions['cache']): string | undefined {
+    if (!cache) {
+        return undefined
+    }
+
+    const headerValues = ['public']
+
+    if (cache.maxAge !== undefined) {
+        headerValues.push(`max-age=${cache.maxAge}`)
+    }
+
+    if (cache.staleIfError !== undefined) {
+        headerValues.push(`stale-if-error=${cache.staleIfError}`)
+    }
+
+    if (cache.staleWhileRevalidate !== undefined) {
+        headerValues.push(`stale-while-revalidate=${cache.staleWhileRevalidate}`)
+    }
+
+    if (cache.immutable) {
+        headerValues.push('immutable')
+    }
+
+    if (cache.mustRevalidate) {
+        headerValues.push('must-revalidate')
+    }
+
+    if (cache.noTransform) {
+        headerValues.push('no-transform')
+    }
+
+    if (cache.proxyRevalidate) {
+        headerValues.push('proxy-revalidate')
+    }
+
+    return headerValues.length > 1 ? headerValues.join(',') : undefined
 }

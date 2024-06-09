@@ -1,6 +1,6 @@
 import { NodeApp } from 'astro/app/node'
 import type { SSRManifest } from 'astro'
-import { createServer } from './server.js'
+import { createServer, type ServiceRuntime } from './server.js'
 import type { RuntimeArguments } from './typings/config.js'
 import type { FastifyInstance } from 'fastify'
 
@@ -12,11 +12,13 @@ export interface SupportedExports {
 export function createExports(manifest: SSRManifest, options: RuntimeArguments): SupportedExports {
     return {
         options,
-        startServer(optionsOverride?: Partial<RuntimeArguments>): Promise<FastifyInstance> {
-            return createServer(new NodeApp(manifest), {
-                ...options,
-                ...optionsOverride
-            })
+        async startServer(optionsOverride?: Partial<RuntimeArguments>): Promise<FastifyInstance> {
+            return (
+                await createServer(new NodeApp(manifest), {
+                    ...options,
+                    ...optionsOverride
+                })
+            ).server
         }
     }
 }
@@ -34,14 +36,35 @@ export function start(manifest: SSRManifest, options: RuntimeArguments): void {
     })
 }
 
-function setupExitHandlers(server: FastifyInstance): void {
-    function handleSignal(): void {
-        server.close().then(
+function setupExitHandlers({ config, server }: ServiceRuntime): void {
+    const gracefulTimeout = config.server?.gracefulTimeout ?? 5_000
+    let shutdownTimer: NodeJS.Timeout | undefined
+    let shutdownRef: Promise<void> | undefined
+
+    function handleSignal(signal: string): void {
+        server.log.info({ signal }, 'received shutdown signal.')
+        gracefulShutdown()
+    }
+
+    function gracefulShutdown(): void {
+        if (shutdownRef) {
+            return
+        }
+
+        shutdownTimer = setTimeout((): void => {
+            server.log.error({ timeout: gracefulTimeout }, 'failed to shutdown server within grace period.')
+            process.exit(1)
+        }, gracefulTimeout)
+
+        shutdownRef = server.close()
+        shutdownRef.then(
             (): void => {
+                clearTimeout(shutdownTimer)
                 process.exit(0)
             },
-            (err: Error): void => {
-                server.log.error(err)
+            (error: Error): void => {
+                clearTimeout(shutdownTimer)
+                server.log.error({ error }, 'received exception while trying to shutdown the server.')
                 process.exit(1)
             }
         )

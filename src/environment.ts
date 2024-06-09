@@ -31,25 +31,23 @@ function getHttpsConfig(): EnvironmentConfig['https'] {
 function getServerConfig(): EnvironmentConfig['server'] {
     const accessLogging = process.env.SERVER_ACCESS_LOGGING?.trim() === '1'
     const connectionTimeout = tryParseInt(process.env.SERVER_CONNECTION_TIMEOUT)
+    const gracefulTimeout = tryParseInt(process.env.SERVER_GRACEFUL_TIMEOUT)
     const http2 = process.env.SERVER_HTTP2?.trim() === '1'
     const keepAliveTimeout = tryParseInt(process.env.SERVER_KEEP_ALIVE_TIMEOUT)
+    const logLevel = parseLogLevel(process.env.SERVER_LOG_LEVEL?.trim())
     const requestIdHeader = process.env.SERVER_REQUEST_ID_HEADER
     const trustProxy = process.env.SERVER_TRUST_PROXY?.trim()
-    const logLevel = parseLogLevel(process.env.SERVER_LOG_LEVEL?.trim())
 
-    if (accessLogging || connectionTimeout || keepAliveTimeout || requestIdHeader || trustProxy) {
-        return {
-            accessLogging,
-            connectionTimeout,
-            http2,
-            keepAliveTimeout,
-            logLevel,
-            requestIdHeader: requestIdHeader?.trim(),
-            trustProxy: trustProxy === '1' ? true : trustProxy === '0' ? false : trustProxy
-        }
+    return {
+        accessLogging,
+        connectionTimeout,
+        gracefulTimeout,
+        http2,
+        keepAliveTimeout,
+        logLevel,
+        requestIdHeader: requestIdHeader?.trim(),
+        trustProxy: trustProxy === '1' ? true : trustProxy === '0' ? false : trustProxy
     }
-
-    return undefined
 }
 
 function getRequestConfig(): EnvironmentConfig['request'] {

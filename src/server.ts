@@ -1,4 +1,4 @@
-import type { EnvironmentConfig, RuntimeArguments, RuntimeOptions } from './typings/config.js'
+import type { RuntimeArguments, RuntimeOptions } from './typings/config.js'
 import { getEnvironmentConfig } from './environment.js'
 import fastify, {
     type FastifyInstance,
@@ -16,7 +16,12 @@ import type { ReadableStream as WebReadableStream } from 'node:stream/web'
 import { Readable } from 'node:stream'
 import { join as pathJoin } from 'node:path'
 
-export async function createServer(app: NodeApp, options: RuntimeArguments): Promise<FastifyInstance> {
+export interface ServiceRuntime {
+    readonly server: FastifyInstance
+    readonly config: Readonly<RuntimeOptions>
+}
+
+export async function createServer(app: NodeApp, options: RuntimeArguments): Promise<ServiceRuntime> {
     const config = getServerConfig(options)
     const listenConfig: FastifyListenOptions = {
         listenTextResolver(address: string): string {
@@ -83,10 +88,13 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
     await server.ready()
     await server.listen(listenConfig)
 
-    return server as unknown as FastifyInstance
+    return {
+        config,
+        server: server as unknown as FastifyInstance
+    }
 }
 
-function getServerConfig(options: RuntimeArguments): EnvironmentConfig {
+function getServerConfig(options: RuntimeArguments): RuntimeOptions {
     return {
         ...options,
         ...getEnvironmentConfig()

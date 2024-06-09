@@ -52,6 +52,7 @@ export interface EnvironmentConfig {
 interface ServerOptions {
     accessLogging: boolean
     connectionTimeout: number
+    gracefulTimeout: number
     http2: boolean
     keepAliveTimeout: number
     logLevel: Level

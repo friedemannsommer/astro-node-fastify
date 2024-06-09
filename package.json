@@ -48,7 +48,9 @@
   },
   "scripts": {
     "build": "tsc --project tsconfig.json",
+    "check": "npm run check:biome && npm run check:ts",
     "check:biome": "biome check src",
+    "check:ci": "biome ci src && npm run check:ts",
     "check:ts": "npm run build -- --noEmit",
     "release": "npm run build && changeset publish"
   },

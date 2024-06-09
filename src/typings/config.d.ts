@@ -7,26 +7,32 @@ export type EncodingToken = 'br' | 'gzip' | 'deflate'
 export type TrustedProxy = Exclude<FastifyServerOptions['trustProxy'], Function>
 
 export interface UserOptions {
-    defaultHeaders?: {
-        assets?: OutgoingHttpHeaders
-        server?: OutgoingHttpHeaders
-    }
-    preCompressed?: boolean
-    server?: {
-        accessLogging?: boolean
-        connectionTimeout?: number
-        http2?: boolean
-        keepAliveTimeout?: number
-        logLevel?: Level
-        requestIdHeader?: string
-        trustProxy?: TrustedProxy
-    }
-    request?: {
-        bodyLimit?: number
-        maxParamLength?: number
-        timeout?: number
-    }
-    supportedEncodings?: EncodingToken[]
+    defaultHeaders?:
+        | {
+              assets?: OutgoingHttpHeaders | undefined
+              server?: OutgoingHttpHeaders | undefined
+          }
+        | undefined
+    preCompressed?: boolean | undefined
+    server?:
+        | {
+              accessLogging?: boolean | undefined
+              connectionTimeout?: number | undefined
+              http2?: boolean | undefined
+              keepAliveTimeout?: number | undefined
+              logLevel?: Level | undefined
+              requestIdHeader?: string | undefined
+              trustProxy?: TrustedProxy | undefined
+          }
+        | undefined
+    request?:
+        | {
+              bodyLimit?: number | undefined
+              maxParamLength?: number | undefined
+              timeout?: number | undefined
+          }
+        | undefined
+    supportedEncodings?: EncodingToken[] | undefined
 }
 
 export interface RuntimeOptions extends EnvironmentConfig {

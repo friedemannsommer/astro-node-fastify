@@ -7,20 +7,28 @@ import fastify, {
     type FastifyRequest
 } from 'fastify'
 import fastifyCompress from '@fastify/compress'
-import fastifyStatic from '@fastify/static'
+import fastifyStatic, { type FastifyStaticOptions, type SetHeadersResponse } from '@fastify/static'
 import { readFile } from 'node:fs/promises'
-import { resolve } from 'node:path'
 import { NodeApp } from 'astro/app/node'
+import type { OutgoingHttpHeaders } from 'node:http'
+import type { HookHandlerDoneFunction } from 'fastify/types/hooks.js'
+import type { ReadableStream as WebReadableStream } from 'node:stream/web'
+import { Readable } from 'node:stream'
+import { join as pathJoin } from 'node:path'
 
-export async function createServer(app: NodeApp, options: RuntimeArguments): Promise<void> {
+export async function createServer(app: NodeApp, options: RuntimeArguments): Promise<FastifyInstance> {
     const config = getServerConfig(options)
-    const listenConfig: FastifyListenOptions = {}
+    const listenConfig: FastifyListenOptions = {
+        listenTextResolver(address: string): string {
+            return `server listening on: ${address}`
+        }
+    }
     const appHandler = createAppHandler(app)
     const server = fastify({
         bodyLimit: config.request?.bodyLimit,
         connectionTimeout: config.server?.connectionTimeout,
         disableRequestLogging: config.server?.accessLogging === false,
-        // @ts-expect-error
+        // @ts-expect-error - the underlying type doesn't explicitly allow `http2: undefined`
         http2: config.server?.http2 === true ? true : undefined,
         https: config.https
             ? {
@@ -39,27 +47,31 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
         trustProxy: config.server?.trustProxy,
         useSemicolonDelimiter: false
     })
+    const baseStaticConfig: Partial<FastifyStaticOptions> = {
+        maxAge: 900000,
+        preCompressed: options.preCompressed,
+        setHeaders: setAssetHeaders(pathJoin(options.clientPath, options.assets), options.defaultHeaders?.assets),
+        wildcard: false
+    }
 
     await server.register(fastifyCompress, {
-        encodings: options.supportedEncodings
+        encodings: options.supportedEncodings,
+        requestEncodings: options.supportedEncodings
     })
 
     await server.register(fastifyStatic, {
-        immutable: true,
-        maxAge: 31_536_000_000,
-        preCompressed: true,
-        prefix: options.assets,
-        root: resolve(options.clientPath, options.assets),
-        wildcard: false
+        ...baseStaticConfig,
+        root: options.clientPath
     })
 
-    await server.register(fastifyStatic, {
-        preCompressed: true,
-        root: options.clientPath,
-        wildcard: false
-    })
-
-    server.all('/*', appHandler as unknown as Parameters<(typeof server)['all']>[1])
+    server.all(
+        '/*',
+        {
+            // @ts-expect-error - the underlying type doesn't explicitly allow `preHandler: undefined`
+            preHandler: options.defaultHeaders?.server ? setDefaultHeaders(options.defaultHeaders.server) : undefined
+        },
+        appHandler
+    )
 
     if (options.socket) {
         listenConfig.path = options.socket
@@ -68,15 +80,42 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
         listenConfig.port = options.port
     }
 
-    server.log.info('server listening on %s', await server.listen(listenConfig))
+    await server.ready()
+    await server.listen(listenConfig)
 
-    setupExitHandlers(server as unknown as FastifyInstance)
+    return server as unknown as FastifyInstance
 }
 
 function getServerConfig(options: RuntimeArguments): EnvironmentConfig {
     return {
         ...options,
         ...getEnvironmentConfig()
+    }
+}
+
+function setAssetHeaders(staticPrefix: string, headers?: OutgoingHttpHeaders): (res: SetHeadersResponse) => void {
+    const headerKeys: string[] | undefined = headers ? Object.keys(headers) : undefined
+
+    return (res: SetHeadersResponse): void => {
+        if (res.filename.startsWith(staticPrefix)) {
+            res.setHeader('Cache-Control', 'public, max-age=604800, immutable')
+        }
+
+        if (headerKeys) {
+            for (const header of headerKeys) {
+                // biome-ignore lint/style/noNonNullAssertion: if `headerKeys` is defined `headers` is as well
+                res.setHeader(header, headers![header])
+            }
+        }
+    }
+}
+
+function setDefaultHeaders(
+    headers: OutgoingHttpHeaders
+): (_req: FastifyRequest, reply: FastifyReply, done: HookHandlerDoneFunction) => void {
+    return (_req: FastifyRequest, reply: FastifyReply, done: HookHandlerDoneFunction): void => {
+        reply.headers(headers)
+        done()
     }
 }
 
@@ -98,22 +137,11 @@ function createAppHandler(app: NodeApp): (req: FastifyRequest, reply: FastifyRep
             }
 
             reply.headers(Object.fromEntries(response.headers.entries()))
-            reply.status(response.status)
-            reply.send(response.body)
-        } else {
-            reply.status(404).send()
+            reply.code(response.status)
+
+            return reply.send(response.body ? Readable.fromWeb(response.body as WebReadableStream) : undefined)
         }
-    }
-}
 
-function setupExitHandlers(server: FastifyInstance): void {
-    function handleSignal(): void {
-        server.close().catch((err: Error): void => {
-            server.log.error(err)
-        })
-    }
-
-    for (const eventName of ['exit', 'SIGINT', 'SIGTERM']) {
-        process.once(eventName, handleSignal)
+        return reply.code(404).send()
     }
 }

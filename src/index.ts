@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url'
 
 const packageName = 'astro-node-fastify'
 const adapterConfig: AstroAdapter = {
-    exports: ['start'],
+    exports: ['startServer', 'options'],
     name: packageName,
     previewEntrypoint: 'astro-node-fastify/preview',
     serverEntrypoint: 'astro-node-fastify/standalone',

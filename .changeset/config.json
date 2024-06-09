@@ -1,0 +1,9 @@
+{
+    "access": "public",
+    "baseBranch": "main",
+    "changelog": ["@changesets/changelog-github", { "repo": "friedemannsommer/astro-node-fastify" }],
+    "commit": false,
+    "ignore": [],
+    "linked": [],
+    "updateInternalDependencies": "patch"
+}

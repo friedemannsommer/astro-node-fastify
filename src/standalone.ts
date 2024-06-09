@@ -1,8 +1,8 @@
-import { NodeApp } from 'astro/app/node'
 import type { SSRManifest } from 'astro'
-import { createServer, type ServiceRuntime } from './server.js'
-import type { RuntimeArguments } from './typings/config.js'
+import { NodeApp } from 'astro/app/node'
 import type { FastifyInstance } from 'fastify'
+import { type ServiceRuntime, createServer } from './server.js'
+import type { RuntimeArguments } from './typings/config.js'
 
 export interface SupportedExports {
     options: RuntimeArguments

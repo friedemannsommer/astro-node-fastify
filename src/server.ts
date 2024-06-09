@@ -1,20 +1,20 @@
-import type { RuntimeArguments, RuntimeOptions } from './typings/config.js'
-import { getEnvironmentConfig } from './environment.js'
+import { readFile } from 'node:fs/promises'
+import type { OutgoingHttpHeaders } from 'node:http'
+import { join as pathJoin } from 'node:path'
+import { Readable } from 'node:stream'
+import type { ReadableStream as WebReadableStream } from 'node:stream/web'
+import fastifyCompress from '@fastify/compress'
+import fastifyStatic, { type SetHeadersResponse } from '@fastify/static'
+import { NodeApp } from 'astro/app/node'
 import fastify, {
     type FastifyInstance,
     type FastifyListenOptions,
     type FastifyReply,
     type FastifyRequest
 } from 'fastify'
-import fastifyCompress from '@fastify/compress'
-import fastifyStatic, { type SetHeadersResponse } from '@fastify/static'
-import { readFile } from 'node:fs/promises'
-import { NodeApp } from 'astro/app/node'
-import type { OutgoingHttpHeaders } from 'node:http'
 import type { HookHandlerDoneFunction } from 'fastify/types/hooks.js'
-import type { ReadableStream as WebReadableStream } from 'node:stream/web'
-import { Readable } from 'node:stream'
-import { join as pathJoin } from 'node:path'
+import { getEnvironmentConfig } from './environment.js'
+import type { RuntimeArguments, RuntimeOptions } from './typings/config.js'
 
 export interface ServiceRuntime {
     readonly server: FastifyInstance

@@ -1,5 +1,5 @@
-import type { EnvironmentConfig } from './typings/config.js'
 import type { Level } from 'pino'
+import type { EnvironmentConfig } from './typings/config.js'
 
 const logLevels: Level[] = ['trace', 'debug', 'info', 'warn', 'error', 'fatal']
 

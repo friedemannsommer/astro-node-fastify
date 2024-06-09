@@ -1,9 +1,9 @@
-import type { AstroIntegrationLogger } from 'astro'
-import { createReadStream, createWriteStream, type ReadStream } from 'node:fs'
+import { type ReadStream, createReadStream, createWriteStream } from 'node:fs'
 import { readdir, rm, stat } from 'node:fs/promises'
 import { extname, resolve } from 'node:path'
 import stream from 'node:stream/promises'
 import { constants as ZLIB_CONSTANTS, createBrotliCompress, createGzip } from 'node:zlib'
+import type { AstroIntegrationLogger } from 'astro'
 
 export type CompressFn = (filePath: string, originalSize: number, fileStream: ReadStream) => Promise<void>
 

@@ -1,7 +1,7 @@
-import type { AstroAdapter, AstroIntegration } from 'astro'
-import type { RuntimeArguments, UserOptions } from './typings/config.js'
 import { fileURLToPath } from 'node:url'
-import { brotli, type CompressFn, gzip, processAssets } from './compress.js'
+import type { AstroAdapter, AstroIntegration } from 'astro'
+import { type CompressFn, brotli, gzip, processAssets } from './compress.js'
+import type { RuntimeArguments, UserOptions } from './typings/config.js'
 
 const packageName = 'astro-node-fastify'
 const adapterConfig: AstroAdapter = {

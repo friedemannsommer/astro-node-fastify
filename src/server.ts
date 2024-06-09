@@ -1,6 +1,11 @@
 import type { EnvironmentConfig, RuntimeArguments } from './typings/config.js'
 import { getEnvironmentConfig } from './environment.js'
-import fastify, { type FastifyListenOptions, type FastifyReply, type FastifyRequest } from 'fastify'
+import fastify, {
+    type FastifyInstance,
+    type FastifyListenOptions,
+    type FastifyReply,
+    type FastifyRequest
+} from 'fastify'
 import fastifyCompress from '@fastify/compress'
 import fastifyStatic from '@fastify/static'
 import { readFile } from 'node:fs/promises'
@@ -63,9 +68,9 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
         listenConfig.port = options.port
     }
 
-    // TODO: handle shutdown via signals
+    server.log.info('server listening on %s', await server.listen(listenConfig))
 
-    await server.listen(listenConfig)
+    setupExitHandlers(server as unknown as FastifyInstance)
 }
 
 function getServerConfig(options: RuntimeArguments): EnvironmentConfig {
@@ -98,5 +103,17 @@ function createAppHandler(app: NodeApp): (req: FastifyRequest, reply: FastifyRep
         } else {
             reply.status(404).send()
         }
+    }
+}
+
+function setupExitHandlers(server: FastifyInstance): void {
+    function handleSignal(): void {
+        server.close().catch((err: Error): void => {
+            server.log.error(err)
+        })
+    }
+
+    for (const eventName of ['exit', 'SIGINT', 'SIGTERM']) {
+        process.once(eventName, handleSignal)
     }
 }

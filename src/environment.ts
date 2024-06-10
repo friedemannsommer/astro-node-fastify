@@ -4,14 +4,24 @@ import type { EnvironmentConfig } from './typings/config.js'
 const logLevels: Level[] = ['trace', 'debug', 'info', 'warn', 'error', 'fatal']
 
 export function getEnvironmentConfig(): EnvironmentConfig {
-    return {
-        host: process.env.HOST?.trim(),
+    const host = process.env.HOST?.trim()
+    const port = tryParseInt(process.env.PORT)
+    const config: EnvironmentConfig = {
         https: getHttpsConfig(),
-        port: tryParseInt(process.env.PORT),
         request: getRequestConfig(),
         server: getServerConfig(),
         socket: process.env.SERVER_SOCKET?.trim()
     }
+
+    if (host) {
+        config.host = host
+    }
+
+    if (port !== undefined) {
+        config.port = port
+    }
+
+    return config
 }
 
 function getHttpsConfig(): EnvironmentConfig['https'] {

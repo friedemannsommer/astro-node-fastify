@@ -1,5 +1,11 @@
 # astro-node-fastify
 
+## 0.0.7
+
+### Patch Changes
+
+- [`7322b17`](https://github.com/friedemannsommer/astro-node-fastify/commit/7322b174ef099d91da45d59aa0a27373ea33a806) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - fixed runtime config generation to include `cache` from adapter options
+
 ## 0.0.6
 
 ### Patch Changes

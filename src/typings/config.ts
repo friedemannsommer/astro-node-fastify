@@ -106,6 +106,8 @@ interface ServerOptions {
      *
      * Environment variable: `SERVER_CONNECTION_TIMEOUT`
      * Environment value: <integer>
+     *
+     * @default 0
      */
     connectionTimeout: number
     /**
@@ -113,6 +115,8 @@ interface ServerOptions {
      *
      * Environment variable: `SERVER_GRACEFUL_TIMEOUT`
      * Environment value: <integer>
+     *
+     * @default 5000
      */
     gracefulTimeout: number
     /**
@@ -120,6 +124,8 @@ interface ServerOptions {
      *
      * Environment variable: `SERVER_HTTP2`
      * Environment value: "1" (`true`), "0" (`false`)
+     *
+     * @default false
      */
     http2: boolean
     /**
@@ -147,6 +153,8 @@ interface ServerOptions {
      *
      * Environment variable: `SERVER_REQUEST_ID_HEADER`
      * Environment value: <string>
+     *
+     * @default "request-id"
      */
     requestIdHeader: false | string
     /**
@@ -233,6 +241,8 @@ interface CacheOptions {
     /**
      * Controls the "max-age" directive.
      * Documentation: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control#max-age
+     *
+     * @default 0
      */
     maxAge: number
     /**

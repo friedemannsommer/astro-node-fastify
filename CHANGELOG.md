@@ -1,5 +1,13 @@
 # astro-node-fastify
 
+## 0.0.9
+
+### Patch Changes
+
+- [`5987f28`](https://github.com/friedemannsommer/astro-node-fastify/commit/5987f28ca2c931405ea436c76f703dfde8f03b02) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - fixed boolean value parsing for runtime config. they will no longer override adapter options.
+
+- [`e707f2b`](https://github.com/friedemannsommer/astro-node-fastify/commit/e707f2b4f130bfba55c6b748a7866566fdfae5a6) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - updated documentation to include the default values for `connectionTimeout`, `gracefulTimeout`, `http2`, and `requestIdHeader`
+
 ## 0.0.8
 
 ### Patch Changes

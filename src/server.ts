@@ -44,7 +44,7 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
             : undefined,
         keepAliveTimeout: config.server?.keepAliveTimeout,
         logger: {
-            level: options.server?.logLevel ?? 'info'
+            level: config.server?.logLevel ?? 'info'
         },
         requestIdHeader: config.server?.requestIdHeader,
         requestTimeout: config.request?.timeout,
@@ -77,11 +77,16 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
         appHandler
     )
 
-    if (options.socket) {
-        listenConfig.path = options.socket
+    if (config.socket) {
+        listenConfig.path = config.socket
     } else {
-        listenConfig.host = options.host
-        listenConfig.port = options.port
+        if (config.host) {
+            listenConfig.host = config.host
+        }
+
+        if (config.port) {
+            listenConfig.port = config.port
+        }
     }
 
     await server.ready()

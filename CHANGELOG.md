@@ -1,5 +1,11 @@
 # astro-node-fastify
 
+## 0.0.8
+
+### Patch Changes
+
+- [`b5649ac`](https://github.com/friedemannsommer/astro-node-fastify/commit/b5649acea489d3652c15cf0c7b3342a59e78111c) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - fixed `request` and `server` runtime config overriding adapter options
+
 ## 0.0.7
 
 ### Patch Changes

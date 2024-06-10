@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises'
 import type { OutgoingHttpHeaders } from 'node:http'
+import type { Http2Server } from 'node:http2'
 import { join as pathJoin } from 'node:path'
 import { Readable } from 'node:stream'
 import type { ReadableStream as WebReadableStream } from 'node:stream/web'
@@ -12,7 +13,9 @@ import fastify, {
     type FastifyReply,
     type FastifyRequest
 } from 'fastify'
+import type { ContentTypeParserDoneFunction } from 'fastify/types/content-type-parser.js'
 import type { HookHandlerDoneFunction } from 'fastify/types/hooks.js'
+import type { RouteGenericInterface } from 'fastify/types/route.js'
 import { getEnvironmentConfig } from './environment.js'
 import type { RuntimeArguments, RuntimeOptions } from './typings/config.js'
 
@@ -77,6 +80,10 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
         appHandler
     )
 
+    // since we pass the request body to Astro, we need to make sure that Fastify doesn't try to read it beforehand.
+    server.removeAllContentTypeParsers()
+    server.addContentTypeParser('*', contentParserIgnore)
+
     if (config.socket) {
         listenConfig.path = config.socket
     } else {
@@ -96,7 +103,7 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
     }
 }
 
-function getServerConfig(options: RuntimeArguments): RuntimeOptions {
+function getServerConfig(options: RuntimeArguments): Required<RuntimeOptions> {
     const envConfig = getEnvironmentConfig()
 
     return {
@@ -107,8 +114,8 @@ function getServerConfig(options: RuntimeArguments): RuntimeOptions {
         port: envConfig.port ?? options.port,
         preCompressed: options.preCompressed,
         request: {
-            ...options.request,
-            ...envConfig.request
+            bodyLimit: envConfig.request?.bodyLimit ?? options.request?.bodyLimit,
+            timeout: envConfig.request?.timeout ?? options.request?.timeout
         },
         server: {
             ...options.server,
@@ -215,4 +222,12 @@ function createCacheControlHeader(cache?: RuntimeOptions['cache']): string | und
     }
 
     return headerValues.length > 1 ? headerValues.join(',') : undefined
+}
+
+function contentParserIgnore<R extends FastifyRequest<RouteGenericInterface, Http2Server>>(
+    _req: R,
+    _payload: R['raw'],
+    done: ContentTypeParserDoneFunction
+): void {
+    done(null)
 }

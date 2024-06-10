@@ -39,10 +39,10 @@ function getHttpsConfig(): EnvironmentConfig['https'] {
 }
 
 function getServerConfig(): EnvironmentConfig['server'] {
-    const accessLogging = process.env.SERVER_ACCESS_LOGGING?.trim() === '1'
+    const accessLogging = tryParseBool(process.env.SERVER_ACCESS_LOGGING?.trim())
     const connectionTimeout = tryParseInt(process.env.SERVER_CONNECTION_TIMEOUT)
     const gracefulTimeout = tryParseInt(process.env.SERVER_GRACEFUL_TIMEOUT)
-    const http2 = process.env.SERVER_HTTP2?.trim() === '1'
+    const http2 = tryParseBool(process.env.SERVER_HTTP2?.trim())
     const keepAliveTimeout = tryParseInt(process.env.SERVER_KEEP_ALIVE_TIMEOUT)
     const logLevel = parseLogLevel(process.env.SERVER_LOG_LEVEL?.trim())
     const requestIdHeader = process.env.SERVER_REQUEST_ID_HEADER?.trim()
@@ -56,7 +56,7 @@ function getServerConfig(): EnvironmentConfig['server'] {
         keepAliveTimeout,
         logLevel,
         requestIdHeader: requestIdHeader?.trim(),
-        trustProxy: trustProxy === '1' ? true : trustProxy === '0' ? false : trustProxy
+        trustProxy: tryParseBool(trustProxy) ?? trustProxy
     })
 }
 
@@ -89,6 +89,14 @@ function tryParseInt(value: string | undefined): number | undefined {
     }
 
     return undefined
+}
+
+function tryParseBool(value: string | undefined): boolean | undefined {
+    if (typeof value !== 'string') {
+        return undefined
+    }
+
+    return value === '1'
 }
 
 function createConfig<T extends Record<string, unknown>>(base: T): T | undefined {

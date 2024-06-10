@@ -230,7 +230,7 @@ interface AssetCompressionOptions {
  * header for "[public](https://docs.astro.build/en/basics/project-structure/#public)" assets.
  *
  * If these options are absent and no "Cache-Control" header is defined in the {@link DefaultHeaderOptions#assets},
- * no cache control header will be added to the "public" asset response.
+ * the cache control header for the "public" assets will be: `Cache-Control: public, max-age=0`.
  */
 interface CacheOptions {
     /**
@@ -241,8 +241,6 @@ interface CacheOptions {
     /**
      * Controls the "max-age" directive.
      * Documentation: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control#max-age
-     *
-     * @default 0
      */
     maxAge: number
     /**

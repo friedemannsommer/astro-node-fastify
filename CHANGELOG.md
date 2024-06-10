@@ -1,5 +1,11 @@
 # astro-node-fastify
 
+## 0.0.4
+
+### Patch Changes
+
+- [`cd76420`](https://github.com/friedemannsommer/astro-node-fastify/commit/cd76420e22a536d4ea9e88f831d5c0a196e7711d) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - changed listen port to explicitly fall back to `0`
+
 ## 0.0.3
 
 ### Patch Changes

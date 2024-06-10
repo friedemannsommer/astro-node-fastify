@@ -4,6 +4,10 @@
 > deploy SSR sites to Node.js targets.
 > It also uses comes with response compression which is enabled by default.
 
+[![CI](https://github.com/friedemannsommer/astro-node-fastify/actions/workflows/ci.yml/badge.svg)](https://github.com/friedemannsommer/astro-node-fastify/actions/workflows/ci.yml)
+![Node.js runtime support](https://img.shields.io/node/v/astro-node-fastify?style=flat)
+![NPM Version](https://img.shields.io/npm/v/astro-node-fastify?style=flat)
+
 ## Table of contents
 
 <!-- TOC -->

@@ -75,20 +75,21 @@ export default function createIntegration(userOptions?: UserOptions): AstroInteg
             'astro:config:done': ({ setAdapter, config, logger }): void => {
                 const adapterArgs: RuntimeArguments = {
                     assets: config.build.assets,
+                    cache: userOptions?.cache,
                     clientPath: fileURLToPath(config.build.client),
-                    serverPath: fileURLToPath(config.build.server),
-                    port: config.server.port,
+                    defaultHeaders: userOptions?.defaultHeaders,
                     host:
                         typeof config.server.host === 'boolean'
                             ? config.server.host
                                 ? '::'
                                 : 'localhost'
                             : config.server.host,
-                    defaultHeaders: userOptions?.defaultHeaders,
+                    port: config.server.port,
                     preCompressed: preCompress,
-                    supportedEncodings: compressionEncodings,
                     request: userOptions?.request,
-                    server: userOptions?.server
+                    server: userOptions?.server,
+                    serverPath: fileURLToPath(config.build.server),
+                    supportedEncodings: compressionEncodings
                 }
 
                 setAdapter({

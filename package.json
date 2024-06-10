@@ -27,15 +27,15 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "default": "./dist/index.js"
     },
     "./preview": {
       "types": "./dist/preview.d.ts",
-      "import": "./dist/preview.js"
+      "default": "./dist/preview.js"
     },
     "./standalone": {
       "types": "./dist/standalone.d.ts",
-      "import": "./dist/standalone.js"
+      "default": "./dist/standalone.js"
     }
   },
   "files": [

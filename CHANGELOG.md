@@ -1,5 +1,11 @@
 # astro-node-fastify
 
+## 0.0.3
+
+### Patch Changes
+
+- [`152c8c2`](https://github.com/friedemannsommer/astro-node-fastify/commit/152c8c27900d30169b91377653cf13796484fccb) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - fixed environment config usage for log level, socket, host, and port
+
 ## 0.0.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # astro-node-fastify
 
+## 0.0.5
+
+### Patch Changes
+
+- [`c53397b`](https://github.com/friedemannsommer/astro-node-fastify/commit/c53397b36317880ba0c129dc398a30f1d60afb2f) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - an empty `HOST` or `PORT` value will no longer overwrite the build-time server options
+
 ## 0.0.4
 
 ### Patch Changes

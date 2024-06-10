@@ -11,12 +11,38 @@ type PartialUndef<T> = {
 }
 
 export interface UserOptions {
+    /**
+     * Controls which files are processed for asset pre-compression.
+     */
     assetCompression?: PartialUndef<AssetCompressionOptions> | undefined
+    /**
+     * Can be used to define the "[Cache-Control](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control)"
+     * header for "[public](https://docs.astro.build/en/basics/project-structure/#public)" assets.
+     */
     cache?: PartialUndef<CacheOptions> | undefined
+    /**
+     * Can be used to set headers that should always be sent in their respective use-case (Asset, SSR).
+     */
     defaultHeaders?: PartialUndef<DefaultHeaderOptions> | undefined
+    /**
+     * Controls whether the static assets should be pre-compressed or if they should be dynamically compressed at runtime.
+     *
+     * @default true
+     */
     preCompressed?: boolean | undefined
+    /**
+     * Can be defined to control which requests the server should handle.
+     */
     request?: PartialUndef<RequestOptions> | undefined
+    /**
+     * Can be defined to configure the server.
+     */
     server?: PartialUndef<ServerOptions> | undefined
+    /**
+     * Controls which compression algorithms are available.
+     *
+     * @default ['br', 'gzip', 'deflate']
+     */
     supportedEncodings?: EncodingToken[] | undefined
 }
 

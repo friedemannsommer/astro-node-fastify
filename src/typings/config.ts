@@ -6,6 +6,9 @@ export type EncodingToken = 'br' | 'gzip' | 'deflate'
 // biome-ignore lint/complexity/noBannedTypes: we want to omit any functions from the resulting type
 export type TrustedProxy = Exclude<FastifyServerOptions['trustProxy'], Function>
 
+/**
+ * @internal
+ */
 type PartialUndef<T> = {
     [P in keyof T]?: T[P] | undefined
 }

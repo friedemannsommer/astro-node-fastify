@@ -6,6 +6,14 @@
 
 ## Table of contents
 
+<!-- TOC -->
+* [Astro Node.js Fastify](#astro-nodejs-fastify)
+  * [Table of contents](#table-of-contents)
+  * [Quickstart](#quickstart)
+  * [Usage](#usage)
+  * [Configuration](#configuration)
+<!-- TOC -->
+
 ## Quickstart
 
 1. Install via the package manager of your choice
@@ -22,3 +30,8 @@ Install this package as a runtime dependency with the package manager of your ch
 Afterward, you can configure which assets will be pre compressed, which cache headers
 the "[public](https://docs.astro.build/en/basics/project-structure/#public)" should have, the default response headers
 that every SSR response should have, which compression algorithms should be available, and some more tweaks.
+
+## Configuration
+
+The configuration documentation can be found here:
+[https://friedemannsommer.github.io/astro-node-fastify/](https://friedemannsommer.github.io/astro-node-fastify/development/interfaces/_internal_.UserOptions.html).

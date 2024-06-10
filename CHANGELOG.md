@@ -1,5 +1,11 @@
 # astro-node-fastify
 
+## 0.0.10
+
+### Patch Changes
+
+- [`87fc28a`](https://github.com/friedemannsommer/astro-node-fastify/commit/87fc28acbaa7d3183b982dfeee90cd2a06071022) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - updated server to prevent request body parsing by Fastify, so that Astro can parse it as expected.
+
 ## 0.0.9
 
 ### Patch Changes

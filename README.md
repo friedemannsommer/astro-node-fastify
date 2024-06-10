@@ -1,6 +1,6 @@
 # Astro Node.js Fastify
 
-> This adapter uses the [Fastify](https://fastify.dev/) web framework that allows [Astro](https://astro.build/) to
+> This adapter uses the [Fastify](https://fastify.dev/) web framework which allows [Astro](https://astro.build/) to
 > deploy SSR sites to Node.js targets.
 > It also uses comes with response compression which is enabled by default.
 

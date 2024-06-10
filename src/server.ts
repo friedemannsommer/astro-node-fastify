@@ -46,7 +46,6 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
         logger: {
             level: options.server?.logLevel ?? 'info'
         },
-        maxParamLength: config.request?.maxParamLength,
         requestIdHeader: config.server?.requestIdHeader,
         requestTimeout: config.request?.timeout,
         trustProxy: config.server?.trustProxy,

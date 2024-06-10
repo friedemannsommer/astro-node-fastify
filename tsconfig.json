@@ -3,6 +3,8 @@
     "compilerOptions": {
         "allowImportingTsExtensions": false,
         "baseUrl": ".",
+        "declaration": true,
+        "declarationMap": false,
         "module": "NodeNext",
         "moduleResolution": "NodeNext",
         "noEmit": false,

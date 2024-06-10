@@ -1,0 +1,124 @@
+name: publish docs
+
+on:
+  push:
+    branches:
+      - 'main'
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: '${{ github.workflow }}-${{ github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+  restore:
+    concurrency: ci-${{ github.ref }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout "gh-pages" branch
+        uses: actions/checkout@v4.1.6
+        with:
+          ref: gh-pages
+
+      - name: create empty index
+        run: |
+          if [ ! -f ".nojekyll" ]; then
+            echo "Prevent GitHub Pages from using Jekyll." > .nojekyll
+          fi
+
+      - name: upload current docs
+        uses: actions/upload-artifact@v4.3.3
+        with:
+          if-no-files-found: error
+          name: current_documentation
+          path: .
+          retention-days: 1
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout source
+        uses: actions/checkout@v4.1.6
+
+      - uses: actions/setup-node@v4.0.2
+        with:
+          cache: 'npm'
+          node-version: 20
+
+      - run: npm ci --no-fund --no-audit
+
+      - name: build documentation, with version
+        if: github.ref_type == 'tag'
+        run: npm run docs -- --includeVersion
+
+      - name: build documentation, without version
+        if: github.ref_type != 'tag'
+        run: npm run docs
+
+      - name: upload generated docs
+        uses: actions/upload-artifact@v4.3.3
+        with:
+          if-no-files-found: error
+          name: generated_documentation
+          path: docs
+          retention-days: 1
+
+  publish:
+    needs:
+      - build
+      - restore
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4.1.6
+
+      - name: download current docs
+        uses: actions/download-artifact@v4.1.7
+        with:
+          name: current_documentation
+          path: new_documentation
+
+      - name: download new docs
+        uses: actions/download-artifact@v4.1.7
+        with:
+          name: generated_documentation
+          path: generated_documentation
+
+      - name: create version directory
+        if: github.ref_type == 'tag'
+        run: |
+          mkdir -p "new_documentation/${{ github.ref_name }}"
+          echo "<meta http-equiv=\"refresh\" content=\"0; url=${{ github.ref_name }}/\" />" > new_documentation/index.html
+
+          if [ ! -d "new_documentation/current" ]; then
+            mkdir -p "new_documentation/current"
+          fi
+
+          echo "<meta http-equiv=\"refresh\" content=\"0; url=../${{ github.ref_name }}/\" />" > new_documentation/current/index.html
+          rsync -ac --delete generated_documentation/ "new_documentation/${{ github.ref_name }}"
+
+      - name: create development directory
+        if: github.ref_type != 'tag'
+        run: |
+          if [ ! -d "new_documentation/development" ]; then
+            mkdir -p "new_documentation/development"
+          fi
+
+          if [ ! -f "new_documentation/index.html" ]; then
+            echo "<meta http-equiv=\"refresh\" content=\"0; url=development/\" />" > new_documentation/index.html
+          fi
+
+          rsync -ac --delete generated_documentation/ "new_documentation/development"
+
+      - name: publish to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4.6.1
+        with:
+          branch: gh-pages
+          clean: true
+          folder: new_documentation

@@ -52,13 +52,11 @@ function getServerConfig(): EnvironmentConfig['server'] {
 
 function getRequestConfig(): EnvironmentConfig['request'] {
     const bodyLimit = tryParseInt(process.env.REQUEST_BODY_LIMIT)
-    const maxParamLength = tryParseInt(process.env.REQUEST_MAX_PARAM_LENGTH)
     const timeout = tryParseInt(process.env.REQUEST_TIMEOUT)
 
-    if (bodyLimit || maxParamLength || timeout) {
+    if (bodyLimit || timeout) {
         return {
             bodyLimit,
-            maxParamLength,
             timeout
         }
     }

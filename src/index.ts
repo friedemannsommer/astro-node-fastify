@@ -51,7 +51,7 @@ export default function createIntegration(userOptions?: UserOptions): AstroInteg
                         await processAssets({
                             compressibleFileExtensions: new Set(
                                 (
-                                    userOptions?.assetCompression?.compressibleFileExtensions ?? [
+                                    userOptions?.assetCompression?.fileExtensions ?? [
                                         '.css',
                                         '.js',
                                         '.html',

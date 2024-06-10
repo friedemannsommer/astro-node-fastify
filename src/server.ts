@@ -84,9 +84,7 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
             listenConfig.host = config.host
         }
 
-        if (config.port) {
-            listenConfig.port = config.port
-        }
+        listenConfig.port = config.port ?? 0
     }
 
     await server.ready()

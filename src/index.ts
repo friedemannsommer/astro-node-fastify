@@ -72,7 +72,7 @@ export default function createIntegration(userOptions?: UserOptions): AstroInteg
                     }
                 }
             },
-            'astro:config:done': ({ setAdapter, config }): void => {
+            'astro:config:done': ({ setAdapter, config, logger }): void => {
                 const adapterArgs: RuntimeArguments = {
                     assets: config.build.assets,
                     clientPath: fileURLToPath(config.build.client),
@@ -99,7 +99,7 @@ export default function createIntegration(userOptions?: UserOptions): AstroInteg
                 clientAssetsPath = config.build.client
 
                 if (config.output === 'static') {
-                    console.error(
+                    logger.error(
                         `[${packageName}] only \`output: "server"\` or \`output: "hybrid"\` are supported by this adapter.`
                     )
                 }

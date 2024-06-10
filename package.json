@@ -30,17 +30,18 @@
       "import": "./dist/index.js"
     },
     "./preview": {
-        "types": "./dist/preview.d.ts",
-        "import": "./dist/preview.js"
+      "types": "./dist/preview.d.ts",
+      "import": "./dist/preview.js"
     },
     "./standalone": {
-        "types": "./dist/standalone.d.ts",
-        "import": "./dist/standalone.js"
+      "types": "./dist/standalone.d.ts",
+      "import": "./dist/standalone.js"
     }
   },
   "files": [
     "dist"
   ],
+  "homepage": "https://friedemannsommer.github.io/astro-node-fastify/",
   "keywords": [
     "astro",
     "fastify",

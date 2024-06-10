@@ -97,9 +97,25 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
 }
 
 function getServerConfig(options: RuntimeArguments): RuntimeOptions {
+    const envConfig = getEnvironmentConfig()
+
     return {
-        ...options,
-        ...getEnvironmentConfig()
+        cache: options.cache,
+        defaultHeaders: options.defaultHeaders,
+        host: envConfig.host ?? options.host,
+        https: envConfig.https,
+        port: envConfig.port ?? options.port,
+        preCompressed: options.preCompressed,
+        request: {
+            ...options.request,
+            ...envConfig.request
+        },
+        server: {
+            ...options.server,
+            ...envConfig.server
+        },
+        socket: envConfig.socket ?? options.socket,
+        supportedEncodings: options.supportedEncodings
     }
 }
 

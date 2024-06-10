@@ -45,10 +45,10 @@ function getServerConfig(): EnvironmentConfig['server'] {
     const http2 = process.env.SERVER_HTTP2?.trim() === '1'
     const keepAliveTimeout = tryParseInt(process.env.SERVER_KEEP_ALIVE_TIMEOUT)
     const logLevel = parseLogLevel(process.env.SERVER_LOG_LEVEL?.trim())
-    const requestIdHeader = process.env.SERVER_REQUEST_ID_HEADER
+    const requestIdHeader = process.env.SERVER_REQUEST_ID_HEADER?.trim()
     const trustProxy = process.env.SERVER_TRUST_PROXY?.trim()
 
-    return {
+    return createConfig({
         accessLogging,
         connectionTimeout,
         gracefulTimeout,
@@ -57,21 +57,14 @@ function getServerConfig(): EnvironmentConfig['server'] {
         logLevel,
         requestIdHeader: requestIdHeader?.trim(),
         trustProxy: trustProxy === '1' ? true : trustProxy === '0' ? false : trustProxy
-    }
+    })
 }
 
 function getRequestConfig(): EnvironmentConfig['request'] {
-    const bodyLimit = tryParseInt(process.env.REQUEST_BODY_LIMIT)
-    const timeout = tryParseInt(process.env.REQUEST_TIMEOUT)
-
-    if (bodyLimit || timeout) {
-        return {
-            bodyLimit,
-            timeout
-        }
-    }
-
-    return undefined
+    return createConfig({
+        bodyLimit: tryParseInt(process.env.REQUEST_BODY_LIMIT),
+        timeout: tryParseInt(process.env.REQUEST_TIMEOUT)
+    })
 }
 
 function parseLogLevel(value: string | undefined): Level | undefined {
@@ -96,4 +89,18 @@ function tryParseInt(value: string | undefined): number | undefined {
     }
 
     return undefined
+}
+
+function createConfig<T extends Record<string, unknown>>(base: T): T | undefined {
+    const config: Record<string, unknown> = {}
+    let valueDefined = false
+
+    for (const [key, value] of Object.entries(base)) {
+        if (value !== undefined && value !== null) {
+            config[key] = value
+            valueDefined = true
+        }
+    }
+
+    return valueDefined ? (config as T) : undefined
 }

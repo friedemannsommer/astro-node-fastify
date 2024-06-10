@@ -1,5 +1,11 @@
 # astro-node-fastify
 
+## 0.0.6
+
+### Patch Changes
+
+- [`2498520`](https://github.com/friedemannsommer/astro-node-fastify/commit/24985205bc2c1effbe09ae648d815632294e5f81) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - fixed typings so that they can be included in the package dist.
+
 ## 0.0.5
 
 ### Patch Changes

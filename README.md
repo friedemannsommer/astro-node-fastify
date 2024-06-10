@@ -6,7 +6,7 @@
 
 [![CI](https://github.com/friedemannsommer/astro-node-fastify/actions/workflows/ci.yml/badge.svg)](https://github.com/friedemannsommer/astro-node-fastify/actions/workflows/ci.yml)
 ![Node.js runtime support](https://img.shields.io/node/v/astro-node-fastify?style=flat)
-![NPM Version](https://img.shields.io/npm/v/astro-node-fastify?style=flat)
+[![NPM Version](https://img.shields.io/npm/v/astro-node-fastify?style=flat)](https://www.npmjs.com/package/astro-node-fastify)
 
 ## Table of contents
 

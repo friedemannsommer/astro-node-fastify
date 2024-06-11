@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises'
 import type { OutgoingHttpHeaders } from 'node:http'
 import type { Http2Server } from 'node:http2'
-import { resolve as pathResolve } from 'node:path'
+import { join as pathJoin, resolve as pathResolve } from 'node:path'
 import { Readable } from 'node:stream'
 import type { ReadableStream as WebReadableStream } from 'node:stream/web'
 import fastifyCompress from '@fastify/compress'
@@ -26,6 +26,7 @@ export interface ServiceRuntime {
 
 export async function createServer(app: NodeApp, options: RuntimeArguments): Promise<ServiceRuntime> {
     const config = getServerConfig(options)
+    const assetRoot = pathResolve(options.serverPath, options.clientPath)
     const listenConfig: FastifyListenOptions = {
         listenTextResolver(address: string): string {
             return `server listening on: ${address}`
@@ -62,8 +63,12 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
 
     await server.register(fastifyStatic, {
         preCompressed: options.preCompressed,
-        root: pathResolve(options.serverPath, options.clientPath),
-        setHeaders: setAssetHeaders(`/${options.assetsDir}`, options.defaultHeaders?.assets, options.cache),
+        root: assetRoot,
+        setHeaders: setAssetHeaders(
+            pathJoin(assetRoot, options.assetsDir),
+            options.defaultHeaders?.assets,
+            options.cache
+        ),
         wildcard: false
     })
 

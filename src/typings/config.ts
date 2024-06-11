@@ -57,11 +57,11 @@ export interface RuntimeOptions extends EnvironmentConfig {
 }
 
 export interface RuntimeArguments extends Omit<RuntimeOptions, 'https'> {
+    assetsDir: string
     clientPath: string
-    serverPath: string
     host: string
     port: number
-    assets: string
+    serverPath: string
 }
 
 export interface EnvironmentConfig {

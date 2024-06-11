@@ -1,3 +1,5 @@
+import { dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import type { SSRManifest } from 'astro'
 import { NodeApp } from 'astro/app/node'
 import type { FastifyInstance } from 'fastify'
@@ -16,7 +18,24 @@ export function createExports(manifest: SSRManifest, options: RuntimeArguments):
             return (
                 await createServer(new NodeApp(manifest), {
                     ...options,
-                    ...optionsOverride
+                    ...optionsOverride,
+                    cache: {
+                        ...options.cache,
+                        ...optionsOverride?.cache
+                    },
+                    defaultHeaders: {
+                        ...options.defaultHeaders,
+                        ...optionsOverride?.defaultHeaders
+                    },
+                    request: {
+                        ...options.request,
+                        ...optionsOverride?.request
+                    },
+                    server: {
+                        ...options.server,
+                        ...optionsOverride?.server
+                    },
+                    serverPath: getServerPath()
                 })
             ).server
         }
@@ -29,6 +48,9 @@ export function start(manifest: SSRManifest, options: RuntimeArguments): void {
     }
 
     const app = new NodeApp(manifest)
+
+    // mutate in-place since there should be no need for a copy
+    options.serverPath = getServerPath()
 
     createServer(app, options).then(setupExitHandlers, (err: Error): void => {
         console.error(err)
@@ -73,4 +95,12 @@ function setupExitHandlers({ config, server }: ServiceRuntime): void {
     for (const eventName of ['SIGINT', 'SIGTERM']) {
         process.once(eventName, handleSignal)
     }
+}
+
+/**
+ * Important note: this only works if this package is included in the entrypoint.
+ * Otherwise, we're unable to resolve an absolute path to the client assets.
+ */
+function getServerPath(): string {
+    return dirname(fileURLToPath(import.meta.url))
 }

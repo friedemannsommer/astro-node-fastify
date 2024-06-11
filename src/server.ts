@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises'
 import type { OutgoingHttpHeaders } from 'node:http'
 import type { Http2Server } from 'node:http2'
-import { join as pathJoin } from 'node:path'
+import { resolve as pathResolve } from 'node:path'
 import { Readable } from 'node:stream'
 import type { ReadableStream as WebReadableStream } from 'node:stream/web'
 import fastifyCompress from '@fastify/compress'
@@ -62,12 +62,8 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
 
     await server.register(fastifyStatic, {
         preCompressed: options.preCompressed,
-        root: options.clientPath,
-        setHeaders: setAssetHeaders(
-            pathJoin(options.clientPath, options.assets),
-            options.defaultHeaders?.assets,
-            options.cache
-        ),
+        root: pathResolve(options.serverPath, options.clientPath),
+        setHeaders: setAssetHeaders(`/${options.assetsDir}`, options.defaultHeaders?.assets, options.cache),
         wildcard: false
     })
 

@@ -1,3 +1,4 @@
+import { relative as pathRelative } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { AstroAdapter, AstroIntegration } from 'astro'
 import { type CompressFn, brotli, gzip, processAssets } from './compress.js'
@@ -74,9 +75,9 @@ export default function createIntegration(userOptions?: UserOptions): AstroInteg
             },
             'astro:config:done': ({ setAdapter, config, logger }): void => {
                 const adapterArgs: RuntimeArguments = {
-                    assets: config.build.assets,
+                    assetsDir: config.build.assets,
                     cache: userOptions?.cache,
-                    clientPath: fileURLToPath(config.build.client),
+                    clientPath: pathRelative(fileURLToPath(config.build.server), fileURLToPath(config.build.client)),
                     defaultHeaders: userOptions?.defaultHeaders,
                     host:
                         typeof config.server.host === 'boolean'
@@ -88,7 +89,7 @@ export default function createIntegration(userOptions?: UserOptions): AstroInteg
                     preCompressed: preCompress,
                     request: userOptions?.request,
                     server: userOptions?.server,
-                    serverPath: fileURLToPath(config.build.server),
+                    serverPath: '',
                     supportedEncodings: compressionEncodings
                 }
 

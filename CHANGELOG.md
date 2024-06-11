@@ -1,5 +1,11 @@
 # astro-node-fastify
 
+## 0.0.11
+
+### Patch Changes
+
+- [`26771d2`](https://github.com/friedemannsommer/astro-node-fastify/commit/26771d2394dc213947f292c14999d1498b9c6ded) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - updated client assets handling to use a relative path
+
 ## 0.0.10
 
 ### Patch Changes

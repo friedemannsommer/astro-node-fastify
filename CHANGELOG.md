@@ -1,5 +1,11 @@
 # astro-node-fastify
 
+## 0.0.12
+
+### Patch Changes
+
+- [`b60d78d`](https://github.com/friedemannsommer/astro-node-fastify/commit/b60d78dde3613ea4d735d524bf4099babbf5a704) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - fixed static assets path generation
+
 ## 0.0.11
 
 ### Patch Changes

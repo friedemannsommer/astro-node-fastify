@@ -2,7 +2,7 @@
 
 > This adapter uses the [Fastify](https://fastify.dev/) web framework which allows [Astro](https://astro.build/) to
 > deploy SSR sites to Node.js targets.
-> It also uses comes with response compression which is enabled by default.
+> It also compresses asset and SSR responses by default.
 
 [![CI](https://github.com/friedemannsommer/astro-node-fastify/actions/workflows/ci.yml/badge.svg)](https://github.com/friedemannsommer/astro-node-fastify/actions/workflows/ci.yml)
 ![Node.js runtime support](https://img.shields.io/node/v/astro-node-fastify?style=flat)
@@ -26,7 +26,7 @@
       the [Astro CLI](https://docs.astro.build/en/guides/integrations-guide/#automatic-integration-setup): `astro add astro-node-fastify`
 2. Build your site
 3. Either start a [preview](https://docs.astro.build/en/reference/cli-reference/#astro-preview) or
-   run [standalone entry](https://docs.astro.build/en/reference/configuration-reference/#buildserverentry).
+   the [standalone entry](https://docs.astro.build/en/reference/configuration-reference/#buildserverentry).
 
 ## Usage
 

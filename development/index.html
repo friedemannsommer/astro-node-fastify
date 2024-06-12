@@ -159,7 +159,7 @@
 </style><link rel="stylesheet" href="assets/material-style.css"/></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="assets/icons.svg#icon-search"></use></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div><div class="field"><div id="tsd-toolbar-links"></div></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">Astro Node.js Fastify adapter</a></div><div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h2>Astro Node.js Fastify adapter</h2></div><div class="tsd-panel tsd-typography"><a id="md:astro-nodejs-fastify" class="tsd-anchor"></a><h1><a href="#md:astro-nodejs-fastify">Astro Node.js Fastify</a></h1><blockquote>
 <p>This adapter uses the <a href="https://fastify.dev/">Fastify</a> web framework which allows <a href="https://astro.build/">Astro</a> to
 deploy SSR sites to Node.js targets.
-It also uses comes with response compression which is enabled by default.</p>
+It also compresses asset and SSR responses by default.</p>
 </blockquote>
 <p><a href="https://github.com/friedemannsommer/astro-node-fastify/actions/workflows/ci.yml"><img src="https://github.com/friedemannsommer/astro-node-fastify/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
 <img src="https://img.shields.io/node/v/astro-node-fastify?style=flat" alt="Node.js runtime support">
@@ -183,7 +183,7 @@ the <a href="https://docs.astro.build/en/guides/integrations-guide/#automatic-in
 </li>
 <li>Build your site</li>
 <li>Either start a <a href="https://docs.astro.build/en/reference/cli-reference/#astro-preview">preview</a> or
-run <a href="https://docs.astro.build/en/reference/configuration-reference/#buildserverentry">standalone entry</a>.</li>
+the <a href="https://docs.astro.build/en/reference/configuration-reference/#buildserverentry">standalone entry</a>.</li>
 </ol>
 <a id="md:usage" class="tsd-anchor"></a><h2><a href="#md:usage">Usage</a></h2><p>Install this package as a runtime dependency with the package manager of your choice.
 Afterward, you can configure which assets will be pre compressed, which cache headers

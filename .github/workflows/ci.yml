@@ -16,7 +16,7 @@ jobs:
     name: Check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.1.6
+      - uses: actions/checkout@v4.1.7
       - uses: actions/setup-node@v4.0.2
         with:
           cache: 'npm'
@@ -37,7 +37,7 @@ jobs:
     if: github.repository_owner == 'friedemannsommer' && github.ref_name == 'main'
     concurrency: '${{ github.workflow }}-${{ github.ref }}'
     steps:
-      - uses: actions/checkout@v4.1.6
+      - uses: actions/checkout@v4.1.7
       - uses: actions/setup-node@v4.0.2
         with:
           cache: 'npm'

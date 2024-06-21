@@ -16,7 +16,7 @@
     "@types/node": "20.14.2",
     "astro": "4.11.0",
     "typedoc": "0.25.13",
-    "typedoc-material-theme": "1.0.2",
+    "typedoc-material-theme": "1.0.3",
     "typedoc-plugin-mdn-links": "3.1.29",
     "typedoc-plugin-missing-exports": "2.3.0",
     "typescript": "5.4.5"

@@ -5,8 +5,8 @@ const createPreviewServer: CreatePreviewServer = async (previewParams): Promise<
     process.env.ASTRO_NODE_FASTIFY_INTERNAL_AUTOSTART = '0'
 
     const ssrModule = (await import(previewParams.serverEntrypoint.toString())) as SupportedExports
-    const host = previewParams.host ?? 'localhost'
-    const port = previewParams.port
+    let host = previewParams.host ?? 'localhost'
+    let port = previewParams.port
     const server = await ssrModule.startServer({
         port,
         host,
@@ -16,6 +16,17 @@ const createPreviewServer: CreatePreviewServer = async (previewParams): Promise<
     const closeFuture = new Promise<void>((resolve): void => {
         resolveCloseFuture = resolve
     })
+    const serverAddresses = server.addresses()
+
+    if (serverAddresses.length === 0) {
+        throw new Error('Server was unable to bind to any address')
+    }
+
+    // biome-ignore lint/style/noNonNullAssertion: it's guaranteed that the array is not empty
+    const address = serverAddresses[0]!
+
+    port = address.port
+    host = address.address
 
     return {
         host,

@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'node:url'
 import { expect } from 'chai'
 import getPort from 'get-port'
-import { type TestFixture, loadFixture } from './utils/astro-fixture.js'
+import { loadFixture, type TestFixture } from './utils/astro-fixture.js'
 
 describe('Astro hybrid output', (): void => {
     let fixture: TestFixture
@@ -26,9 +26,26 @@ describe('Astro hybrid output', (): void => {
         await fixture.build()
         await fixture.preview()
 
-        const res = await fixture.fetch('/prerender')
+        const [indexRender, preRender, echoReply] = await Promise.all([
+            fixture.fetch('/'),
+            fixture.fetch('/prerender'),
+            fixture.fetch('/echo', {
+                body: 'Test',
+                headers: {
+                    'Content-Type': 'text/plain'
+                },
+                method: 'POST'
+            })
+        ])
 
-        expect(res.status).to.eq(200)
-        expect(await res.text()).to.eq('Hello World!')
+        expect(preRender.status).to.eq(200)
+        expect(indexRender.status).to.eq(200)
+        expect(echoReply.status).to.eq(200)
+
+        expect(await preRender.text()).to.eq('Hello World!')
+        expect(await indexRender.text()).to.eq(
+            '<!DOCTYPE html><html lang="en"> <head><title>fixture</title></head> <body> <h1>Hello World</h1> </body></html>'
+        )
+        expect(await echoReply.text()).to.eq('Test')
     })
 })

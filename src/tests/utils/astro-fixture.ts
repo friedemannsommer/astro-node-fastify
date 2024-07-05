@@ -1,7 +1,7 @@
 import { rm } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import type { AstroConfig, AstroInlineConfig, PreviewServer } from 'astro'
-// these imports need to use a relative path since the package does not export the required files
+// these imports need to use a relative path since the package doesn't export the required files
 import build from '../../../node_modules/astro/dist/core/build/index.js'
 import { mergeConfig, resolveConfig } from '../../../node_modules/astro/dist/core/config/index.js'
 import { preview } from '../../../node_modules/astro/dist/core/index.js'

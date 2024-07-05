@@ -1,28 +1,22 @@
-import { fileURLToPath } from 'node:url'
 import { expect } from 'chai'
-import getPort from 'get-port'
-import { type TestFixture, loadFixture } from './utils/astro-fixture.js'
+import { type TestFixture, createFixture } from './utils/astro-fixture.js'
+import { getFixturePath } from './utils/path.js'
 
 describe('Astro hybrid output', (): void => {
-    let fixture: TestFixture
-
-    beforeEach(async (): Promise<void> => {
-        fixture = await loadFixture({
-            root: fileURLToPath(new URL('./fixtures/astro-hybrid', import.meta.url)),
-            server: {
-                host: 'localhost',
-                port: await getPort()
-            }
-        })
-    })
+    let fixture: TestFixture | undefined
 
     afterEach(async (): Promise<void> => {
         if (fixture) {
             await fixture.teardown()
+            fixture = undefined
         }
     })
 
     it('should start with default options', async (): Promise<void> => {
+        fixture = await createFixture({
+            root: getFixturePath('./astro-hybrid-default-base')
+        })
+
         await fixture.build()
         await fixture.preview()
 
@@ -51,5 +45,41 @@ describe('Astro hybrid output', (): void => {
         )
         expect(await preRender.text()).to.eq('Hello World!')
         expect(await echoReply.text()).to.eq('Test')
+    })
+
+    it('should return the configured default headers', async (): Promise<void> => {
+        fixture = await createFixture(
+            {
+                root: getFixturePath('./astro-hybrid-headers-base')
+            },
+            {
+                defaultHeaders: {
+                    assets: {
+                        'X-Asset': 'test'
+                    },
+                    server: {
+                        'X-Test': '1',
+                        'X-Another': 'one'
+                    }
+                }
+            }
+        )
+
+        await fixture.build()
+        await fixture.preview()
+
+        const [assetReply, serverReply] = await Promise.all([fixture.fetch('/robots.txt'), fixture.fetch('/')])
+
+        expect(assetReply.status).to.eq(200)
+        expect(serverReply.status).to.eq(200)
+
+        expect(assetReply.headers.get('content-type')).to.eq('text/plain; charset=UTF-8')
+        expect(assetReply.headers.get('X-Asset')).to.eq('test')
+        expect(serverReply.headers.get('content-type')).to.eq('text/plain')
+        expect(serverReply.headers.get('X-Test')).to.eq('1')
+        expect(serverReply.headers.get('X-Another')).to.eq('one')
+
+        expect(await assetReply.text()).to.eq('User-Agent: *\nDisallow: /')
+        expect(await serverReply.text()).to.eq('Hello world.')
     })
 })

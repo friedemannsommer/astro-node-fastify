@@ -80,6 +80,7 @@
   "type": "module",
   "version": "0.0.12",
   "workspaces": [
-    "src/tests/fixtures/astro-hybrid"
+    "src/tests/fixtures/astro-hybrid-default-base",
+    "src/tests/fixtures/astro-hybrid-headers-base"
   ]
 }

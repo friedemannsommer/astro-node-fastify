@@ -3,7 +3,7 @@
         "astro-node-fastify": "*",
         "astro": "*"
     },
-    "name": "testing-fixture",
+    "name": "astro-hybrid-default-base",
     "private": true,
     "type": "module",
     "version": "0.0.0"

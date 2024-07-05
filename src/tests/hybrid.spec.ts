@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'node:url'
 import { expect } from 'chai'
 import getPort from 'get-port'
-import { loadFixture, type TestFixture } from './utils/astro-fixture.js'
+import { type TestFixture, loadFixture } from './utils/astro-fixture.js'
 
 describe('Astro hybrid output', (): void => {
     let fixture: TestFixture

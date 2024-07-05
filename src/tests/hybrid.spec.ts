@@ -28,7 +28,7 @@ describe('Astro hybrid output', (): void => {
 
         const [indexRender, preRender, echoReply] = await Promise.all([
             fixture.fetch('/'),
-            fixture.fetch('/prerender'),
+            fixture.fetch('/prerender.txt'),
             fixture.fetch('/echo', {
                 body: 'Test',
                 headers: {
@@ -43,9 +43,7 @@ describe('Astro hybrid output', (): void => {
         expect(echoReply.status).to.eq(200)
 
         expect(indexRender.headers.get('content-type')).to.eq('text/html; charset=UTF-8')
-        // the following code doesn't work as expected, since the "content-type" set for this route isn't returned
-        // see: https://github.com/withastro/docs/discussions/8739
-        // expect(preRender.headers.get('content-type')).to.eq('text/plain; charset=utf-8')
+        expect(preRender.headers.get('content-type')).to.eq('text/plain; charset=UTF-8')
         expect(echoReply.headers.get('content-type')).to.eq('text/plain')
 
         expect(await indexRender.text()).to.eq(

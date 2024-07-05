@@ -6,7 +6,7 @@
   "dependencies": {
     "@fastify/compress": "^7.0.3",
     "@fastify/static": "^7.0.4",
-    "fastify": "^4.27.0"
+    "fastify": "^4.28.1"
   },
   "description": "Astro Fastify integration for Node.js",
   "devDependencies": {
@@ -19,12 +19,12 @@
     "astro": "4.11.5",
     "chai": "5.1.1",
     "get-port": "7.1.0",
-    "mocha": "10.5.2",
-    "tsx": "4.16.0",
-    "typedoc": "0.25.13",
+    "mocha": "10.6.0",
+    "tsx": "4.16.2",
+    "typedoc": "0.26.3",
     "typedoc-material-theme": "1.1.0",
     "typedoc-plugin-mdn-links": "3.2.2",
-    "typedoc-plugin-missing-exports": "2.3.0",
+    "typedoc-plugin-missing-exports": "3.0.0",
     "typescript": "5.4.5"
   },
   "engines": {

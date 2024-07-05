@@ -38,14 +38,20 @@ describe('Astro hybrid output', (): void => {
             })
         ])
 
-        expect(preRender.status).to.eq(200)
         expect(indexRender.status).to.eq(200)
+        expect(preRender.status).to.eq(200)
         expect(echoReply.status).to.eq(200)
 
-        expect(await preRender.text()).to.eq('Hello World!')
+        expect(indexRender.headers.get('content-type')).to.eq('text/html; charset=UTF-8')
+        // the following code doesn't work as expected, since the "content-type" set for this route isn't returned
+        // see: https://github.com/withastro/docs/discussions/8739
+        // expect(preRender.headers.get('content-type')).to.eq('text/plain; charset=utf-8')
+        expect(echoReply.headers.get('content-type')).to.eq('text/plain')
+
         expect(await indexRender.text()).to.eq(
             '<!DOCTYPE html><html lang="en"> <head><title>fixture</title></head> <body> <h1>Hello World</h1> </body></html>'
         )
+        expect(await preRender.text()).to.eq('Hello World!')
         expect(await echoReply.text()).to.eq('Test')
     })
 })

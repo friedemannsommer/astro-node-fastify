@@ -24,6 +24,8 @@ jobs:
       - run: npm ci --no-fund --no-audit
       - name: Run checks
         run: npm run check:ci
+      - name: Run tests
+        run: npm run test
 
   release:
     name: Release

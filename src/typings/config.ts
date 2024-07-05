@@ -81,7 +81,7 @@ export interface EnvironmentConfig {
 /**
  * Can be used to configure the server ([Fastify](https://fastify.dev/)).
  *
- * Note that the HTTPS are only read at runtime via environment variables.
+ * Note that the HTTPS environment variables are only read at runtime via environment variables.
  * The HTTPS key can be set via the `SERVER_KEY_PATH` variable,
  * and the certificate can be set via the `SERVER_CERT_PATH` variable.
  *
@@ -158,7 +158,7 @@ interface ServerOptions {
      */
     requestIdHeader: false | string
     /**
-     * Lets the server know that it's behind a proxy and should trust the "X-Forwarded-*" headers.
+     * Lets the server know that it is behind a proxy and should trust the "X-Forwarded-*" headers.
      * For more details see Fastify's documentation: https://fastify.dev/docs/latest/Reference/Server/#trustproxy
      *
      * Environment variable: `SERVER_TRUST_PROXY`
@@ -208,7 +208,7 @@ interface DefaultHeaderOptions {
 
 /**
  * Controls which files are processed for asset pre-compression.
- * Note that the compression version will only be used if it's smaller than the source.
+ * Note that the compression version will only be used if it is smaller than the source.
  */
 interface AssetCompressionOptions {
     /**

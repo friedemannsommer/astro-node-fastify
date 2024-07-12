@@ -32,7 +32,7 @@ jobs:
           fi
 
       - name: upload current docs
-        uses: actions/upload-artifact@v4.3.3
+        uses: actions/upload-artifact@v4.3.4
         with:
           if-no-files-found: error
           name: current_documentation
@@ -61,7 +61,7 @@ jobs:
         run: npm run docs
 
       - name: upload generated docs
-        uses: actions/upload-artifact@v4.3.3
+        uses: actions/upload-artifact@v4.3.4
         with:
           if-no-files-found: error
           name: generated_documentation

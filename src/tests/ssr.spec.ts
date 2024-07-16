@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import { previewFixture, type TestFixture } from './utils/astro-fixture.js'
 import { getFixturePath } from './utils/path.js'
 
-describe('Astro hybrid output', (): void => {
+describe('Astro SSR output', (): void => {
     let fixture: TestFixture | undefined
 
     afterEach(async (): Promise<void> => {
@@ -14,12 +14,11 @@ describe('Astro hybrid output', (): void => {
 
     it('should start with default options', async (): Promise<void> => {
         fixture = await previewFixture({
-            root: getFixturePath('./astro-hybrid-default-base')
+            root: getFixturePath('./astro-ssr-default-base')
         })
 
-        const [indexRender, preRender, echoReply] = await Promise.all([
+        const [indexRender, echoReply] = await Promise.all([
             fixture.fetch('/'),
-            fixture.fetch('/prerender.txt'),
             fixture.fetch('/echo', {
                 body: 'Test',
                 headers: {
@@ -29,31 +28,21 @@ describe('Astro hybrid output', (): void => {
             })
         ])
 
-        expect(indexRender.status).to.eq(200)
-        expect(preRender.status).to.eq(200)
+        expect(indexRender.status).to.eq(404)
         expect(echoReply.status).to.eq(200)
 
-        expect(indexRender.headers.get('content-type')).to.eq('text/html; charset=UTF-8')
-        expect(preRender.headers.get('content-type')).to.eq('text/plain; charset=UTF-8')
         expect(echoReply.headers.get('content-type')).to.eq('text/plain')
 
-        expect(await indexRender.text()).to.eq(
-            '<!DOCTYPE html><html lang="en"> <head><title>fixture</title></head> <body> <h1>Hello World</h1> </body></html>'
-        )
-        expect(await preRender.text()).to.eq('Hello World!')
         expect(await echoReply.text()).to.eq('Test')
     })
 
     it('should return the configured default headers', async (): Promise<void> => {
         fixture = await previewFixture(
             {
-                root: getFixturePath('./astro-hybrid-headers-base')
+                root: getFixturePath('./astro-ssr-headers-base')
             },
             {
                 defaultHeaders: {
-                    assets: {
-                        'X-Asset': 'test'
-                    },
                     server: {
                         'X-Test': '1',
                         'X-Another': 'one'
@@ -62,18 +51,21 @@ describe('Astro hybrid output', (): void => {
             }
         )
 
-        const [assetReply, serverReply] = await Promise.all([fixture.fetch('/robots.txt'), fixture.fetch('/')])
+        const [assetReply, serverReply] = await Promise.all([
+            fixture.fetch('/robots.txt'),
+            fixture.fetch('/?header=example')
+        ])
 
-        expect(assetReply.status).to.eq(200)
+        expect(assetReply.status).to.eq(404)
         expect(serverReply.status).to.eq(200)
 
-        expect(assetReply.headers.get('content-type')).to.eq('text/plain; charset=UTF-8')
-        expect(assetReply.headers.get('X-Asset')).to.eq('test')
+        expect(assetReply.headers.get('x-test')).to.eq('1')
+        expect(assetReply.headers.get('x-another')).to.eq('one')
         expect(serverReply.headers.get('content-type')).to.eq('text/plain')
-        expect(serverReply.headers.get('X-Test')).to.eq('1')
-        expect(serverReply.headers.get('X-Another')).to.eq('one')
+        expect(serverReply.headers.get('x-param')).to.eq('example')
+        expect(serverReply.headers.get('x-test')).to.eq('1')
+        expect(serverReply.headers.get('x-another')).to.eq('one')
 
-        expect(await assetReply.text()).to.eq('User-Agent: *\nDisallow: /')
         expect(await serverReply.text()).to.eq('Hello world.')
     })
 })

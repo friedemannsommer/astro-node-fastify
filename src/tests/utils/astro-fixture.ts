@@ -35,13 +35,31 @@ export interface TestFixture {
 
 const fixturesBasePath = new URL('../fixtures', import.meta.url)
 
+export async function previewFixture(
+    options: AstroFixtureOptions,
+    integrationOptions?: UserOptions
+): Promise<TestFixture> {
+    const fixture = await createFixture(options, integrationOptions)
+
+    await fixture.build()
+    await fixture.preview()
+
+    return fixture
+}
+
 export async function createFixture(
     options: AstroFixtureOptions,
     integrationOptions?: UserOptions
 ): Promise<TestFixture> {
     return loadFixture({
         ...options,
-        adapter: createIntegration(integrationOptions),
+        adapter: createIntegration({
+            ...integrationOptions,
+            server: {
+                ...integrationOptions?.server,
+                logLevel: 'error'
+            }
+        }),
         server: {
             host: 'localhost',
             port: await getPort(),

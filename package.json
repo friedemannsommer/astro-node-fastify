@@ -20,6 +20,7 @@
     "chai": "5.1.1",
     "get-port": "7.1.0",
     "mocha": "10.6.0",
+    "pkgroll": "2.1.1",
     "tsx": "4.16.2",
     "typedoc": "0.26.3",
     "typedoc-material-theme": "1.1.0",
@@ -33,15 +34,18 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.mjs"
     },
     "./preview": {
       "types": "./dist/preview.d.ts",
-      "default": "./dist/preview.js"
+      "require": "./dist/preview.cjs",
+      "default": "./dist/preview.mjs"
     },
     "./standalone": {
       "types": "./dist/standalone.d.ts",
-      "default": "./dist/standalone.js"
+      "require": "./dist/standalone.cjs",
+      "default": "./dist/standalone.mjs"
     }
   },
   "files": [
@@ -54,7 +58,7 @@
     "compression"
   ],
   "license": "ISC",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "name": "astro-node-fastify",
   "peerDependencies": {
     "astro": "^4.10.0"
@@ -67,7 +71,8 @@
     "url": "https://github.com/friedemannsommer/astro-node-fastify.git"
   },
   "scripts": {
-    "build": "tsc --project tsconfig.json",
+    "build": "pkgroll --target=node20",
+    "build:clean": "pkgroll --clean-dist",
     "check": "npm run check:biome && npm run check:ts",
     "check:biome": "biome check src",
     "check:ci": "biome ci src && npm run check:ts",

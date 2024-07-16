@@ -22,7 +22,7 @@ const createPreviewServer: CreatePreviewServer = async (previewParams): Promise<
         throw new Error('Server was unable to bind to any address')
     }
 
-    // biome-ignore lint/style/noNonNullAssertion: it's guaranteed that the array is not empty
+    // biome-ignore lint/style/noNonNullAssertion: it is guaranteed that the array is not empty
     const address = serverAddresses[0]!
 
     port = address.port

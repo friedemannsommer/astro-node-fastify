@@ -9,7 +9,6 @@
         "check": "npm run -w astro-node-fastify check",
         "check:ci": "npm run -w astro-node-fastify check:ci",
         "docs": "npm run -w astro-node-fastify docs",
-        "release": "npm run -w astro-node-fastify release",
         "test": "npm run -w astro-node-fastify test"
     }
 }

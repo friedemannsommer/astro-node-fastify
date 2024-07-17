@@ -1,0 +1,10 @@
+{
+    "dependencies": {
+        "astro-node-fastify": "*",
+        "astro": "*"
+    },
+    "name": "astro-encoding-default-base",
+    "private": true,
+    "type": "module",
+    "version": "0.0.0"
+}

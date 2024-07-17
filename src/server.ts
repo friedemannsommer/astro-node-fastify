@@ -56,10 +56,12 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
         useSemicolonDelimiter: false
     })
 
-    await server.register(fastifyCompress, {
-        encodings: options.supportedEncodings,
-        requestEncodings: options.supportedEncodings
-    })
+    if (options.supportedEncodings.length >= 1) {
+        await server.register(fastifyCompress, {
+            encodings: options.supportedEncodings,
+            requestEncodings: options.supportedEncodings
+        })
+    }
 
     await server.register(fastifyStatic, {
         preCompressed: options.preCompressed,

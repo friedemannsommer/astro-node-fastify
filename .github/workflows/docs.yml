@@ -58,7 +58,7 @@ jobs:
 
       - name: build documentation, without version
         if: github.ref_type != 'tag'
-        run: npm run -w astro-node-fastify docs docs
+        run: npm run -w astro-node-fastify docs
 
       - name: upload generated docs
         uses: actions/upload-artifact@v4.3.4

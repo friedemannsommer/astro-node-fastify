@@ -7,9 +7,7 @@
         "build": "npm run -w astro-node-fastify build",
         "build:clean": "npm run -w astro-node-fastify build:clean",
         "check": "npm run -w astro-node-fastify check",
-        "check:biome": "npm run -w astro-node-fastify check:biome",
         "check:ci": "npm run -w astro-node-fastify check:ci",
-        "check:ts": "npm run -w astro-node-fastify check:ts",
         "docs": "npm run -w astro-node-fastify docs",
         "release": "npm run -w astro-node-fastify release",
         "test": "npm run -w astro-node-fastify test"

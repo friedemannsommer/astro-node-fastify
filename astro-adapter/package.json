@@ -76,7 +76,7 @@
     "check": "npm run check:biome && npm run check:ts",
     "check:biome": "biome check src",
     "check:ci": "biome ci src && npm run check:ts",
-    "check:ts": "npm run build -- --noEmit",
+    "check:ts": "tsc -p tsconfig.json --noEmit",
     "docs": "typedoc",
     "release": "npm run build && changeset publish",
     "test": "mocha --config .mocharc.json"

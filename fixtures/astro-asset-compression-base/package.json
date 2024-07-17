@@ -1,0 +1,10 @@
+{
+    "dependencies": {
+        "astro-node-fastify": "*",
+        "astro": "*"
+    },
+    "name": "astro-asset-compression-base",
+    "private": true,
+    "type": "module",
+    "version": "0.0.0"
+}

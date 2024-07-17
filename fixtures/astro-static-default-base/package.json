@@ -1,0 +1,10 @@
+{
+    "dependencies": {
+        "astro-node-fastify": "*",
+        "astro": "*"
+    },
+    "name": "astro-static-default-base",
+    "private": true,
+    "type": "module",
+    "version": "0.0.0"
+}

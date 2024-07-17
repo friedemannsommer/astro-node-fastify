@@ -15,7 +15,7 @@ describe('Astro static output', (): void => {
     it('should not build', async (): Promise<void> => {
         fixture = await createFixture({
             root: getFixturePath('./astro-static-default-base'),
-            outDir: getFixturePath('./astro-static-default-base/dist'),
+            outDir: getFixturePath('./astro-static-default-base/dist')
         })
 
         let failed = false

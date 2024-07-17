@@ -32,7 +32,7 @@ jobs:
           fi
 
       - name: upload current docs
-        uses: actions/upload-artifact@v4.3.3
+        uses: actions/upload-artifact@v4.3.4
         with:
           if-no-files-found: error
           name: current_documentation
@@ -45,7 +45,7 @@ jobs:
       - name: checkout source
         uses: actions/checkout@v4.1.7
 
-      - uses: actions/setup-node@v4.0.2
+      - uses: actions/setup-node@v4.0.3
         with:
           cache: 'npm'
           node-version: 20
@@ -61,7 +61,7 @@ jobs:
         run: npm run docs
 
       - name: upload generated docs
-        uses: actions/upload-artifact@v4.3.3
+        uses: actions/upload-artifact@v4.3.4
         with:
           if-no-files-found: error
           name: generated_documentation
@@ -79,13 +79,13 @@ jobs:
       - uses: actions/checkout@v4.1.7
 
       - name: download current docs
-        uses: actions/download-artifact@v4.1.7
+        uses: actions/download-artifact@v4.1.8
         with:
           name: current_documentation
           path: new_documentation
 
       - name: download new docs
-        uses: actions/download-artifact@v4.1.7
+        uses: actions/download-artifact@v4.1.8
         with:
           name: generated_documentation
           path: generated_documentation
@@ -117,7 +117,7 @@ jobs:
           rsync -ac --delete generated_documentation/ "new_documentation/development"
 
       - name: publish to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4.6.1
+        uses: JamesIves/github-pages-deploy-action@v4.6.3
         with:
           branch: gh-pages
           clean: true

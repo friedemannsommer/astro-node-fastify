@@ -89,6 +89,7 @@
     "src/tests/fixtures/astro-hybrid-default-base",
     "src/tests/fixtures/astro-hybrid-headers-base",
     "src/tests/fixtures/astro-ssr-default-base",
-    "src/tests/fixtures/astro-ssr-headers-base"
+    "src/tests/fixtures/astro-ssr-headers-base",
+    "src/tests/fixtures/astro-static-default-base"
   ]
 }

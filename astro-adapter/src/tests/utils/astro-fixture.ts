@@ -3,9 +3,9 @@ import { fileURLToPath } from 'node:url'
 import type { AstroConfig, AstroInlineConfig, PreviewServer } from 'astro'
 import getPort from 'get-port'
 // these imports need to use a relative path since the package doesn't export the required files
-import build from '../../../node_modules/astro/dist/core/build/index.js'
-import { mergeConfig, resolveConfig } from '../../../node_modules/astro/dist/core/config/index.js'
-import { preview } from '../../../node_modules/astro/dist/core/index.js'
+import build from '../../../../node_modules/astro/dist/core/build/index.js'
+import { mergeConfig, resolveConfig } from '../../../../node_modules/astro/dist/core/config/index.js'
+import { preview } from '../../../../node_modules/astro/dist/core/index.js'
 import createIntegration from '../../index.js'
 import type { SupportedExports } from '../../standalone.js'
 import type { UserOptions } from '../../typings/config.js'
@@ -30,7 +30,7 @@ export interface TestFixture {
     teardown(): Promise<void>
 }
 
-const fixturesBasePath = new URL('../fixtures', import.meta.url)
+const fixturesBasePath = new URL('../../../../fixtures', import.meta.url)
 
 export async function previewFixture(
     options: AstroFixtureOptions,

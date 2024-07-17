@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { previewFixture, type TestFixture } from './utils/astro-fixture.js'
+import { type TestFixture, previewFixture } from './utils/astro-fixture.js'
 import { getFixturePath } from './utils/path.js'
 
 describe('Response encoding', (): void => {
@@ -45,6 +45,51 @@ describe('Response encoding', (): void => {
         expect(largeReply.headers.get('content-type')).to.eq('text/plain')
         expect(largeReply.headers.get('content-encoding')).to.eq('br')
         expect(await largeReply.text()).to.eq('Test'.repeat(1_000))
+    })
+
+    it('should not compress anything', async (): Promise<void> => {
+        fixture = await previewFixture(
+            {
+                root: getFixturePath('./astro-encoding-none-base')
+            },
+            {
+                supportedEncodings: []
+            }
+        )
+
+        const responses = await Promise.all([
+            fixture.fetch('/echo', {
+                body: 'Test',
+                headers: {
+                    'Accept-Encoding': 'deflate',
+                    'Content-Type': 'text/plain'
+                },
+                method: 'POST'
+            }),
+            fixture.fetch('/echo', {
+                body: 'Test',
+                headers: {
+                    'Accept-Encoding': 'gzip',
+                    'Content-Type': 'text/plain'
+                },
+                method: 'POST'
+            }),
+            fixture.fetch('/echo', {
+                body: 'Test',
+                headers: {
+                    'Accept-Encoding': 'br',
+                    'Content-Type': 'text/plain'
+                },
+                method: 'POST'
+            })
+        ])
+
+        for (const response of responses) {
+            expect(response.status).to.eq(200)
+            expect(response.headers.get('content-type')).to.eq('text/plain')
+            expect(response.headers.get('content-encoding')).to.be.null
+            expect(await response.text()).to.eq('Test')
+        }
     })
 
     it('should only compress using the specified encodings', async (): Promise<void> => {

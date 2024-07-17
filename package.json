@@ -1,97 +1,17 @@
 {
-  "author": "Friedemann Sommer <social@friedemannsommer.com>",
-  "bugs": {
-    "url": "https://github.com/friedemannsommer/astro-node-fastify/issues"
-  },
-  "dependencies": {
-    "@fastify/compress": "^7.0.3",
-    "@fastify/static": "^7.0.4",
-    "fastify": "^4.28.1"
-  },
-  "description": "Astro Fastify integration for Node.js",
-  "devDependencies": {
-    "@biomejs/biome": "1.8.3",
-    "@changesets/changelog-github": "0.5.0",
-    "@changesets/cli": "2.27.7",
-    "@types/chai": "4.3.16",
-    "@types/mocha": "10.0.7",
-    "@types/node": "20.14.10",
-    "astro": "4.11.5",
-    "chai": "5.1.1",
-    "get-port": "7.1.0",
-    "mocha": "10.6.0",
-    "pkgroll": "2.1.1",
-    "tsx": "4.16.2",
-    "typedoc": "0.26.3",
-    "typedoc-material-theme": "1.1.0",
-    "typedoc-plugin-mdn-links": "3.2.3",
-    "typedoc-plugin-missing-exports": "3.0.0",
-    "typescript": "5.4.5"
-  },
-  "engines": {
-    "node": "^20.3.0 || >=21.0.0"
-  },
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "default": "./dist/index.mjs"
-    },
-    "./preview": {
-      "types": "./dist/preview.d.ts",
-      "require": "./dist/preview.cjs",
-      "default": "./dist/preview.mjs"
-    },
-    "./standalone": {
-      "types": "./dist/standalone.d.ts",
-      "require": "./dist/standalone.cjs",
-      "default": "./dist/standalone.mjs"
+    "name": "main",
+    "version": "0.0.0",
+    "private": true,
+    "workspaces": ["fixtures/*", "astro-adapter"],
+    "scripts": {
+        "build": "npm run -w astro-node-fastify build",
+        "build:clean": "npm run -w astro-node-fastify build:clean",
+        "check": "npm run -w astro-node-fastify check",
+        "check:biome": "npm run -w astro-node-fastify check:biome",
+        "check:ci": "npm run -w astro-node-fastify check:ci",
+        "check:ts": "npm run -w astro-node-fastify check:ts",
+        "docs": "npm run -w astro-node-fastify docs",
+        "release": "npm run -w astro-node-fastify release",
+        "test": "npm run -w astro-node-fastify test"
     }
-  },
-  "files": [
-    "dist"
-  ],
-  "homepage": "https://friedemannsommer.github.io/astro-node-fastify/",
-  "keywords": [
-    "astro",
-    "fastify",
-    "compression"
-  ],
-  "license": "ISC",
-  "main": "./dist/index.cjs",
-  "name": "astro-node-fastify",
-  "peerDependencies": {
-    "astro": "^4.10.0"
-  },
-  "publishConfig": {
-    "provenance": true
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/friedemannsommer/astro-node-fastify.git"
-  },
-  "scripts": {
-    "build": "pkgroll --target=node20",
-    "build:clean": "pkgroll --clean-dist",
-    "check": "npm run check:biome && npm run check:ts",
-    "check:biome": "biome check src",
-    "check:ci": "biome ci src && npm run check:ts",
-    "check:ts": "npm run build -- --noEmit",
-    "docs": "typedoc",
-    "release": "npm run build && changeset publish",
-    "test": "mocha --config .mocharc.json"
-  },
-  "sideEffects": false,
-  "type": "module",
-  "version": "0.0.12",
-  "workspaces": [
-    "src/tests/fixtures/astro-asset-compression-base",
-    "src/tests/fixtures/astro-encoding-default-base",
-    "src/tests/fixtures/astro-encoding-restricted-base",
-    "src/tests/fixtures/astro-hybrid-default-base",
-    "src/tests/fixtures/astro-hybrid-headers-base",
-    "src/tests/fixtures/astro-ssr-default-base",
-    "src/tests/fixtures/astro-ssr-headers-base",
-    "src/tests/fixtures/astro-static-default-base"
-  ]
 }

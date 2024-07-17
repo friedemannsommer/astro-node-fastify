@@ -1,6 +1,6 @@
-import { createFixture, type TestFixture } from './utils/astro-fixture.js'
-import { getFixturePath } from './utils/path.js'
 import { expect } from 'chai'
+import { type TestFixture, createFixture } from './utils/astro-fixture.js'
+import { getFixturePath } from './utils/path.js'
 
 describe('Astro static output', (): void => {
     let fixture: TestFixture | undefined
@@ -14,7 +14,8 @@ describe('Astro static output', (): void => {
 
     it('should not build', async (): Promise<void> => {
         fixture = await createFixture({
-            root: getFixturePath('./astro-static-default-base')
+            root: getFixturePath('./astro-static-default-base'),
+            outDir: getFixturePath('./astro-static-default-base/dist'),
         })
 
         let failed = false

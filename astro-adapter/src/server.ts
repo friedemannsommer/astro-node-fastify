@@ -4,7 +4,6 @@ import type { Http2Server } from 'node:http2'
 import { join as pathJoin, resolve as pathResolve } from 'node:path'
 import { Readable } from 'node:stream'
 import type { ReadableStream as WebReadableStream } from 'node:stream/web'
-import fastifyCompress from '@fastify/compress'
 import fastifyStatic, { type SetHeadersResponse } from '@fastify/static'
 import { NodeApp } from 'astro/app/node'
 import fastify, {
@@ -57,7 +56,7 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
     })
 
     if (options.supportedEncodings.length >= 1) {
-        await server.register(fastifyCompress, {
+        await server.register(import('@fastify/compress'), {
             encodings: options.supportedEncodings,
             requestEncodings: options.supportedEncodings
         })

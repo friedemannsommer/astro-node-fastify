@@ -55,7 +55,7 @@
     "fastify",
     "compression"
   ],
-  "license": "ISC",
+  "license": "MIT",
   "main": "./dist/index.cjs",
   "name": "astro-node-fastify",
   "peerDependencies": {

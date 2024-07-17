@@ -1,7 +1,7 @@
-import { expect } from 'chai'
-import { buildFixture, type TestFixture } from './utils/astro-fixture.js'
-import { getFixturePath } from './utils/path.js'
 import { access } from 'node:fs/promises'
+import { expect } from 'chai'
+import { type TestFixture, buildFixture } from './utils/astro-fixture.js'
+import { getFixturePath } from './utils/path.js'
 
 describe('Astro asset compression', (): void => {
     let fixture: TestFixture | undefined

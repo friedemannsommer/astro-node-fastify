@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { previewFixture, type TestFixture } from './utils/astro-fixture.js'
+import { type TestFixture, previewFixture } from './utils/astro-fixture.js'
 import { getFixturePath } from './utils/path.js'
 
 describe('Astro SSR output', (): void => {

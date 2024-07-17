@@ -23,13 +23,10 @@ export interface TestFixture {
     config: AstroConfig
 
     fetch(url: URL | string, init?: RequestInit): Promise<Response>
-
     loadEntryPoint(): Promise<SupportedExports>
-
     preview(overrideConfig?: Partial<AstroFixtureOptions>): Promise<PreviewServer>
-
-    resolveUrl: (relativeUrl: URL | string) => URL
-
+    resolveClientPath(relativePath: URL | string): URL
+    resolveUrl(relativeUrl: URL | string): URL
     teardown(): Promise<void>
 }
 
@@ -39,10 +36,20 @@ export async function previewFixture(
     options: AstroFixtureOptions,
     integrationOptions?: UserOptions
 ): Promise<TestFixture> {
+    const fixture = await buildFixture(options, integrationOptions)
+
+    await fixture.preview()
+
+    return fixture
+}
+
+export async function buildFixture(
+    options: AstroFixtureOptions,
+    integrationOptions?: UserOptions
+): Promise<TestFixture> {
     const fixture = await createFixture(options, integrationOptions)
 
     await fixture.build()
-    await fixture.preview()
 
     return fixture
 }
@@ -92,6 +99,9 @@ export async function loadFixture(fixtureConfig: AstroFixtureOptions): Promise<T
             return build(mergeConfig(fixtureConfig, overrideConfig), {
                 teardownCompiler: false
             })
+        },
+        resolveClientPath(relativePath: URL | string): URL {
+            return new URL(relativePath, astroConfig.build.client)
         },
         async preview(overrideConfig: Partial<AstroFixtureOptions> = {}): Promise<PreviewServer> {
             process.env.NODE_ENV = 'production'

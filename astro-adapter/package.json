@@ -18,7 +18,7 @@
     "chai": "5.1.1",
     "get-port": "7.1.0",
     "mocha": "10.7.0",
-    "pkgroll": "2.4.1",
+    "pkgroll": "2.4.2",
     "tsx": "4.16.2",
     "typedoc": "0.26.5",
     "typedoc-material-theme": "1.1.0",

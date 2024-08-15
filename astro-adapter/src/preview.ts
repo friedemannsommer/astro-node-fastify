@@ -1,7 +1,7 @@
-import type { CreatePreviewServer, PreviewServer } from 'astro'
-import type { SupportedExports } from './standalone.js'
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import type { CreatePreviewServer, PreviewServer } from 'astro'
+import type { SupportedExports } from './standalone.js'
 
 const createPreviewServer: CreatePreviewServer = async (previewParams): Promise<PreviewServer> => {
     process.env.ASTRO_NODE_FASTIFY_INTERNAL_AUTOSTART = '0'

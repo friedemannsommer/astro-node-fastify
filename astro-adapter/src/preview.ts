@@ -1,5 +1,7 @@
 import type { CreatePreviewServer, PreviewServer } from 'astro'
 import type { SupportedExports } from './standalone.js'
+import { dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const createPreviewServer: CreatePreviewServer = async (previewParams): Promise<PreviewServer> => {
     process.env.ASTRO_NODE_FASTIFY_INTERNAL_AUTOSTART = '0'
@@ -8,9 +10,10 @@ const createPreviewServer: CreatePreviewServer = async (previewParams): Promise<
     let host = previewParams.host ?? 'localhost'
     let port = previewParams.port
     const server = await ssrModule.startServer({
-        port,
+        defaultHeaders: previewParams.headers ? { server: previewParams.headers } : undefined,
         host,
-        defaultHeaders: previewParams.headers ? { server: previewParams.headers } : undefined
+        port,
+        serverPath: dirname(fileURLToPath(previewParams.serverEntrypoint))
     })
     let resolveCloseFuture: VoidFunction | undefined
     const closeFuture = new Promise<void>((resolve): void => {

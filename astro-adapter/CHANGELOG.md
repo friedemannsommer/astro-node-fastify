@@ -1,5 +1,11 @@
 # astro-node-fastify
 
+## 0.0.14
+
+### Patch Changes
+
+- [`a94d5f2`](https://github.com/friedemannsommer/astro-node-fastify/commit/a94d5f29eccc9b8c8e6ffbb35e03be5467c07a86) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Introduced a new mechanism to resolve server paths to be able to correctly resolve relative client paths.
+
 ## 0.0.13
 
 ### Patch Changes

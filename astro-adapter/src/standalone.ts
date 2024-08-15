@@ -129,12 +129,12 @@ function getCallerFile(): string | undefined {
             return undefined
         }
 
-        // biome-ignore lint/style/noNonNullAssertion: there must be at least one entry in the stacktrace
-        const currentFile = stack[0]!.getFileName()
+        // biome-ignore lint/style/noNonNullAssertion: there must be at least one entry in the stack trace
+        const currentFile = normalizePath(stack[0]!.getFileName())
 
         for (let index = 1; index < stack.length; index++) {
             // biome-ignore lint/style/noNonNullAssertion: the loop condition guarantees that the index exists
-            callerFile = stack[index]!.getFileName()
+            callerFile = normalizePath(stack[index]!.getFileName())
 
             if (callerFile !== undefined && callerFile !== currentFile) {
                 return callerFile
@@ -147,4 +147,16 @@ function getCallerFile(): string | undefined {
     }
 
     return undefined
+}
+
+function normalizePath(path: string | undefined): string | undefined {
+    if (!path) {
+        return undefined
+    }
+
+    if (path.startsWith('file://')) {
+        return path.slice(7)
+    }
+
+    return path
 }

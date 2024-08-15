@@ -1,5 +1,11 @@
 # astro-node-fastify
 
+## 0.0.16
+
+### Patch Changes
+
+- [`16eecf3`](https://github.com/friedemannsommer/astro-node-fastify/commit/16eecf3645a8a1e2cb0730375fd8ee57f0967e2a) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Fixed server path resolution to use the path to the parent directory instead of the caller file path.
+
 ## 0.0.15
 
 ### Patch Changes

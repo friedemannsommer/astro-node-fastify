@@ -1,5 +1,11 @@
 # astro-node-fastify
 
+## 0.0.15
+
+### Patch Changes
+
+- [`e9c72dd`](https://github.com/friedemannsommer/astro-node-fastify/commit/e9c72dd88ca4aebefa65f16fdb5b000bc46caa9b) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Normalized file paths in stack trace handling.
+
 ## 0.0.14
 
 ### Patch Changes

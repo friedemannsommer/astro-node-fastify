@@ -1,4 +1,4 @@
-import { readFile } from 'node:fs/promises'
+import { access, readFile } from 'node:fs/promises'
 import type { OutgoingHttpHeaders } from 'node:http'
 import type { Http2Server } from 'node:http2'
 import { join as pathJoin, resolve as pathResolve } from 'node:path'
@@ -26,6 +26,9 @@ export interface ServiceRuntime {
 export async function createServer(app: NodeApp, options: RuntimeArguments): Promise<ServiceRuntime> {
     const config = getServerConfig(options)
     const assetRoot = pathResolve(options.serverPath, options.clientPath)
+
+    await checkAssetsPath(assetRoot)
+
     const listenConfig: FastifyListenOptions = {
         listenTextResolver(address: string): string {
             return `server listening on: ${address}`
@@ -232,4 +235,12 @@ function contentParserIgnore<R extends FastifyRequest<RouteGenericInterface, Htt
     done: ContentTypeParserDoneFunction
 ): void {
     done(null)
+}
+
+async function checkAssetsPath(path: string): Promise<void> {
+    try {
+        await access(path)
+    } catch (_) {
+        throw new Error(`The client assets directory does not exist: ${path}`)
+    }
 }

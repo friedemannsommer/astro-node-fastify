@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url'
 import type { SSRManifest } from 'astro'
 import { NodeApp } from 'astro/app/node'
 import type { FastifyInstance } from 'fastify'
-import { type ServiceRuntime, createServer } from './server.js'
+import { createServer, type ServiceRuntime } from './server.js'
 import type { RuntimeArguments } from './typings/config.js'
 
 export interface SupportedExports {
@@ -35,7 +35,7 @@ export function createExports(manifest: SSRManifest, options: RuntimeArguments):
                         ...options.server,
                         ...optionsOverride?.server
                     },
-                    serverPath: getServerPath()
+                    serverPath: getServerPath(optionsOverride?.serverPath ?? options.serverPath)
                 })
             ).server
         }
@@ -47,12 +47,10 @@ export function start(manifest: SSRManifest, options: RuntimeArguments): void {
         return
     }
 
-    const app = new NodeApp(manifest)
-
     // mutate in-place since there should be no need for a copy
-    options.serverPath = getServerPath()
+    options.serverPath = getServerPath(options.serverPath)
 
-    createServer(app, options).then(setupExitHandlers, (err: Error): void => {
+    createServer(new NodeApp(manifest), options).then(setupExitHandlers, (err: Error): void => {
         console.error(err)
         process.exit(1)
     })
@@ -97,10 +95,56 @@ function setupExitHandlers({ config, server }: ServiceRuntime): void {
     }
 }
 
-/**
- * Important note: this only works if this package is included in the entrypoint.
- * Otherwise, we're unable to resolve an absolute path to the client assets.
- */
-function getServerPath(): string {
+function getServerPath(path: string): string {
+    if (path.length !== 0) {
+        // assume that the given path is valid
+        return path
+    }
+
+    const callerFile = getCallerFile()
+
+    if (callerFile !== undefined) {
+        return callerFile
+    }
+
+    /**
+     * Important note: this only works if this package is included in the entrypoint.
+     * Otherwise, we're unable to resolve an absolute path to the client assets.
+     */
     return dirname(fileURLToPath(import.meta.url))
+}
+
+function getCallerFile(): string | undefined {
+    const originalFunc = Error.prepareStackTrace
+
+    try {
+        const err = new Error()
+        let callerFile: string | undefined
+
+        Error.prepareStackTrace = (_err, stack) => stack
+
+        const stack = err.stack as unknown as NodeJS.CallSite[]
+
+        if (!stack) {
+            return undefined
+        }
+
+        // biome-ignore lint/style/noNonNullAssertion: there must be at least one entry in the stacktrace
+        const currentFile = stack[0]!.getFileName()
+
+        for (let index = 1; index < stack.length; index++) {
+            // biome-ignore lint/style/noNonNullAssertion: the loop condition guarantees that the index exists
+            callerFile = stack[index]!.getFileName()
+
+            if (callerFile !== undefined && callerFile !== currentFile) {
+                return callerFile
+            }
+        }
+    } catch (_) {
+        /* no-op */
+    } finally {
+        Error.prepareStackTrace = originalFunc
+    }
+
+    return undefined
 }

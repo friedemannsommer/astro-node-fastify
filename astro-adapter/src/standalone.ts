@@ -104,7 +104,7 @@ function getServerPath(path: string): string {
     const callerFile = getCallerFile()
 
     if (callerFile !== undefined) {
-        return callerFile
+        return dirname(callerFile)
     }
 
     /**

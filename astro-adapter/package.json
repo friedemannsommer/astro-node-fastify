@@ -5,7 +5,7 @@
   },
   "dependencies": {
     "@fastify/compress": "^7.0.3",
-    "@fastify/static": "^7.0.4",
+    "@fastify/static": "^8.0.0",
     "fastify": "^4.28.1"
   },
   "description": "Astro Fastify integration for Node.js",

@@ -135,12 +135,12 @@ function setAssetHeaders(
     staticPrefix: string,
     headers?: OutgoingHttpHeaders,
     cache?: RuntimeOptions['cache']
-): (res: SetHeadersResponse) => void {
+): (res: SetHeadersResponse, path: string) => void {
     const headerKeys: string[] | undefined = headers ? Object.keys(headers) : undefined
     const dynamicAssetCacheControl = createCacheControlHeader(cache)
 
-    return (res: SetHeadersResponse): void => {
-        if (res.filename.startsWith(staticPrefix)) {
+    return (res: SetHeadersResponse, path: string): void => {
+        if (path.startsWith(staticPrefix)) {
             res.setHeader('Cache-Control', 'public, max-age=604800, immutable')
         } else if (dynamicAssetCacheControl !== undefined) {
             res.setHeader('Cache-Control', dynamicAssetCacheControl)
@@ -148,7 +148,7 @@ function setAssetHeaders(
 
         if (headerKeys) {
             for (const header of headerKeys) {
-                // biome-ignore lint/style/noNonNullAssertion: if `headerKeys` is defined `headers` is as well
+                // biome-ignore lint/style/noNonNullAssertion: if `headerKeys` is defined, `headers` is as well
                 res.setHeader(header, headers![header])
             }
         }

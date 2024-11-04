@@ -66,6 +66,8 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
     }
 
     await server.register(fastifyStatic, {
+        acceptRanges: true,
+        cacheControl: false,
         preCompressed: options.preCompressed,
         root: assetRoot,
         setHeaders: setAssetHeaders(

@@ -1,5 +1,11 @@
 # astro-node-fastify
 
+## 0.1.1
+
+### Patch Changes
+
+- [`8b64c40`](https://github.com/friedemannsommer/astro-node-fastify/commit/8b64c403cefb9e651e040e5f08b65b5dbfb055a3) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Removed default `cacheControl` header for assets
+
 ## 0.1.0
 
 ### Minor Changes

@@ -33,8 +33,8 @@ describe('Astro hybrid output', (): void => {
         expect(preRender.status).to.eq(200)
         expect(echoReply.status).to.eq(200)
 
-        expect(indexRender.headers.get('content-type')).to.eq('text/html; charset=UTF-8')
-        expect(preRender.headers.get('content-type')).to.eq('text/plain; charset=UTF-8')
+        expect(indexRender.headers.get('content-type')).to.eq('text/html; charset=utf-8')
+        expect(preRender.headers.get('content-type')).to.eq('text/plain; charset=utf-8')
         expect(echoReply.headers.get('content-type')).to.eq('text/plain')
 
         expect(await indexRender.text()).to.eq(
@@ -67,7 +67,7 @@ describe('Astro hybrid output', (): void => {
         expect(assetReply.status).to.eq(200)
         expect(serverReply.status).to.eq(200)
 
-        expect(assetReply.headers.get('content-type')).to.eq('text/plain; charset=UTF-8')
+        expect(assetReply.headers.get('content-type')).to.eq('text/plain; charset=utf-8')
         expect(assetReply.headers.get('X-Asset')).to.eq('test')
         expect(serverReply.headers.get('content-type')).to.eq('text/plain')
         expect(serverReply.headers.get('X-Test')).to.eq('1')

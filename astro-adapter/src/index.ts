@@ -11,16 +11,12 @@ const adapterConfig: AstroAdapter = {
     previewEntrypoint: 'astro-node-fastify/preview',
     serverEntrypoint: 'astro-node-fastify/standalone',
     supportedAstroFeatures: {
-        assets: {
-            supportKind: 'stable',
-            isSharpCompatible: true,
-            isSquooshCompatible: true
-        },
         envGetSecret: 'unsupported',
         hybridOutput: 'stable',
         i18nDomains: 'unsupported',
         serverOutput: 'stable',
-        staticOutput: 'stable'
+        sharpImageService: 'experimental',
+        staticOutput: 'unsupported'
     }
 }
 
@@ -73,7 +69,7 @@ export default function createIntegration(userOptions?: UserOptions): AstroInteg
                     }
                 }
             },
-            'astro:config:done': ({ setAdapter, config, logger }): void => {
+            'astro:config:done': ({ setAdapter, config }): void => {
                 const adapterArgs: RuntimeArguments = {
                     assetsDir: config.build.assets,
                     cache: userOptions?.cache,
@@ -101,9 +97,13 @@ export default function createIntegration(userOptions?: UserOptions): AstroInteg
                 clientAssetsPath = config.build.client
 
                 if (config.output === 'static') {
-                    logger.error(
+                    const error = new Error(
                         `[${packageName}] only \`output: "server"\` or \`output: "hybrid"\` are supported by this adapter.`
                     )
+
+                    error.name = 'AstroAdapterError'
+
+                    throw error
                 }
             },
             'astro:config:setup': ({ updateConfig, config }): void => {

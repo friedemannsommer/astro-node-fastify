@@ -33,7 +33,7 @@ describe('Astro hybrid output', (): void => {
         expect(preRender.status).to.eq(200)
         expect(echoReply.status).to.eq(200)
 
-        expect(indexRender.headers.get('content-type')).to.eq('text/html; charset=utf-8')
+        expect(indexRender.headers.get('content-type')).to.eq('text/html')
         expect(preRender.headers.get('content-type')).to.eq('text/plain; charset=utf-8')
         expect(echoReply.headers.get('content-type')).to.eq('text/plain')
 

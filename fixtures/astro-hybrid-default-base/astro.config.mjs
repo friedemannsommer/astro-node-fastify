@@ -7,5 +7,5 @@ export default defineConfig({
             logLevel: 'fatal'
         }
     }),
-    output: 'hybrid'
+    output: 'server'
 })

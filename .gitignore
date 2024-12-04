@@ -5,6 +5,7 @@
 !.vscode/extensions.json
 !.vscode/*.code-snippets
 $RECYCLE.BIN/
+**/.astro/
 *.cab
 *.iws
 *.lcov
@@ -35,7 +36,6 @@ $RECYCLE.BIN/
 .VolumeIcon.icns
 ._*
 .apdisk
-.astro
 .cache
 .cache/
 .com.apple.timemachine.donotpresent

@@ -91,14 +91,22 @@ export async function loadFixture(fixtureConfig: AstroFixtureOptions): Promise<T
         config: astroConfig,
         resolveUrl,
         fetch(url: URL | string, init?: RequestInit): Promise<Response> {
-            return fetch(resolveUrl(url), init)
+            const headers = new Headers(init?.headers)
+            const requestUrl = resolveUrl(url)
+
+            if (!headers.has('origin')) {
+                headers.set('origin', requestUrl.origin)
+            }
+
+            return fetch(requestUrl, {
+                ...init,
+                headers
+            })
         },
         async build(overrideConfig: Partial<AstroFixtureOptions> = {}): Promise<void> {
             process.env.NODE_ENV = 'production'
 
-            return build(mergeConfig(fixtureConfig, overrideConfig), {
-                teardownCompiler: false
-            })
+            return build(mergeConfig(fixtureConfig, overrideConfig))
         },
         resolveClientPath(relativePath: URL | string): URL {
             return new URL(relativePath, astroConfig.build.client)

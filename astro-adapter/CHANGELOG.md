@@ -1,5 +1,13 @@
 # astro-node-fastify
 
+## 0.2.1
+
+### Patch Changes
+
+- [`0977a8f`](https://github.com/friedemannsommer/astro-node-fastify/commit/0977a8f47de1da361efa81315b0fcfe4836270e7) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Updated dependencies
+
+- [`0977a8f`](https://github.com/friedemannsommer/astro-node-fastify/commit/0977a8f47de1da361efa81315b0fcfe4836270e7) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Added upper minor version constraint for Astro peer dependency
+
 ## 0.2.0
 
 ### Minor Changes

@@ -75,6 +75,7 @@ export default function createIntegration(userOptions?: UserOptions): AstroInteg
                     cache: userOptions?.cache,
                     clientPath: pathRelative(fileURLToPath(config.build.server), fileURLToPath(config.build.client)),
                     defaultHeaders: userOptions?.defaultHeaders,
+                    dotPrefixes: userOptions?.dotPrefixes ?? ['/.well-known/'],
                     host:
                         typeof config.server.host === 'boolean'
                             ? config.server.host

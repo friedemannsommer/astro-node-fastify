@@ -29,6 +29,7 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
 
     await checkAssetsPath(assetRoot)
 
+    const allowDotPrefixes = Array.isArray(config.dotPrefixes) && config.dotPrefixes.length !== 0
     const listenConfig: FastifyListenOptions = {
         listenTextResolver(address: string): string {
             return `server listening on: ${address}`
@@ -67,7 +68,10 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
 
     await server.register(fastifyStatic, {
         acceptRanges: true,
+        // biome-ignore lint/style/noNonNullAssertion: the condition for `allowDotPrefixes` guarantees that `dotPrefixes` is an array
+        allowedPath: allowDotPrefixes ? generateDotPrefixFilters(config.dotPrefixes!) : defaultPathCheck,
         cacheControl: false,
+        dotfiles: allowDotPrefixes ? 'allow' : 'ignore',
         preCompressed: options.preCompressed,
         root: assetRoot,
         setHeaders: setAssetHeaders(
@@ -116,6 +120,7 @@ function getServerConfig(options: RuntimeArguments): Required<RuntimeOptions> {
     return {
         cache: options.cache,
         defaultHeaders: options.defaultHeaders,
+        dotPrefixes: options.dotPrefixes,
         host: envConfig.host ?? options.host,
         https: envConfig.https,
         port: envConfig.port ?? options.port,
@@ -245,4 +250,34 @@ async function checkAssetsPath(path: string): Promise<void> {
     } catch (_) {
         throw new Error(`The client assets directory does not exist: ${path}`)
     }
+}
+
+function generateDotPrefixFilters(allowedPrefixes: string[]): (pathName: string) => boolean {
+    const exactMatches = new Set(allowedPrefixes)
+    // re-creating from set to remove possible duplicates
+    const sortedPrefixes: readonly string[] = Array.from(exactMatches).sort((a, b) => b.length - a.length)
+    const prefixCount = sortedPrefixes.length
+
+    return function validateDotFilePath(pathName: string): boolean {
+        if (pathName.length < 2 || pathName.indexOf('/.') === -1) {
+            return true
+        }
+
+        if (exactMatches.has(pathName)) {
+            return true
+        }
+
+        for (let i = 0; i < prefixCount; i++) {
+            // biome-ignore lint/style/noNonNullAssertion: this readonly array guarantees that 0...prefixCount exists
+            if (pathName.startsWith(sortedPrefixes[i]!)) {
+                return true
+            }
+        }
+
+        return false
+    }
+}
+
+function defaultPathCheck(): boolean {
+    return true
 }

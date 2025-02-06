@@ -1,14 +1,14 @@
 import { rm } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
-import type { AstroConfig, AstroInlineConfig, PreviewServer } from 'astro'
+import type { AstroConfig, AstroInlineConfig } from 'astro'
+import type { FastifyInstance } from 'fastify'
 import getPort from 'get-port'
 // these imports need to use a relative path since the package doesn't export the required files
 import build from '../../../../node_modules/astro/dist/core/build/index.js'
 import { mergeConfig, resolveConfig } from '../../../../node_modules/astro/dist/core/config/index.js'
-import { preview } from '../../../../node_modules/astro/dist/core/index.js'
 import createIntegration from '../../index.js'
 import type { SupportedExports } from '../../standalone.js'
-import type { UserOptions } from '../../typings/config.js'
+import type { RuntimeArguments, UserOptions } from '../../typings/config.js'
 
 // Disable telemetry
 process.env.ASTRO_TELEMETRY_DISABLED = '1'
@@ -23,10 +23,15 @@ export interface TestFixture {
     config: AstroConfig
 
     fetch(url: URL | string, init?: RequestInit): Promise<Response>
+
     loadEntryPoint(): Promise<SupportedExports>
-    preview(overrideConfig?: Partial<AstroFixtureOptions>): Promise<PreviewServer>
+
+    preview(overrideConfig?: Partial<RuntimeArguments>): Promise<FastifyInstance>
+
     resolveClientPath(relativePath: URL | string): URL
+
     resolveUrl(relativeUrl: URL | string): URL
+
     teardown(): Promise<void>
 }
 
@@ -85,7 +90,7 @@ export async function loadFixture(fixtureConfig: AstroFixtureOptions): Promise<T
     }
 
     const resolveUrl = resolveConfigUrl(astroConfig)
-    let serverRef: PreviewServer | undefined
+    let serverRef: FastifyInstance | undefined
 
     return {
         config: astroConfig,
@@ -111,16 +116,30 @@ export async function loadFixture(fixtureConfig: AstroFixtureOptions): Promise<T
         resolveClientPath(relativePath: URL | string): URL {
             return new URL(relativePath, astroConfig.build.client)
         },
-        async preview(overrideConfig: Partial<AstroFixtureOptions> = {}): Promise<PreviewServer> {
+        async preview(overrideConfig: Partial<RuntimeArguments> = {}): Promise<FastifyInstance> {
             process.env.NODE_ENV = 'production'
+            process.env.ASTRO_NODE_FASTIFY_INTERNAL_AUTOSTART = '0'
 
-            const previewServer = await preview(mergeConfig(fixtureConfig, overrideConfig))
+            const entrypointUrl = new URL(`./entry.mjs?ts=${Date.now()}`, astroConfig.build.server)
+            const { startServer } = (await import(entrypointUrl.href)) as SupportedExports
 
-            astroConfig.server.host = previewServer.host || 'localhost'
-            astroConfig.server.port = previewServer.port
-            serverRef = previewServer
+            serverRef = await startServer({
+                ...overrideConfig,
+                serverPath: fileURLToPath(astroConfig.build.server)
+            })
 
-            return previewServer
+            const addresses = serverRef.addresses()
+
+            if (addresses.length === 0) {
+                throw new Error('Server was unable to bind to any address')
+            }
+
+            // biome-ignore lint/style/noNonNullAssertion: array contains at least one element
+            astroConfig.server.host = addresses[0]!.address
+            // biome-ignore lint/style/noNonNullAssertion: array contains at least one element
+            astroConfig.server.port = addresses[0]!.port
+
+            return serverRef
         },
         async loadEntryPoint(): Promise<SupportedExports> {
             process.env.ASTRO_NODE_FASTIFY_INTERNAL_AUTOSTART = '0'
@@ -130,8 +149,7 @@ export async function loadFixture(fixtureConfig: AstroFixtureOptions): Promise<T
         async teardown(): Promise<void> {
             try {
                 if (serverRef) {
-                    await serverRef.stop()
-                    await serverRef.closed()
+                    await serverRef.close()
                 }
             } finally {
                 await rm(astroConfig.outDir, {

@@ -28,6 +28,12 @@ export interface UserOptions {
      */
     defaultHeaders?: PartialUndef<DefaultHeaderOptions> | undefined
     /**
+     * Specifies which "dot files" (directories or files starting with a `.`) can be served.
+     *
+     * @default ['/.well-known/']
+     */
+    dotPrefixes?: string[] | undefined
+    /**
      * Controls whether the static assets should be pre-compressed or if they should be dynamically compressed at runtime.
      *
      * @default true
@@ -52,6 +58,7 @@ export interface UserOptions {
 export interface RuntimeOptions extends EnvironmentConfig {
     cache?: PartialUndef<CacheOptions> | undefined
     defaultHeaders?: PartialUndef<DefaultHeaderOptions> | undefined
+    dotPrefixes?: string[] | undefined
     preCompressed: boolean
     supportedEncodings: EncodingToken[]
 }

@@ -68,4 +68,70 @@ describe('Astro SSR output', (): void => {
 
         expect(await serverReply.text()).to.eq('Hello world.')
     })
+
+    it('should serve content from .well-known path', async () => {
+        fixture = await previewFixture({
+            root: getFixturePath('./astro-ssr-dot-prefix')
+        })
+
+        const [wellKnown, apiDotFile, apiTextFile] = await Promise.all([
+            fixture.fetch('/.well-known/test.txt'),
+            fixture.fetch('/api/.path.txt'),
+            fixture.fetch('/api/test.txt')
+        ])
+
+        expect(wellKnown.status).to.eq(200)
+        expect(apiDotFile.status).to.eq(404)
+        expect(apiTextFile.status).to.eq(200)
+
+        expect(await wellKnown.text()).to.eq('hello world')
+        expect(await apiTextFile.text()).to.eq('hello world')
+    })
+
+    it('should not serve content from .well-known path', async () => {
+        fixture = await previewFixture(
+            {
+                root: getFixturePath('./astro-ssr-dot-prefix')
+            },
+            {
+                dotPrefixes: []
+            }
+        )
+
+        const [wellKnown, apiDotFile, apiTextFile] = await Promise.all([
+            fixture.fetch('/.well-known/test.txt'),
+            fixture.fetch('/api/.path.txt'),
+            fixture.fetch('/api/test.txt')
+        ])
+
+        expect(wellKnown.status).to.eq(404)
+        expect(apiDotFile.status).to.eq(404)
+        expect(apiTextFile.status).to.eq(200)
+
+        expect(await apiTextFile.text()).to.eq('hello world')
+    })
+
+    it('should only serve content from api path', async () => {
+        fixture = await previewFixture(
+            {
+                root: getFixturePath('./astro-ssr-dot-prefix')
+            },
+            {
+                dotPrefixes: ['/api/']
+            }
+        )
+
+        const [wellKnown, apiDotFile, apiTextFile] = await Promise.all([
+            fixture.fetch('/.well-known/test.txt'),
+            fixture.fetch('/api/.path.txt'),
+            fixture.fetch('/api/test.txt')
+        ])
+
+        expect(wellKnown.status).to.eq(404)
+        expect(apiDotFile.status).to.eq(200)
+        expect(apiTextFile.status).to.eq(200)
+
+        expect(await apiDotFile.text()).to.eq('dot API path')
+        expect(await apiTextFile.text()).to.eq('hello world')
+    })
 })

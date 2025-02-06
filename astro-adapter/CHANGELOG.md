@@ -1,5 +1,11 @@
 # astro-node-fastify
 
+## 0.3.0
+
+### Minor Changes
+
+- [#169](https://github.com/friedemannsommer/astro-node-fastify/pull/169) [`409090f`](https://github.com/friedemannsommer/astro-node-fastify/commit/409090fc07d39c72c830df66ec7967d0d6c93f29) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Added `dotPrefixes` option to allow serving dot files. (Defaults to `/.well-known`)
+
 ## 0.2.2
 
 ### Patch Changes

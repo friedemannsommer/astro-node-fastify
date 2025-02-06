@@ -74,6 +74,7 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
         dotfiles: allowDotPrefixes ? 'allow' : 'ignore',
         preCompressed: options.preCompressed,
         root: assetRoot,
+        serveDotFiles: allowDotPrefixes,
         setHeaders: setAssetHeaders(
             pathJoin(assetRoot, options.assetsDir),
             options.defaultHeaders?.assets,

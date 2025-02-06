@@ -1,6 +1,7 @@
 import { rm } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import type { AstroConfig, AstroInlineConfig } from 'astro'
+import type { FastifyInstance } from 'fastify'
 import getPort from 'get-port'
 // these imports need to use a relative path since the package doesn't export the required files
 import build from '../../../../node_modules/astro/dist/core/build/index.js'
@@ -8,7 +9,6 @@ import { mergeConfig, resolveConfig } from '../../../../node_modules/astro/dist/
 import createIntegration from '../../index.js'
 import type { SupportedExports } from '../../standalone.js'
 import type { RuntimeArguments, UserOptions } from '../../typings/config.js'
-import type { FastifyInstance } from 'fastify'
 
 // Disable telemetry
 process.env.ASTRO_TELEMETRY_DISABLED = '1'

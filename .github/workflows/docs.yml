@@ -117,7 +117,7 @@ jobs:
           rsync -ac --delete generated_documentation/ "new_documentation/development"
 
       - name: publish to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4.7.2
+        uses: JamesIves/github-pages-deploy-action@v4.7.3
         with:
           branch: gh-pages
           clean: true

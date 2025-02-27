@@ -149,7 +149,7 @@ function setAssetHeaders(
 
     return (res: SetHeadersResponse, path: string): void => {
         if (path.startsWith(staticPrefix)) {
-            res.setHeader('Cache-Control', 'public, max-age=604800, immutable')
+            res.setHeader('Cache-Control', 'public, max-age=31536000, immutable')
         } else if (dynamicAssetCacheControl !== undefined) {
             res.setHeader('Cache-Control', dynamicAssetCacheControl)
         }

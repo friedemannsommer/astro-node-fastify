@@ -1,5 +1,11 @@
 # astro-node-fastify
 
+## 0.4.0
+
+### Minor Changes
+
+- [`2909ad7`](https://github.com/friedemannsommer/astro-node-fastify/commit/2909ad7183b4a791eaa3fe9e32fe8138c27fda46) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Increased `max-age` for statis assets to one year (#180)
+
 ## 0.3.1
 
 ### Patch Changes

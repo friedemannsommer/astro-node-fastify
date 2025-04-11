@@ -1,5 +1,11 @@
 # astro-node-fastify
 
+## 0.4.3
+
+### Patch Changes
+
+- [`3b1fe35`](https://github.com/friedemannsommer/astro-node-fastify/commit/3b1fe35ba031e4b2dde7d98bb5ea8957f7e222a9) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Adjusted the peer dependency range for Astro to include version 5.6.
+
 ## 0.4.2
 
 ### Patch Changes

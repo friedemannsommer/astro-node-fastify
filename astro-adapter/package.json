@@ -13,18 +13,18 @@
     "@biomejs/biome": "1.9.4",
     "@types/chai": "5.2.1",
     "@types/mocha": "10.0.10",
-    "@types/node": "20.17.28",
-    "astro": "5.5.5",
+    "@types/node": "20.17.30",
+    "astro": "5.6.1",
     "chai": "5.2.0",
     "get-port": "7.1.0",
     "mocha": "11.1.0",
     "pkgroll": "2.12.1",
     "tsx": "4.19.3",
-    "typedoc": "0.27.9",
-    "typedoc-github-theme": "0.2.1",
+    "typedoc": "0.28.2",
+    "typedoc-github-theme": "0.3.0",
     "typedoc-plugin-mdn-links": "5.0.1",
-    "typedoc-plugin-missing-exports": "3.1.0",
-    "typescript": "5.8.2"
+    "typedoc-plugin-missing-exports": "4.0.0",
+    "typescript": "5.8.3"
   },
   "engines": {
     "node": "^20.3.0 || >=22.0.0"
@@ -59,7 +59,7 @@
   "main": "./dist/index.cjs",
   "name": "astro-node-fastify",
   "peerDependencies": {
-    "astro": ">=5.0 <=5.5"
+    "astro": ">=5.0 <=5.6"
   },
   "publishConfig": {
     "provenance": true

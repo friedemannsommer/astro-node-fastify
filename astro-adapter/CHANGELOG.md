@@ -1,5 +1,11 @@
 # astro-node-fastify
 
+## 0.4.4
+
+### Patch Changes
+
+- [`faf68df`](https://github.com/friedemannsommer/astro-node-fastify/commit/faf68dfff726548649e5debc70e78655f674ad8c) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Adjusted the peer dependency range for Astro to include version 5.7 and updated Fastify to resolve [`CVE-2025-32442`](https://github.com/advisories/GHSA-mg2h-6x62-wpwc).
+
 ## 0.4.3
 
 ### Patch Changes

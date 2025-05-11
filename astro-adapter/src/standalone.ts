@@ -149,7 +149,7 @@ function getCallerFile(): string | undefined {
     return undefined
 }
 
-function normalizePath(path: string | undefined): string | undefined {
+function normalizePath(path: string | undefined | null): string | undefined {
     if (!path) {
         return undefined
     }

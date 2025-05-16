@@ -14,7 +14,7 @@
     "@types/chai": "5.2.2",
     "@types/mocha": "10.0.10",
     "@types/node": "20.17.46",
-    "astro": "5.7.12",
+    "astro": "5.7.13",
     "chai": "5.2.0",
     "get-port": "7.1.0",
     "mocha": "11.2.2",

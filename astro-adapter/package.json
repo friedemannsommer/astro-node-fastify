@@ -13,7 +13,7 @@
     "@biomejs/biome": "1.9.4",
     "@types/chai": "5.2.2",
     "@types/mocha": "10.0.10",
-    "@types/node": "20.17.50",
+    "@types/node": "20.17.54",
     "astro": "5.8.0",
     "chai": "5.2.0",
     "get-port": "7.1.0",

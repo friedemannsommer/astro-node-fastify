@@ -1,6 +1,6 @@
 import { access } from 'node:fs/promises'
 import { expect } from 'chai'
-import { type TestFixture, buildFixture } from './utils/astro-fixture.js'
+import { buildFixture, type TestFixture } from './utils/astro-fixture.js'
 import { getFixturePath } from './utils/path.js'
 
 describe('Astro asset compression', (): void => {
@@ -88,7 +88,7 @@ describe('Astro asset compression', (): void => {
 async function assertPromiseRejected(promise: Promise<void>): Promise<void> {
     try {
         await promise
-    } catch (err) {
+    } catch (_err) {
         return
     }
 
@@ -98,7 +98,7 @@ async function assertPromiseRejected(promise: Promise<void>): Promise<void> {
 async function assertPromiseFulfilled(promise: Promise<void>): Promise<void> {
     try {
         await promise
-    } catch (err) {
+    } catch (_err) {
         expect.fail('Expected promise to be fulfilled')
     }
 }

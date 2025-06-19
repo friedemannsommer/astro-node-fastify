@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { type TestFixture, previewFixture } from './utils/astro-fixture.js'
+import { previewFixture, type TestFixture } from './utils/astro-fixture.js'
 import { getFixturePath } from './utils/path.js'
 
 describe('Response encoding', (): void => {

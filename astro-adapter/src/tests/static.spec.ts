@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { type TestFixture, createFixture } from './utils/astro-fixture.js'
+import { createFixture, type TestFixture } from './utils/astro-fixture.js'
 import { getFixturePath } from './utils/path.js'
 
 describe('Astro static output', (): void => {

@@ -1,7 +1,7 @@
 import { relative as pathRelative } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { AstroAdapter, AstroIntegration } from 'astro'
-import { type CompressFn, brotli, gzip, processAssets } from './compress.js'
+import { brotli, type CompressFn, gzip, processAssets } from './compress.js'
 import type { RuntimeArguments, UserOptions } from './typings/config.js'
 
 const packageName = 'astro-node-fastify'

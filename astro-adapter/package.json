@@ -4,21 +4,21 @@
     "url": "https://github.com/friedemannsommer/astro-node-fastify/issues"
   },
   "dependencies": {
-    "@fastify/compress": "^8.0.1",
+    "@fastify/compress": "^8.0.3",
     "@fastify/static": "^8.2.0",
-    "fastify": "^5.3.3"
+    "fastify": "^5.4.0"
   },
   "description": "Astro Fastify integration for Node.js",
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@types/chai": "5.2.2",
     "@types/mocha": "10.0.10",
-    "@types/node": "20.19.0",
-    "astro": "5.9.0",
+    "@types/node": "20.19.1",
+    "astro": "5.9.4",
     "chai": "5.2.0",
     "get-port": "7.1.0",
-    "mocha": "11.5.0",
-    "pkgroll": "2.12.2",
+    "mocha": "11.6.0",
+    "pkgroll": "2.13.1",
     "tsx": "4.19.4",
     "typedoc": "0.28.5",
     "typedoc-github-theme": "0.3.0",

@@ -59,7 +59,7 @@
     "main": "./dist/index.cjs",
     "name": "astro-node-fastify",
     "peerDependencies": {
-        "astro": ">=5.0 <=5.11"
+        "astro": ">=5.0 <=5.12"
     },
     "publishConfig": {
         "provenance": true

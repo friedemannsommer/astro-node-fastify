@@ -82,7 +82,7 @@ function tryParseInt(value: string | undefined): number | undefined {
         return undefined
     }
 
-    const parsed = Number.parseInt(value as string)
+    const parsed = Number.parseInt(value as string, 10)
 
     if (!Number.isNaN(parsed) && Number.isFinite(parsed)) {
         return parsed

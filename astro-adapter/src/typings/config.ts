@@ -1,6 +1,6 @@
 import type { OutgoingHttpHeaders } from 'node:http'
 import type { FastifyServerOptions } from 'fastify'
-import type { Level } from 'pino'
+import type pino from 'pino'
 
 export type EncodingToken = 'br' | 'gzip' | 'deflate'
 // biome-ignore lint/complexity/noBannedTypes: we want to omit any functions from the resulting type
@@ -12,6 +12,11 @@ export type TrustedProxy = Exclude<FastifyServerOptions['trustProxy'], Function>
 type PartialUndef<T> = {
     [P in keyof T]?: T[P] | undefined
 }
+
+/**
+ * Used to specify the logging level for the Pino logging library.
+ */
+export type LogLevel = pino.Level
 
 export interface UserOptions {
     /**
@@ -149,11 +154,11 @@ interface ServerOptions {
      * Defines the log level the server should use. Note that this only affects the server, not Astro itself.
      *
      * Environment variable: `SERVER_LOG_LEVEL`
-     * Environment value: {@link Level}
+     * Environment value: {@link LogLevel}
      *
      * @default info
      */
-    logLevel: Level
+    logLevel: LogLevel
     /**
      * The header name that should be used to set the request ID.
      * Fore more details see Fastify's documentation: https://fastify.dev/docs/latest/Reference/Logging/#logging-request-id

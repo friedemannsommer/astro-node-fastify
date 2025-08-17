@@ -15,12 +15,16 @@ jobs:
   check:
     name: Check
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [20, 22, 24]
     steps:
       - uses: actions/checkout@v5.0.0
       - uses: actions/setup-node@v4.4.0
         with:
           cache: 'npm'
-          node-version-file: '.node-version'
+          node-version-file: ${{ matrix.node-version }}
       - run: npm ci --no-fund --no-audit
       - name: Run checks
         run: npm run check:ci

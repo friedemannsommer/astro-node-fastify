@@ -20,7 +20,7 @@
         "mocha": "11.7.4",
         "pkgroll": "2.18.0",
         "tsx": "4.20.6",
-        "typedoc": "0.28.13",
+        "typedoc": "0.28.14",
         "typedoc-github-theme": "0.3.1",
         "typedoc-plugin-mdn-links": "5.0.9",
         "typedoc-plugin-missing-exports": "4.1.0",

@@ -22,7 +22,7 @@
         "tsx": "4.20.6",
         "typedoc": "0.28.13",
         "typedoc-github-theme": "0.3.1",
-        "typedoc-plugin-mdn-links": "5.0.9",
+        "typedoc-plugin-mdn-links": "5.0.10",
         "typedoc-plugin-missing-exports": "4.1.0",
         "typescript": "5.9.3"
     },

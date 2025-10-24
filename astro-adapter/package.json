@@ -10,15 +10,15 @@
     },
     "description": "Astro Fastify integration for Node.js",
     "devDependencies": {
-        "@biomejs/biome": "2.2.6",
-        "@types/chai": "5.2.2",
+        "@biomejs/biome": "2.2.7",
+        "@types/chai": "5.2.3",
         "@types/mocha": "10.0.10",
-        "@types/node": "22.18.11",
-        "astro": "5.14.6",
+        "@types/node": "22.18.12",
+        "astro": "5.15.1",
         "chai": "6.2.0",
         "get-port": "7.1.0",
         "mocha": "11.7.4",
-        "pkgroll": "2.20.0",
+        "pkgroll": "2.20.1",
         "tsx": "4.20.6",
         "typedoc": "0.28.14",
         "typedoc-github-theme": "0.3.1",
@@ -59,7 +59,7 @@
     "main": "./dist/index.cjs",
     "name": "astro-node-fastify",
     "peerDependencies": {
-        "astro": ">=5.0 <=5.14"
+        "astro": ">=5.0 <=5.15"
     },
     "publishConfig": {
         "provenance": true

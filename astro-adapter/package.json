@@ -15,7 +15,7 @@
         "@types/mocha": "10.0.10",
         "@types/node": "22.18.12",
         "astro": "5.15.1",
-        "chai": "6.2.0",
+        "chai": "6.2.1",
         "get-port": "7.1.0",
         "mocha": "11.7.4",
         "pkgroll": "2.20.1",

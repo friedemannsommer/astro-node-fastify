@@ -32,7 +32,7 @@ jobs:
           fi
 
       - name: upload current docs
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v5.0.0
         with:
           if-no-files-found: error
           name: current_documentation
@@ -61,7 +61,7 @@ jobs:
         run: npm run -w astro-node-fastify docs
 
       - name: upload generated docs
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v5.0.0
         with:
           if-no-files-found: error
           name: generated_documentation
@@ -79,13 +79,13 @@ jobs:
       - uses: actions/checkout@v5.0.0
 
       - name: download current docs
-        uses: actions/download-artifact@v5.0.0
+        uses: actions/download-artifact@v6.0.0
         with:
           name: current_documentation
           path: new_documentation
 
       - name: download new docs
-        uses: actions/download-artifact@v5.0.0
+        uses: actions/download-artifact@v6.0.0
         with:
           name: generated_documentation
           path: generated_documentation
@@ -117,7 +117,7 @@ jobs:
           rsync -ac --delete generated_documentation/ "new_documentation/development"
 
       - name: publish to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4.7.3
+        uses: JamesIves/github-pages-deploy-action@v4.7.4
         with:
           branch: gh-pages
           clean: true

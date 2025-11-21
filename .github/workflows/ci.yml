@@ -51,6 +51,8 @@ jobs:
           cache: 'npm'
           node-version-file: '.node-version'
           registry-url: 'https://registry.npmjs.org'
+      - name: Update npm
+        run: npm install -g npm@latest
       - run: npm ci --no-fund --no-audit
       - name: Create release PR or publish
         uses: changesets/action@v1.5.3

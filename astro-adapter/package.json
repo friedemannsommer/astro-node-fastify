@@ -62,7 +62,8 @@
         "astro": ">=5.0 <=5.16"
     },
     "publishConfig": {
-        "provenance": true
+      "access": "public",
+      "provenance": true
     },
     "repository": {
         "type": "git",

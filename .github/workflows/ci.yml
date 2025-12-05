@@ -20,7 +20,7 @@ jobs:
       matrix:
         node-version: [20, 22, 24]
     steps:
-      - uses: actions/checkout@v6.0.0
+      - uses: actions/checkout@v6.0.1
       - uses: actions/setup-node@v6.0.0
         with:
           cache: 'npm'
@@ -45,7 +45,7 @@ jobs:
     if: github.repository_owner == 'friedemannsommer' && github.ref_name == 'main'
     concurrency: '${{ github.workflow }}-${{ github.ref }}'
     steps:
-      - uses: actions/checkout@v6.0.0
+      - uses: actions/checkout@v6.0.1
       - uses: actions/setup-node@v6.0.0
         with:
           cache: 'npm'

@@ -18,7 +18,7 @@
         "chai": "6.2.1",
         "get-port": "7.1.0",
         "mocha": "11.7.5",
-        "pkgroll": "2.21.1",
+        "pkgroll": "2.21.3",
         "tsx": "4.20.6",
         "typedoc": "0.28.14",
         "typedoc-github-theme": "0.3.1",

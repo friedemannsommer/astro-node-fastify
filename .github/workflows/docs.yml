@@ -45,7 +45,7 @@ jobs:
       - name: checkout source
         uses: actions/checkout@v6.0.1
 
-      - uses: actions/setup-node@v6.1.0
+      - uses: actions/setup-node@v6.2.0
         with:
           cache: 'npm'
           node-version-file: '.node-version'

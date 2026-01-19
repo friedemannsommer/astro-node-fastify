@@ -1,5 +1,11 @@
 # astro-node-fastify
 
+## 0.4.14
+
+### Patch Changes
+
+- [`e1f6f32`](https://github.com/friedemannsommer/astro-node-fastify/commit/e1f6f322b152067513570cb98aafdc298d2fbc74) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Updated `@fastify/static` from [v8.3 to v9.0](https://github.com/fastify/fastify-static/compare/v8.3.0...v9.0.0) and `fastify` from [v5.6 to 5.7](https://github.com/fastify/fastify/compare/v5.6.2...v5.7.1).
+
 ## 0.4.13
 
 ### Patch Changes

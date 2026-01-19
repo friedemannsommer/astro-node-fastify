@@ -62,8 +62,8 @@
         "astro": ">=5.0 <=5.16"
     },
     "publishConfig": {
-      "access": "public",
-      "provenance": true
+        "access": "public",
+        "provenance": true
     },
     "repository": {
         "type": "git",
@@ -82,5 +82,5 @@
     },
     "sideEffects": false,
     "type": "module",
-    "version": "0.4.13"
+    "version": "0.4.14"
 }

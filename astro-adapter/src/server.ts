@@ -55,10 +55,8 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
         },
         requestIdHeader: config.server?.requestIdHeader,
         requestTimeout: config.request?.timeout,
-        routerOptions: {
-            useSemicolonDelimiter: false
-        },
-        trustProxy: config.server?.trustProxy
+        trustProxy: config.server?.trustProxy,
+        useSemicolonDelimiter: false
     })
 
     if (options.supportedEncodings.length >= 1) {

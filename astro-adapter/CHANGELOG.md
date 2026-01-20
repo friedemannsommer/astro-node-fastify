@@ -1,5 +1,11 @@
 # astro-node-fastify
 
+## 0.4.15
+
+### Patch Changes
+
+- [`b02c26b`](https://github.com/friedemannsommer/astro-node-fastify/commit/b02c26bc6319937004afce90a1e91a0b595b5606) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Removed unnecessary Fastify option [`useSemicolonDelimiter`](https://fastify.dev/docs/latest/Reference/Server/#usesemicolondelimiter) since the statically and explicitly set value was the default value.
+
 ## 0.4.14
 
 ### Patch Changes

@@ -55,7 +55,7 @@ jobs:
         run: npm install -g npm@latest
       - run: npm ci --no-fund --no-audit
       - name: Create release PR or publish
-        uses: changesets/action@v1.5.3
+        uses: changesets/action@v1.6.0
         with:
           title: 'ci(changesets): package release'
           commit: 'ci(changesets): version package'

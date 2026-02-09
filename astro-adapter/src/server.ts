@@ -23,6 +23,8 @@ export interface ServiceRuntime {
     readonly config: Readonly<RuntimeOptions>
 }
 
+type AstroRequestOptions = Parameters<typeof NodeApp.createRequest>[1]
+
 export async function createServer(app: NodeApp, options: RuntimeArguments): Promise<ServiceRuntime> {
     const config = getServerConfig(options)
     const assetRoot = pathResolve(options.serverPath, options.clientPath)
@@ -172,29 +174,53 @@ function setDefaultHeaders(
 }
 
 function createAppHandler(app: NodeApp): (req: FastifyRequest, reply: FastifyReply) => Promise<void> {
+    const logger = app.getAdapterLogger()
+
     return async (req: FastifyRequest, reply: FastifyReply): Promise<void> => {
-        const routeData = app.match(req.raw)
+        let astroRequest: Request
+
+        try {
+            astroRequest = NodeApp.createRequest(req.raw, {
+                allowedDomains: app.getAllowedDomains()
+            } as AstroRequestOptions)
+        } catch (err) {
+            logger.error(`Could not handle request: ${req.url}`)
+            console.error(err)
+            reply.code(500).send()
+            return
+        }
+
+        const routeData = app.match(astroRequest, false)
 
         if (routeData) {
-            const response = await app.render(req.raw, {
+            const response = await app.render(astroRequest, {
+                addCookieHeader: true,
                 clientAddress: req.ip,
-                routeData,
+                locals: {
+                    reqId: req.id
+                },
+                routeData
+            })
+
+            reply.headers(Object.fromEntries(response.headers.entries()))
+            reply.code(response.status)
+
+            return reply.send(response.body ? Readable.fromWeb(response.body as WebReadableStream) : undefined)
+        } else {
+            // this `else` is technically unnecessary, but it helps to scope the `response` to this branch exclusively
+            const response = await app.render(astroRequest, {
+                addCookieHeader: true,
+                clientAddress: req.ip,
                 locals: {
                     reqId: req.id
                 }
             })
-
-            for (const cookie of NodeApp.getSetCookieFromResponse(response)) {
-                reply.header('Set-Cookie', cookie)
-            }
 
             reply.headers(Object.fromEntries(response.headers.entries()))
             reply.code(response.status)
 
             return reply.send(response.body ? Readable.fromWeb(response.body as WebReadableStream) : undefined)
         }
-
-        return reply.code(404).send()
     }
 }
 

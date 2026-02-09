@@ -1,0 +1,10 @@
+{
+    "dependencies": {
+        "astro-node-fastify": "*",
+        "astro": "*"
+    },
+    "name": "astro-500-custom-error-page",
+    "private": true,
+    "type": "module",
+    "version": "0.0.0"
+}

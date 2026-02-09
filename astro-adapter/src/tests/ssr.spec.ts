@@ -134,4 +134,41 @@ describe('Astro SSR output', (): void => {
         expect(await apiDotFile.text()).to.eq('dot API path')
         expect(await apiTextFile.text()).to.eq('hello world')
     })
+
+    it('should serve the custom 404 page', async () => {
+        fixture = await previewFixture({
+            root: getFixturePath('./astro-404-custom-error-page')
+        })
+
+        const expectedBody = 'Page not found'
+        const [notFoundPage, notFoundPath] = await Promise.all([
+            fixture.fetch('/404'),
+            fixture.fetch('/path/does/not/exist')
+        ])
+
+        expect(notFoundPage.status).to.eq(404)
+        expect(notFoundPath.status).to.eq(404)
+        expect(notFoundPage.headers.get('content-type')).to.eq('text/html')
+        expect(notFoundPath.headers.get('content-type')).to.eq('text/html')
+
+        expect(await notFoundPage.text()).to.contain(expectedBody)
+        expect(await notFoundPath.text()).to.contain(expectedBody)
+    })
+
+    it('should serve the custom 500 page', async () => {
+        fixture = await previewFixture({
+            root: getFixturePath('./astro-500-custom-error-page')
+        })
+
+        const expectedBody = 'Something went wrong internally...'
+        const [srvErrRes, srvDynErrRes] = await Promise.all([fixture.fetch('/500'), fixture.fetch('/exception')])
+
+        expect(srvErrRes.status).to.eq(500)
+        expect(srvDynErrRes.status).to.eq(500)
+        expect(srvErrRes.headers.get('content-type')).to.eq('text/html')
+        expect(srvDynErrRes.headers.get('content-type')).to.eq('text/html')
+
+        expect(await srvErrRes.text()).to.contain(expectedBody)
+        expect(await srvDynErrRes.text()).to.contain(expectedBody)
+    })
 })

@@ -1,5 +1,11 @@
 # astro-node-fastify
 
+## 0.5.0
+
+### Minor Changes
+
+- [`e56cfba`](https://github.com/friedemannsommer/astro-node-fastify/commit/e56cfbac711e6a50f2e2b386e5d86fce8ad11876) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Updated request handler to use the Astro renderer as fallback if no route data is available.
+
 ## 0.4.16
 
 ### Patch Changes

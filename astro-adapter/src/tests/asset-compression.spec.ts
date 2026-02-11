@@ -1,6 +1,6 @@
 import { access } from 'node:fs/promises'
 import { expect } from 'chai'
-import { buildFixture, type TestFixture } from './utils/astro-fixture.js'
+import { buildFixture, previewFixture, type TestFixture } from './utils/astro-fixture.js'
 import { getFixturePath } from './utils/path.js'
 
 describe('Astro asset compression', (): void => {
@@ -83,6 +83,24 @@ describe('Astro asset compression', (): void => {
         await assertPromiseRejected(access(fixture.resolveClientPath('./lorem-ipsum.txt.gz')))
         await assertPromiseRejected(access(fixture.resolveClientPath('./lorem-ipsum.txt.br')))
     })
+
+    it('should not compress the response if disabled via config option', async (): Promise<void> => {
+        fixture = await previewFixture(
+            {
+                root: getFixturePath('./astro-asset-compression-base')
+            },
+            {
+                routesWithoutCompression: ['/no-compression']
+            }
+        )
+
+        const response = await fixture.fetch('/no-compression')
+
+        expect(response.status).to.eq(200)
+        expect(response.headers.get('content-encoding')).to.be.null
+        expect(response.headers.get('content-type')).to.eq('text/plain')
+        expect(await response.text()).to.contain('Hello world.')
+    })
 })
 
 async function assertPromiseRejected(promise: Promise<void>): Promise<void> {
@@ -98,7 +116,8 @@ async function assertPromiseRejected(promise: Promise<void>): Promise<void> {
 async function assertPromiseFulfilled(promise: Promise<void>): Promise<void> {
     try {
         await promise
-    } catch (_err) {
+    } catch (err) {
+        console.error(err)
         expect.fail('Expected promise to be fulfilled')
     }
 }

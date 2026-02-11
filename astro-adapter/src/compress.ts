@@ -2,7 +2,7 @@ import { createReadStream, createWriteStream, type ReadStream } from 'node:fs'
 import { readdir, rm, stat } from 'node:fs/promises'
 import { extname, resolve } from 'node:path'
 import stream from 'node:stream/promises'
-import { createBrotliCompress, createGzip, createZstdCompress, constants as ZLIB_CONSTANTS } from 'node:zlib'
+import { createBrotliCompress, createGzip, constants as ZLIB_CONSTANTS } from 'node:zlib'
 import type { AstroIntegrationLogger } from 'astro'
 
 export type CompressFn = (filePath: string, originalSize: number, fileStream: ReadStream) => Promise<void>
@@ -79,6 +79,7 @@ export async function brotli(path: string, originalSize: number, fileStream: Rea
 }
 
 export async function zstd(path: string, originalSize: number, fileStream: ReadStream): Promise<void> {
+    const { createZstdCompress } = await import('node:zlib')
     const outputPath = `${path}.zst`
 
     await stream.pipeline(

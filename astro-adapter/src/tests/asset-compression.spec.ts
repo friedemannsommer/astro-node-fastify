@@ -5,6 +5,7 @@ import { buildFixture, previewFixture, type TestFixture } from './utils/astro-fi
 import { getFixturePath } from './utils/path.js'
 
 describe('Astro asset compression', (): void => {
+    const majorVersion = +versions.node.slice(0, versions.node.indexOf('.'))
     let fixture: TestFixture | undefined
 
     afterEach(async (): Promise<void> => {
@@ -53,14 +54,7 @@ describe('Astro asset compression', (): void => {
         await assertPromiseRejected(access(fixture.resolveClientPath('./lorem-ipsum.txt.br')))
     })
 
-    it('should only use Zstd compression', async (): Promise<void> => {
-        const majorVersion = +versions.node.slice(0, versions.node.indexOf('.'))
-
-        if (majorVersion < 22) {
-            console.warn('Zstd compression is not supported on Node.js versions below 22.15. Skipping test.')
-            return
-        }
-
+    const zstdCompressTest = it('should only use Zstd compression', async (): Promise<void> => {
         fixture = await buildFixture(
             {
                 root: getFixturePath('./astro-asset-compression-base')
@@ -74,6 +68,10 @@ describe('Astro asset compression', (): void => {
         await assertPromiseRejected(access(fixture.resolveClientPath('./lorem-ipsum.txt.br')))
         await assertPromiseRejected(access(fixture.resolveClientPath('./lorem-ipsum.txt.gz')))
     })
+
+    if (majorVersion < 22) {
+        zstdCompressTest.skip()
+    }
 
     it('should not pre-compress client assets', async (): Promise<void> => {
         fixture = await buildFixture(

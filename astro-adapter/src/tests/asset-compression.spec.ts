@@ -54,7 +54,7 @@ describe('Astro asset compression', (): void => {
         await assertPromiseRejected(access(fixture.resolveClientPath('./lorem-ipsum.txt.br')))
     })
 
-    const zstdCompressTest = it('should only use Zstd compression', async (): Promise<void> => {
+    ;(majorVersion < 22 ? xit : it)('should only use Zstd compression', async (): Promise<void> => {
         fixture = await buildFixture(
             {
                 root: getFixturePath('./astro-asset-compression-base')
@@ -68,10 +68,6 @@ describe('Astro asset compression', (): void => {
         await assertPromiseRejected(access(fixture.resolveClientPath('./lorem-ipsum.txt.br')))
         await assertPromiseRejected(access(fixture.resolveClientPath('./lorem-ipsum.txt.gz')))
     })
-
-    if (majorVersion < 22) {
-        zstdCompressTest.skip()
-    }
 
     it('should not pre-compress client assets', async (): Promise<void> => {
         fixture = await buildFixture(

@@ -2,7 +2,15 @@ import type { OutgoingHttpHeaders } from 'node:http'
 import type { FastifyServerOptions } from 'fastify'
 import type pino from 'pino'
 
-export type EncodingToken = 'br' | 'gzip' | 'deflate'
+/**
+ * Compression algorithms only available in Node.js 22.15 and above.
+ */
+export type EncodingNodeNext = 'zstd'
+/**
+ * The available compression algorithms.
+ * Note that {@link EncodingNodeNext} refers to encoding algorithms only available in Node.js 22.15 and above.
+ */
+export type EncodingToken = 'br' | 'gzip' | 'deflate' | EncodingNodeNext
 // biome-ignore lint/complexity/noBannedTypes: we want to omit any functions from the resulting type
 export type TrustedProxy = Exclude<FastifyServerOptions['trustProxy'], Function>
 
@@ -58,14 +66,20 @@ export interface UserOptions {
      * @default ['br', 'gzip', 'deflate']
      */
     supportedEncodings?: EncodingToken[] | undefined
+    /**
+     * Optionally specifies routes which responses should not be compressed.
+     * All routes must follow the [Fastify path syntax](https://fastify.dev/docs/latest/Reference/Routes/#url-building).
+     */
+    routesWithoutCompression?: string[] | undefined
 }
 
 export interface RuntimeOptions extends EnvironmentConfig {
+    preCompressed: boolean
+    supportedEncodings: EncodingToken[]
     cache?: PartialUndef<CacheOptions> | undefined
     defaultHeaders?: PartialUndef<DefaultHeaderOptions> | undefined
     dotPrefixes?: string[] | undefined
-    preCompressed: boolean
-    supportedEncodings: EncodingToken[]
+    routesWithoutCompression?: string[] | undefined
 }
 
 export interface RuntimeArguments extends Omit<RuntimeOptions, 'https'> {

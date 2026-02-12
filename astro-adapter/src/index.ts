@@ -1,7 +1,7 @@
 import { relative as pathRelative } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { AstroAdapter, AstroIntegration } from 'astro'
-import { brotli, type CompressFn, gzip, processAssets } from './compress.js'
+import { brotli, type CompressFn, gzip, processAssets, zstd } from './compress.js'
 import type { RuntimeArguments, UserOptions } from './typings/config.js'
 
 const packageName = 'astro-node-fastify'
@@ -35,6 +35,10 @@ export default function createIntegration(userOptions?: UserOptions): AstroInteg
 
                 if (preCompress) {
                     const compressors: CompressFn[] = []
+
+                    if (compressionEncodings.includes('zstd')) {
+                        compressors.push(zstd)
+                    }
 
                     if (compressionEncodings.includes('br')) {
                         compressors.push(brotli)
@@ -85,6 +89,7 @@ export default function createIntegration(userOptions?: UserOptions): AstroInteg
                     port: config.server.port,
                     preCompressed: preCompress,
                     request: userOptions?.request,
+                    routesWithoutCompression: userOptions?.routesWithoutCompression,
                     server: userOptions?.server,
                     serverPath: '',
                     supportedEncodings: compressionEncodings

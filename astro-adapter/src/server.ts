@@ -1,6 +1,6 @@
 import { access, readFile } from 'node:fs/promises'
-import type { OutgoingHttpHeaders } from 'node:http'
-import type { Http2Server } from 'node:http2'
+import type { IncomingMessage, OutgoingHttpHeaders } from 'node:http'
+import type { Http2Server, Http2ServerRequest, Http2ServerResponse } from 'node:http2'
 import { join as pathJoin, resolve as pathResolve } from 'node:path'
 import { Readable } from 'node:stream'
 import type { ReadableStream as WebReadableStream } from 'node:stream/web'
@@ -10,7 +10,9 @@ import fastify, {
     type FastifyInstance,
     type FastifyListenOptions,
     type FastifyReply,
-    type FastifyRequest
+    type FastifyRequest,
+    type RouteHandlerMethod,
+    type RouteShorthandOptions
 } from 'fastify'
 import type { ContentTypeParserDoneFunction } from 'fastify/types/content-type-parser.js'
 import type { HookHandlerDoneFunction } from 'fastify/types/hooks.js'
@@ -24,6 +26,8 @@ export interface ServiceRuntime {
 }
 
 type AstroRequestOptions = Parameters<typeof NodeApp.createRequest>[1]
+type FastifyH2Req = FastifyRequest<RouteGenericInterface, Http2Server>
+type FastifyH2Res = FastifyReply<RouteGenericInterface, Http2Server>
 
 export async function createServer(app: NodeApp, options: RuntimeArguments): Promise<ServiceRuntime> {
     const config = getServerConfig(options)
@@ -84,14 +88,17 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
         wildcard: false
     })
 
-    server.all(
-        '/*',
-        {
-            // @ts-expect-error - the underlying type doesn't explicitly allow `preHandler: undefined`
-            preHandler: options.defaultHeaders?.server ? setDefaultHeaders(options.defaultHeaders.server) : undefined
-        },
-        appHandler
-    )
+    const baseRouteOptions: RouteShorthandOptions<Http2Server, Http2ServerRequest, Http2ServerResponse> = {}
+
+    if (options.defaultHeaders?.server) {
+        baseRouteOptions.preHandler = setDefaultHeaders(options.defaultHeaders.server)
+    }
+
+    server.all('/*', baseRouteOptions, appHandler)
+
+    if (options.routesWithoutCompression && options.routesWithoutCompression.length > 0) {
+        registerCompressionOptOutRoutes(server, appHandler, options.routesWithoutCompression, baseRouteOptions)
+    }
 
     // since we pass the request body to Astro, we need to make sure that Fastify doesn't try to read it beforehand.
     server.removeAllContentTypeParsers()
@@ -136,7 +143,8 @@ function getServerConfig(options: RuntimeArguments): Required<RuntimeOptions> {
             ...envConfig.server
         },
         socket: envConfig.socket ?? options.socket,
-        supportedEncodings: options.supportedEncodings
+        supportedEncodings: options.supportedEncodings,
+        routesWithoutCompression: options.routesWithoutCompression
     }
 }
 
@@ -164,25 +172,42 @@ function setAssetHeaders(
     }
 }
 
+function registerCompressionOptOutRoutes(
+    server: FastifyInstance<Http2Server>,
+    handler: RouteHandlerMethod<Http2Server>,
+    routes: string[],
+    defaultRouteOptions: RouteShorthandOptions<Http2Server>
+): void {
+    const optOutOptions = { ...defaultRouteOptions, compress: false } as const
+
+    for (const route of routes) {
+        server.all(route, optOutOptions, handler)
+    }
+}
+
 function setDefaultHeaders(
     headers: OutgoingHttpHeaders
-): (_req: FastifyRequest, reply: FastifyReply, done: HookHandlerDoneFunction) => void {
-    return (_req: FastifyRequest, reply: FastifyReply, done: HookHandlerDoneFunction): void => {
+): (_req: FastifyH2Req, reply: FastifyH2Res, done: HookHandlerDoneFunction) => void {
+    return (_req: FastifyH2Req, reply: FastifyH2Res, done: HookHandlerDoneFunction): void => {
         reply.headers(headers)
         done()
     }
 }
 
-function createAppHandler(app: NodeApp): (req: FastifyRequest, reply: FastifyReply) => Promise<void> {
+function createAppHandler(app: NodeApp): (req: FastifyH2Req, reply: FastifyH2Res) => Promise<void> {
     const logger = app.getAdapterLogger()
 
-    return async (req: FastifyRequest, reply: FastifyReply): Promise<void> => {
+    return async (req: FastifyH2Req, reply: FastifyH2Res): Promise<void> => {
         let astroRequest: Request
 
         try {
-            astroRequest = NodeApp.createRequest(req.raw, {
-                allowedDomains: app.getAllowedDomains()
-            } as AstroRequestOptions)
+            astroRequest = NodeApp.createRequest(
+                // the request should have all necessary fields regardless of whether it's http or http2
+                req.raw as unknown as IncomingMessage,
+                {
+                    allowedDomains: app.getAllowedDomains()
+                } as AstroRequestOptions
+            )
         } catch (err) {
             logger.error(`Could not handle request: ${req.url}`)
             console.error(err)

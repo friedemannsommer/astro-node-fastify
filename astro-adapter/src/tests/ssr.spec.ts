@@ -137,7 +137,7 @@ describe('Astro SSR output', (): void => {
 
     it('should serve the custom 404 page', async () => {
         fixture = await previewFixture({
-            root: getFixturePath('./astro-404-custom-error-page')
+            root: getFixturePath('./astro-custom-error-page')
         })
 
         const expectedBody = 'Page not found'
@@ -157,7 +157,7 @@ describe('Astro SSR output', (): void => {
 
     it('should serve the custom 500 page', async () => {
         fixture = await previewFixture({
-            root: getFixturePath('./astro-500-custom-error-page')
+            root: getFixturePath('./astro-custom-error-page')
         })
 
         const expectedBody = 'Something went wrong internally...'

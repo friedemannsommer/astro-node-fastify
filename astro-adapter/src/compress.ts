@@ -78,6 +78,23 @@ export async function brotli(path: string, originalSize: number, fileStream: Rea
     await removeLargerOrEqual(outputPath, originalSize)
 }
 
+export async function zstd(path: string, originalSize: number, fileStream: ReadStream): Promise<void> {
+    const { createZstdCompress } = await import('node:zlib')
+    const outputPath = `${path}.zst`
+
+    await stream.pipeline(
+        fileStream,
+        createZstdCompress({
+            params: {
+                [ZLIB_CONSTANTS.ZSTD_c_compressionLevel]: 5
+            }
+        }),
+        createWriteStream(outputPath)
+    )
+
+    await removeLargerOrEqual(outputPath, originalSize)
+}
+
 async function removeLargerOrEqual(path: string, originalSize: number): Promise<void> {
     const fileStats = await stat(path)
 

@@ -52,6 +52,9 @@ algorithms like gzip or brotli.
 
 ## Configuration Example
 
+<details>
+<summary>Show Astro config example</summary>
+
 ```javascript
 // astro.config.mjs
 import {defineConfig} from 'astro/config';
@@ -124,6 +127,7 @@ export default defineConfig({
     })
 });
 ```
+</details>
 
 ## Configuration
 

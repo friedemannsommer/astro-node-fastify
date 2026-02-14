@@ -157,7 +157,7 @@ describe('Astro asset compression', (): void => {
             },
             {
                 server: {
-                    disableAstroResponseStreaming: true,
+                    enableAstroResponseBuffering: true,
                     disableOnDemandCompression: true
                 }
             }
@@ -178,7 +178,7 @@ describe('Astro asset compression', (): void => {
             },
             {
                 server: {
-                    disableAstroResponseStreaming: true
+                    enableAstroResponseBuffering: true
                 }
             }
         )

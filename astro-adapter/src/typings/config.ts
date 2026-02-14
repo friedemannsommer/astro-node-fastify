@@ -151,19 +151,18 @@ interface ServerOptions {
      */
     connectionTimeout: number
     /**
-     * Disable [Astro's streaming](https://docs.astro.build/en/guides/on-demand-rendering/#html-streaming)
-     * behavior for all responses handled by it.
+     * Disables Astro's experimental HTML streaming feature.
      *
-     * Using this option will not globally disable streaming, since _your_ implementation can still reply with streaming responses.
-     * This can be useful if the service is deployed behind a reverse proxy which handles compression but requires the `Content-Length` header.
+     * @see https://docs.astro.build/en/recipes/streaming-improve-page-performance/
+     * @see https://docs.astro.build/en/guides/on-demand-rendering/#html-streaming
      *
-     * Environment variable: `SERVER_DISABLE_ASTRO_RESPONSE_STREAMING`
+     * Environment variable: `SERVER_DISABLE_ASTRO_HTML_STREAMING`
      *
      * Environment value: "1" (`true`), "0" (`false`)
      *
      * @default false
      */
-    disableAstroResponseStreaming: boolean
+    disableAstroHtmlStreaming: boolean
     /**
      * Disables on-demand compression for all responses handled by Fastify.
      *
@@ -177,6 +176,19 @@ interface ServerOptions {
      * @default false
      */
     disableOnDemandCompression: boolean
+    /**
+     * Buffers all responses returned by Astro.
+     * But since they're passed to Fastify, they can still be compressed and therefore converted to streaming responses.
+     *
+     * This can be useful if the service is deployed behind a reverse proxy which handles compression but requires the `Content-Length` header.
+     *
+     * Environment variable: `SERVER_ENABLE_ASTRO_RESPONSE_BUFFERING`
+     *
+     * Environment value: "1" (`true`), "0" (`false`)
+     *
+     * @default false
+     */
+    enableAstroResponseBuffering: boolean
     /**
      * The time in milliseconds to wait for the server to gracefully close before forcefully shutting down.
      *

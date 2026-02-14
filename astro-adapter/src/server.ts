@@ -43,6 +43,7 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
         }
     }
     const appHandler = createAppHandler(app, config)
+    const enableResponseCompression = config.server?.disableOnDemandCompression !== true
     const server = fastify({
         bodyLimit: config.request?.bodyLimit,
         connectionTimeout: config.server?.connectionTimeout,
@@ -68,7 +69,7 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
     if (options.supportedEncodings.length >= 1) {
         await server.register(import('@fastify/compress'), {
             encodings: options.supportedEncodings,
-            globalCompression: config.server?.disableOnDemandCompression !== true,
+            globalCompression: enableResponseCompression,
             requestEncodings: options.supportedEncodings,
             threshold: config.server?.compressionThreshold ?? 10_240 // 10kb
         })
@@ -101,7 +102,7 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
 
     if (
         // there's no need to register the routes if compression is disabled
-        config.server?.disableOnDemandCompression !== true &&
+        enableResponseCompression &&
         options.routesWithoutCompression &&
         options.routesWithoutCompression.length > 0
     ) {
@@ -207,8 +208,7 @@ function createAppHandler(
     config: Required<RuntimeOptions>
 ): (req: FastifyH2Req, reply: FastifyH2Res) => Promise<void> {
     const logger = app.getAdapterLogger()
-    const responseHandler =
-        config.server?.disableAstroResponseStreaming === true ? bufferStreamResponse : transformStreamResponse
+    const responseHandler = config.server?.enableAstroResponseBuffering ? bufferStreamResponse : transformStreamResponse
 
     return async (req: FastifyH2Req, reply: FastifyH2Res): Promise<void> => {
         let astroRequest: Request

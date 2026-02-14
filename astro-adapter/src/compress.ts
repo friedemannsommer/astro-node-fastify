@@ -30,7 +30,13 @@ export async function processAssets({
 
         if (entry.isDirectory()) {
             compressionResults.push(
-                processAssets({ compressibleFileExtensions, compressors, logger, path: filename, threshold })
+                processAssets({
+                    compressibleFileExtensions,
+                    compressors,
+                    logger,
+                    path: filename,
+                    threshold
+                })
             )
         } else if (compressibleFileExtensions.has(extname(filename))) {
             const fileStats = await stat(filename)

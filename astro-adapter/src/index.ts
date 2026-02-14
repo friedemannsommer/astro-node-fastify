@@ -112,13 +112,16 @@ export default function createIntegration(userOptions?: UserOptions): AstroInteg
                     throw error
                 }
             },
-            'astro:config:setup': ({ updateConfig, config }): void => {
+            'astro:config:setup': ({ updateConfig, config, command }): void => {
                 updateConfig({
                     image: {
-                        endpoint: config.image.endpoint ?? 'astro/assets/endpoint/node'
+                        endpoint:
+                            config.image.endpoint ??
+                            (command === 'dev' ? 'astro/assets/endpoint/dev' : 'astro/assets/endpoint/node')
                     },
                     vite: {
                         ssr: {
+                            noExternal: [packageName],
                             target: 'node'
                         }
                     }

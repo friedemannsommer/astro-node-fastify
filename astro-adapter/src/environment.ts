@@ -40,17 +40,23 @@ function getHttpsConfig(): EnvironmentConfig['https'] {
 
 function getServerConfig(): EnvironmentConfig['server'] {
     const accessLogging = tryParseBool(process.env.SERVER_ACCESS_LOGGING?.trim())
-    const connectionTimeout = tryParseInt(process.env.SERVER_CONNECTION_TIMEOUT)
-    const gracefulTimeout = tryParseInt(process.env.SERVER_GRACEFUL_TIMEOUT)
+    const compressionThreshold = tryParseInt(process.env.SERVER_COMPRESSION_THRESHOLD?.trim())
+    const connectionTimeout = tryParseInt(process.env.SERVER_CONNECTION_TIMEOUT?.trim())
+    const disableAstroResponseStreaming = tryParseBool(process.env.SERVER_DISABLE_ASTRO_RESPONSE_STREAMING?.trim())
+    const disableOnDemandCompression = tryParseBool(process.env.SERVER_DISABLE_ON_DEMAND_COMPRESSION?.trim())
+    const gracefulTimeout = tryParseInt(process.env.SERVER_GRACEFUL_TIMEOUT?.trim())
     const http2 = tryParseBool(process.env.SERVER_HTTP2?.trim())
-    const keepAliveTimeout = tryParseInt(process.env.SERVER_KEEP_ALIVE_TIMEOUT)
+    const keepAliveTimeout = tryParseInt(process.env.SERVER_KEEP_ALIVE_TIMEOUT?.trim())
     const logLevel = parseLogLevel(process.env.SERVER_LOG_LEVEL?.trim())
     const requestIdHeader = process.env.SERVER_REQUEST_ID_HEADER?.trim()
     const trustProxy = process.env.SERVER_TRUST_PROXY?.trim()
 
     return createConfig({
         accessLogging,
+        compressionThreshold,
         connectionTimeout,
+        disableAstroResponseStreaming,
+        disableOnDemandCompression,
         gracefulTimeout,
         http2,
         keepAliveTimeout,

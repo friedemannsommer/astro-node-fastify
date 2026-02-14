@@ -5,6 +5,7 @@ import { join as pathJoin, resolve as pathResolve } from 'node:path'
 import { Readable } from 'node:stream'
 import type { ReadableStream as WebReadableStream } from 'node:stream/web'
 import fastifyStatic, { type SetHeadersResponse } from '@fastify/static'
+import type { RenderOptions } from 'astro/app'
 import { NodeApp } from 'astro/app/node'
 import fastify, {
     type FastifyInstance,
@@ -41,7 +42,7 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
             return `server listening on: ${address}`
         }
     }
-    const appHandler = createAppHandler(app)
+    const appHandler = createAppHandler(app, config)
     const server = fastify({
         bodyLimit: config.request?.bodyLimit,
         connectionTimeout: config.server?.connectionTimeout,
@@ -67,7 +68,9 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
     if (options.supportedEncodings.length >= 1) {
         await server.register(import('@fastify/compress'), {
             encodings: options.supportedEncodings,
-            requestEncodings: options.supportedEncodings
+            globalCompression: config.server?.disableOnDemandCompression !== true,
+            requestEncodings: options.supportedEncodings,
+            threshold: config.server?.compressionThreshold ?? 10_240 // 10kb
         })
     }
 
@@ -96,7 +99,12 @@ export async function createServer(app: NodeApp, options: RuntimeArguments): Pro
 
     server.all('/*', baseRouteOptions, appHandler)
 
-    if (options.routesWithoutCompression && options.routesWithoutCompression.length > 0) {
+    if (
+        // there's no need to register the routes if compression is disabled
+        config.server?.disableOnDemandCompression !== true &&
+        options.routesWithoutCompression &&
+        options.routesWithoutCompression.length > 0
+    ) {
         registerCompressionOptOutRoutes(server, appHandler, options.routesWithoutCompression, baseRouteOptions)
     }
 
@@ -138,13 +146,13 @@ function getServerConfig(options: RuntimeArguments): Required<RuntimeOptions> {
             bodyLimit: envConfig.request?.bodyLimit ?? options.request?.bodyLimit,
             timeout: envConfig.request?.timeout ?? options.request?.timeout
         },
+        routesWithoutCompression: options.routesWithoutCompression,
         server: {
             ...options.server,
             ...envConfig.server
         },
         socket: envConfig.socket ?? options.socket,
-        supportedEncodings: options.supportedEncodings,
-        routesWithoutCompression: options.routesWithoutCompression
+        supportedEncodings: options.supportedEncodings
     }
 }
 
@@ -194,8 +202,13 @@ function setDefaultHeaders(
     }
 }
 
-function createAppHandler(app: NodeApp): (req: FastifyH2Req, reply: FastifyH2Res) => Promise<void> {
+function createAppHandler(
+    app: NodeApp,
+    config: Required<RuntimeOptions>
+): (req: FastifyH2Req, reply: FastifyH2Res) => Promise<void> {
     const logger = app.getAdapterLogger()
+    const responseHandler =
+        config.server?.disableAstroResponseStreaming === true ? bufferStreamResponse : transformStreamResponse
 
     return async (req: FastifyH2Req, reply: FastifyH2Res): Promise<void> => {
         let astroRequest: Request
@@ -216,37 +229,56 @@ function createAppHandler(app: NodeApp): (req: FastifyH2Req, reply: FastifyH2Res
         }
 
         const routeData = app.match(astroRequest, false)
+        const renderOptions = getDefaultAstroRenderOptions(req)
 
         if (routeData) {
-            const response = await app.render(astroRequest, {
-                addCookieHeader: true,
-                clientAddress: req.ip,
-                locals: {
-                    reqId: req.id
-                },
-                routeData
-            })
+            renderOptions.routeData = routeData
+
+            const response = await app.render(astroRequest, renderOptions)
 
             reply.headers(Object.fromEntries(response.headers.entries()))
             reply.code(response.status)
 
-            return reply.send(response.body ? Readable.fromWeb(response.body as WebReadableStream) : undefined)
+            return responseHandler(response, reply)
         } else {
-            // this `else` is technically unnecessary, but it helps to scope the `response` to this branch exclusively
-            const response = await app.render(astroRequest, {
-                addCookieHeader: true,
-                clientAddress: req.ip,
-                locals: {
-                    reqId: req.id
-                }
-            })
+            const response = await app.render(astroRequest, renderOptions)
 
             reply.headers(Object.fromEntries(response.headers.entries()))
             reply.code(response.status)
 
-            return reply.send(response.body ? Readable.fromWeb(response.body as WebReadableStream) : undefined)
+            return responseHandler(response, reply)
         }
     }
+}
+
+function getDefaultAstroRenderOptions(req: FastifyH2Req): RenderOptions {
+    return {
+        addCookieHeader: true,
+        clientAddress: req.ip,
+        locals: {
+            reqId: req.id
+        }
+    }
+}
+
+async function bufferStreamResponse(res: Response, reply: FastifyH2Res): Promise<void> {
+    if (!res.body) {
+        return reply.send()
+    }
+
+    const buffer = []
+
+    for await (const chunk of res.body) {
+        buffer.push(chunk)
+    }
+
+    return reply.send(Buffer.concat(buffer))
+}
+
+function transformStreamResponse(res: Response, reply: FastifyH2Res): PromiseLike<void> {
+    return reply.send(
+        res.body ? Readable.fromWeb(res.body as WebReadableStream) : undefined
+    ) as unknown as PromiseLike<void>
 }
 
 function createCacheControlHeader(cache?: RuntimeOptions['cache']): string | undefined {

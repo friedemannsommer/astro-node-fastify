@@ -57,6 +57,11 @@ export interface UserOptions {
      */
     request?: PartialUndef<RequestOptions> | undefined
     /**
+     * Optionally specifies routes which responses should not be compressed.
+     * All routes must follow the [Fastify path syntax](https://fastify.dev/docs/latest/Reference/Routes/#url-building).
+     */
+    routesWithoutCompression?: string[] | undefined
+    /**
      * Can be defined to configure the server.
      */
     server?: PartialUndef<ServerOptions> | undefined
@@ -66,20 +71,15 @@ export interface UserOptions {
      * @default ['br', 'gzip', 'deflate']
      */
     supportedEncodings?: EncodingToken[] | undefined
-    /**
-     * Optionally specifies routes which responses should not be compressed.
-     * All routes must follow the [Fastify path syntax](https://fastify.dev/docs/latest/Reference/Routes/#url-building).
-     */
-    routesWithoutCompression?: string[] | undefined
 }
 
 export interface RuntimeOptions extends EnvironmentConfig {
-    preCompressed: boolean
-    supportedEncodings: EncodingToken[]
     cache?: PartialUndef<CacheOptions> | undefined
     defaultHeaders?: PartialUndef<DefaultHeaderOptions> | undefined
     dotPrefixes?: string[] | undefined
+    preCompressed: boolean
     routesWithoutCompression?: string[] | undefined
+    supportedEncodings: EncodingToken[]
 }
 
 export interface RuntimeArguments extends Omit<RuntimeOptions, 'https'> {
@@ -121,25 +121,67 @@ interface ServerOptions {
      * Enables or disables request logging.
      *
      * Environment variable: `SERVER_ACCESS_LOGGING`
+     *
      * Environment value: "1" (`true`), "0" (`false`)
      *
      * @default true
      */
     accessLogging: boolean
     /**
+     * Defines the compression threshold in bytes.
+     * If the response size is smaller than this threshold, it will not be compressed.
+     * (As long as the response isn't a streaming response.)
+     *
+     * Environment variable: `SERVER_COMPRESSION_THRESHOLD`
+     *
+     * Environment value: <integer>
+     *
+     * @default 10240
+     */
+    compressionThreshold: number
+    /**
      * Defines the server timeout in milliseconds.
      * See the Node.js documentation for more details: https://nodejs.org/api/http.html#http_server_timeout
      *
      * Environment variable: `SERVER_CONNECTION_TIMEOUT`
+     *
      * Environment value: <integer>
      *
      * @default 0
      */
     connectionTimeout: number
     /**
+     * Disable [Astro's streaming](https://docs.astro.build/en/guides/on-demand-rendering/#html-streaming)
+     * behavior for all responses handled by it.
+     *
+     * Using this option will not globally disable streaming, since _your_ implementation can still reply with streaming responses.
+     * This can be useful if the service is deployed behind a reverse proxy which handles compression but requires the `Content-Length` header.
+     *
+     * Environment variable: `SERVER_DISABLE_ASTRO_RESPONSE_STREAMING`
+     *
+     * Environment value: "1" (`true`), "0" (`false`)
+     *
+     * @default false
+     */
+    disableAstroResponseStreaming: boolean
+    /**
+     * Disables on-demand compression for all responses handled by Fastify.
+     *
+     * Using this option will not globally disable compression, since _your_ implementation can still reply with compressed responses.
+     * This can be useful if the service is deployed behind a reverse proxy which handles compression but requires the `Content-Length` header.
+     *
+     * Environment variable: `SERVER_DISABLE_ON_DEMAND_COMPRESSION`
+     *
+     * Environment value: "1" (`true`), "0" (`false`)
+     *
+     * @default false
+     */
+    disableOnDemandCompression: boolean
+    /**
      * The time in milliseconds to wait for the server to gracefully close before forcefully shutting down.
      *
      * Environment variable: `SERVER_GRACEFUL_TIMEOUT`
+     *
      * Environment value: <integer>
      *
      * @default 5000
@@ -149,6 +191,7 @@ interface ServerOptions {
      * If `true` an HTTP/2 server will be created instead of the HTTP/1.1 one.
      *
      * Environment variable: `SERVER_HTTP2`
+     *
      * Environment value: "1" (`true`), "0" (`false`)
      *
      * @default false
@@ -159,6 +202,7 @@ interface ServerOptions {
      * See the Node.js documentation for more details: https://nodejs.org/api/http.html#http_server_keepalivetimeout
      *
      * Environment variable: `SERVER_KEEP_ALIVE_TIMEOUT`
+     *
      * Environment value: <integer>
      *
      * @default 72000
@@ -168,6 +212,7 @@ interface ServerOptions {
      * Defines the log level the server should use. Note that this only affects the server, not Astro itself.
      *
      * Environment variable: `SERVER_LOG_LEVEL`
+     *
      * Environment value: {@link LogLevel}
      *
      * @default info
@@ -178,6 +223,7 @@ interface ServerOptions {
      * Fore more details see Fastify's documentation: https://fastify.dev/docs/latest/Reference/Logging/#logging-request-id
      *
      * Environment variable: `SERVER_REQUEST_ID_HEADER`
+     *
      * Environment value: <string>
      *
      * @default "request-id"
@@ -188,6 +234,7 @@ interface ServerOptions {
      * For more details see Fastify's documentation: https://fastify.dev/docs/latest/Reference/Server/#trustproxy
      *
      * Environment variable: `SERVER_TRUST_PROXY`
+     *
      * Environment value: "1" (`true`), "0" (`false`), <string>
      */
     trustProxy: TrustedProxy
@@ -201,6 +248,7 @@ interface RequestOptions {
      * Defines the maximum payload (in bytes), the server is allowed to accept.
      *
      * Environment variable: `REQUEST_BODY_LIMIT`
+     *
      * Environment value: <integer>
      *
      * @default 1048576
@@ -211,6 +259,7 @@ interface RequestOptions {
      * See the Node.js documentation for more details: https://nodejs.org/dist/latest/docs/api/http.html#http_server_requesttimeout
      *
      * Environment variable: `REQUEST_TIMEOUT`
+     *
      * Environment value: <integer>
      *
      * @default 0

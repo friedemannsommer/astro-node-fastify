@@ -53,7 +53,6 @@ describe('Astro asset compression', (): void => {
         await assertPromiseFulfilled(access(fixture.resolveClientPath('./lorem-ipsum.txt.gz')))
         await assertPromiseRejected(access(fixture.resolveClientPath('./lorem-ipsum.txt.br')))
     })
-
     ;(majorVersion < 22 ? xit : it)('should only use Zstd compression', async (): Promise<void> => {
         fixture = await buildFixture(
             {
@@ -101,7 +100,7 @@ describe('Astro asset compression', (): void => {
         await assertPromiseRejected(access(fixture.resolveClientPath('./lorem-ipsum.txt.br')))
     })
 
-    it('should not compress the response if disabled via config option', async (): Promise<void> => {
+    it('should not compress route response if disabled via config option', async (): Promise<void> => {
         fixture = await previewFixture(
             {
                 root: getFixturePath('./astro-asset-compression-base')
@@ -117,6 +116,79 @@ describe('Astro asset compression', (): void => {
         expect(response.headers.get('content-encoding')).to.be.null
         expect(response.headers.get('content-type')).to.eq('text/plain')
         expect(await response.text()).to.contain('Hello world.')
+    })
+
+    it('should not compress Fastify responses if disabled via config option', async (): Promise<void> => {
+        fixture = await previewFixture(
+            {
+                root: getFixturePath('./astro-asset-compression-base')
+            },
+            {
+                server: {
+                    disableOnDemandCompression: true
+                }
+            }
+        )
+
+        const [robots, loremIpsum, noCompression] = await Promise.all([
+            fixture.fetch('/robots.txt'),
+            fixture.fetch('/lorem-ipsum.txt'),
+            fixture.fetch('/no-compression')
+        ])
+
+        expect(robots.status).to.eq(200)
+        expect(robots.headers.get('content-encoding')).to.be.null
+        expect(robots.headers.get('content-length')).not.to.be.null
+
+        expect(loremIpsum.status).to.eq(200)
+        expect(loremIpsum.headers.get('content-encoding')).not.to.be.null
+        expect(loremIpsum.headers.get('content-length')).not.to.be.null
+
+        expect(noCompression.status).to.eq(200)
+        expect(noCompression.headers.get('content-encoding')).to.be.null
+        expect(noCompression.headers.get('transfer-encoding')).to.eq('chunked')
+        expect(noCompression.headers.get('content-length')).to.be.null
+    })
+
+    it('should not stream Astro responses if disabled via config option', async (): Promise<void> => {
+        fixture = await previewFixture(
+            {
+                root: getFixturePath('./astro-asset-compression-base')
+            },
+            {
+                server: {
+                    disableAstroResponseStreaming: true,
+                    disableOnDemandCompression: true
+                }
+            }
+        )
+
+        const noCompression = await fixture.fetch('/no-compression')
+
+        expect(noCompression.status).to.eq(200)
+        expect(noCompression.headers.get('content-encoding')).to.be.null
+        expect(noCompression.headers.get('transfer-encoding')).to.be.null
+        expect(noCompression.headers.get('content-length')).not.to.be.null
+    })
+
+    it('should compress stream Astro responses even if streaming is disabled via config option', async (): Promise<void> => {
+        fixture = await previewFixture(
+            {
+                root: getFixturePath('./astro-asset-compression-base')
+            },
+            {
+                server: {
+                    disableAstroResponseStreaming: true
+                }
+            }
+        )
+
+        const noCompression = await fixture.fetch('/no-compression')
+
+        expect(noCompression.status).to.eq(200)
+        expect(noCompression.headers.get('content-encoding')).not.to.be.null
+        expect(noCompression.headers.get('transfer-encoding')).not.to.be.null
+        expect(noCompression.headers.get('content-length')).to.be.null
     })
 })
 

@@ -1,6 +1,5 @@
 import type { OutgoingHttpHeaders } from 'node:http'
 import type { FastifyServerOptions } from 'fastify'
-import type { Level as PinoLogLevel } from 'pino'
 
 /**
  * Compression algorithms only available in Node.js 22.15 and above.
@@ -24,7 +23,7 @@ type PartialUndef<T> = {
 /**
  * Used to specify the logging level for the Pino logging library.
  */
-export type LogLevel = PinoLogLevel
+export type LogLevel = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace'
 
 export interface UserOptions {
     /**

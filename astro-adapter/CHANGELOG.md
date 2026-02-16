@@ -1,5 +1,21 @@
 # astro-node-fastify
 
+## 0.6.0
+
+### Minor Changes
+
+- [#370](https://github.com/friedemannsommer/astro-node-fastify/pull/370) [`517dd53`](https://github.com/friedemannsommer/astro-node-fastify/commit/517dd5332aa75cff941d095bf41296b7c440773d) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Introduced the [`disableAstroHtmlStreaming`](https://friedemannsommer.github.io/astro-node-fastify/development/interfaces/_internal_.ServerOptions.html#disableastrohtmlstreaming) server option to disable the (now by default enabled) experimental [Astro HTML streaming](https://docs.astro.build/en/recipes/streaming-improve-page-performance/) feature.
+
+- [#370](https://github.com/friedemannsommer/astro-node-fastify/pull/370) [`517dd53`](https://github.com/friedemannsommer/astro-node-fastify/commit/517dd5332aa75cff941d095bf41296b7c440773d) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Introduced [`compressionThreshold`](https://friedemannsommer.github.io/astro-node-fastify/development/interfaces/_internal_.ServerOptions.html#compressionthreshold) server option to configure the minimum buffer size (which has been increased to 10 kb) for on-demand compression.
+
+- [#362](https://github.com/friedemannsommer/astro-node-fastify/pull/362) [`3201bd4`](https://github.com/friedemannsommer/astro-node-fastify/commit/3201bd499cff76129ff352682a06f3bcf2e45b08) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Added an option to disable compression for statically configured routes (see [`routesWithoutCompression`](https://friedemannsommer.github.io/astro-node-fastify/development/interfaces/_internal_.UserOptions.html#routeswithoutcompression)).
+
+- [#362](https://github.com/friedemannsommer/astro-node-fastify/pull/362) [`3201bd4`](https://github.com/friedemannsommer/astro-node-fastify/commit/3201bd499cff76129ff352682a06f3bcf2e45b08) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Added "[zstd](https://github.com/facebook/zstd)" as a supported encoding algorithm (only available for Node.js v22.15 and above).
+
+- [#370](https://github.com/friedemannsommer/astro-node-fastify/pull/370) [`517dd53`](https://github.com/friedemannsommer/astro-node-fastify/commit/517dd5332aa75cff941d095bf41296b7c440773d) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Introduced [`disableOnDemandCompression`](https://friedemannsommer.github.io/astro-node-fastify/development/interfaces/_internal_.ServerOptions.html#disableondemandcompression) server option to globally disable on-demand response compression (while keeping request compression enabled).
+
+- [#370](https://github.com/friedemannsommer/astro-node-fastify/pull/370) [`517dd53`](https://github.com/friedemannsommer/astro-node-fastify/commit/517dd5332aa75cff941d095bf41296b7c440773d) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Introduced [`enableAstroResponseBuffering`](https://friedemannsommer.github.io/astro-node-fastify/development/interfaces/_internal_.ServerOptions.html#enableastroresponsebuffering) option to buffer all responses emitted by Astro in-memory before sending them to the client.
+
 ## 0.5.0
 
 ### Minor Changes

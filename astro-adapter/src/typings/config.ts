@@ -232,7 +232,7 @@ interface ServerOptions {
     logLevel: LogLevel
     /**
      * The header name that should be used to set the request ID.
-     * Fore more details see Fastify's documentation: https://fastify.dev/docs/latest/Reference/Logging/#logging-request-id
+     * For more details see Fastify's documentation: https://fastify.dev/docs/latest/Reference/Logging/#logging-request-id
      *
      * Environment variable: `SERVER_REQUEST_ID_HEADER`
      *

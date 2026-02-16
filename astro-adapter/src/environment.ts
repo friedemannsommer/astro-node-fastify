@@ -39,23 +39,20 @@ function getHttpsConfig(): EnvironmentConfig['https'] {
 }
 
 function getServerConfig(): EnvironmentConfig['server'] {
-    const accessLogging = tryParseBool(process.env.SERVER_ACCESS_LOGGING?.trim())
-    const connectionTimeout = tryParseInt(process.env.SERVER_CONNECTION_TIMEOUT)
-    const gracefulTimeout = tryParseInt(process.env.SERVER_GRACEFUL_TIMEOUT)
-    const http2 = tryParseBool(process.env.SERVER_HTTP2?.trim())
-    const keepAliveTimeout = tryParseInt(process.env.SERVER_KEEP_ALIVE_TIMEOUT)
-    const logLevel = parseLogLevel(process.env.SERVER_LOG_LEVEL?.trim())
-    const requestIdHeader = process.env.SERVER_REQUEST_ID_HEADER?.trim()
     const trustProxy = process.env.SERVER_TRUST_PROXY?.trim()
 
     return createConfig({
-        accessLogging,
-        connectionTimeout,
-        gracefulTimeout,
-        http2,
-        keepAliveTimeout,
-        logLevel,
-        requestIdHeader: requestIdHeader?.trim(),
+        accessLogging: tryParseBool(process.env.SERVER_ACCESS_LOGGING?.trim()),
+        compressionThreshold: tryParseInt(process.env.SERVER_COMPRESSION_THRESHOLD?.trim()),
+        connectionTimeout: tryParseInt(process.env.SERVER_CONNECTION_TIMEOUT?.trim()),
+        disableAstroHtmlStreaming: tryParseBool(process.env.SERVER_DISABLE_ASTRO_HTML_STREAMING?.trim()),
+        disableOnDemandCompression: tryParseBool(process.env.SERVER_DISABLE_ON_DEMAND_COMPRESSION?.trim()),
+        enableAstroResponseBuffering: tryParseBool(process.env.SERVER_ENABLE_ASTRO_RESPONSE_BUFFERING?.trim()),
+        gracefulTimeout: tryParseInt(process.env.SERVER_GRACEFUL_TIMEOUT?.trim()),
+        http2: tryParseBool(process.env.SERVER_HTTP2?.trim()),
+        keepAliveTimeout: tryParseInt(process.env.SERVER_KEEP_ALIVE_TIMEOUT?.trim()),
+        logLevel: parseLogLevel(process.env.SERVER_LOG_LEVEL?.trim()),
+        requestIdHeader: process.env.SERVER_REQUEST_ID_HEADER?.trim(),
         trustProxy: tryParseBool(trustProxy) ?? trustProxy
     })
 }

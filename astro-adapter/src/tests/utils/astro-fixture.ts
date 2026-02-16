@@ -82,6 +82,15 @@ export async function createFixture(
 
 export async function loadFixture(fixtureConfig: AstroFixtureOptions): Promise<TestFixture> {
     fixtureConfig.logLevel = 'silent'
+    fixtureConfig.security ??= {
+        allowedDomains: [
+            {
+                hostname: 'localhost',
+                protocol: 'http'
+            }
+        ],
+        checkOrigin: false
+    }
 
     const { astroConfig } = await resolveConfig(fixtureConfig, 'dev')
 

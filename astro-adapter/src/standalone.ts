@@ -16,27 +16,36 @@ export function createExports(manifest: SSRManifest, options: RuntimeArguments):
         options,
         async startServer(optionsOverride?: Partial<RuntimeArguments>): Promise<FastifyInstance> {
             return (
-                await createServer(new NodeApp(manifest), {
-                    ...options,
-                    ...optionsOverride,
-                    cache: {
-                        ...options.cache,
-                        ...optionsOverride?.cache
-                    },
-                    defaultHeaders: {
-                        ...options.defaultHeaders,
-                        ...optionsOverride?.defaultHeaders
-                    },
-                    request: {
-                        ...options.request,
-                        ...optionsOverride?.request
-                    },
-                    server: {
-                        ...options.server,
-                        ...optionsOverride?.server
-                    },
-                    serverPath: getServerPath(optionsOverride?.serverPath ?? options.serverPath)
-                })
+                await createServer(
+                    new NodeApp(
+                        manifest,
+                        !(
+                            optionsOverride?.server?.disableAstroHtmlStreaming ??
+                            options.server?.disableAstroHtmlStreaming
+                        )
+                    ),
+                    {
+                        ...options,
+                        ...optionsOverride,
+                        cache: {
+                            ...options.cache,
+                            ...optionsOverride?.cache
+                        },
+                        defaultHeaders: {
+                            ...options.defaultHeaders,
+                            ...optionsOverride?.defaultHeaders
+                        },
+                        request: {
+                            ...options.request,
+                            ...optionsOverride?.request
+                        },
+                        server: {
+                            ...options.server,
+                            ...optionsOverride?.server
+                        },
+                        serverPath: getServerPath(optionsOverride?.serverPath ?? options.serverPath)
+                    }
+                )
             ).server
         }
     }
@@ -50,10 +59,13 @@ export function start(manifest: SSRManifest, options: RuntimeArguments): void {
     // mutate in-place since there should be no need for a copy
     options.serverPath = getServerPath(options.serverPath)
 
-    createServer(new NodeApp(manifest), options).then(setupExitHandlers, (err: Error): void => {
-        console.error(err)
-        process.exit(1)
-    })
+    createServer(new NodeApp(manifest, !options.server?.disableAstroHtmlStreaming), options).then(
+        setupExitHandlers,
+        (err: Error): void => {
+            console.error(err)
+            process.exit(1)
+        }
+    )
 }
 
 function setupExitHandlers({ config, server }: ServiceRuntime): void {

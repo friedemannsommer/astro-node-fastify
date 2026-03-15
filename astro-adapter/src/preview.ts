@@ -9,12 +9,14 @@ const createPreviewServer: CreatePreviewServer = async (previewParams): Promise<
     const ssrModule = (await import(previewParams.serverEntrypoint.toString())) as SupportedExports
     let host = previewParams.host ?? 'localhost'
     let port = previewParams.port
-    const server = await ssrModule.startServer({
-        defaultHeaders: previewParams.headers ? { server: previewParams.headers } : undefined,
-        host,
-        port,
-        serverPath: dirname(fileURLToPath(previewParams.serverEntrypoint))
-    })
+    const server = (
+        await ssrModule.startServer({
+            defaultHeaders: previewParams.headers ? { server: previewParams.headers } : undefined,
+            host,
+            port,
+            serverPath: dirname(fileURLToPath(previewParams.serverEntrypoint))
+        })
+    ).server
     let resolveCloseFuture: VoidFunction | undefined
     const closeFuture = new Promise<void>((resolve): void => {
         resolveCloseFuture = resolve

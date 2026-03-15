@@ -79,13 +79,13 @@ jobs:
       - uses: actions/checkout@v6.0.2
 
       - name: download current docs
-        uses: actions/download-artifact@v7.0.0
+        uses: actions/download-artifact@v8.0.1
         with:
           name: current_documentation
           path: new_documentation
 
       - name: download new docs
-        uses: actions/download-artifact@v7.0.0
+        uses: actions/download-artifact@v8.0.1
         with:
           name: generated_documentation
           path: generated_documentation

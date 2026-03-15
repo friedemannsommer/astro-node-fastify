@@ -1,5 +1,15 @@
 # astro-node-fastify
 
+## 0.7.0
+
+### Minor Changes
+
+- [`f1523fb`](https://github.com/friedemannsommer/astro-node-fastify/commit/f1523fbb5f949c22d06a9b883a95eacf92e75bc7) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Migrated package to support Astro's new adapter API
+
+### Patch Changes
+
+- [`0e1817e`](https://github.com/friedemannsommer/astro-node-fastify/commit/0e1817ed20f2384a6645cfae8e89730bfedada29) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Upgraded Astro support range to include [v6](https://github.com/withastro/astro/releases/tag/astro%406.0.0).
+
 ## 0.6.1
 
 ### Patch Changes

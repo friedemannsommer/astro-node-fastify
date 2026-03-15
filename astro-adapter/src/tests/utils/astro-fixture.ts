@@ -23,15 +23,9 @@ export interface TestFixture {
     config: AstroConfig
 
     fetch(url: URL | string, init?: RequestInit): Promise<Response>
-
-    loadEntryPoint(): Promise<SupportedExports>
-
     preview(overrideConfig?: Partial<RuntimeArguments>): Promise<FastifyInstance>
-
     resolveClientPath(relativePath: URL | string): URL
-
     resolveUrl(relativeUrl: URL | string): URL
-
     teardown(): Promise<void>
 }
 
@@ -132,10 +126,12 @@ export async function loadFixture(fixtureConfig: AstroFixtureOptions): Promise<T
             const entrypointUrl = new URL(`./entry.mjs?ts=${Date.now()}`, astroConfig.build.server)
             const { startServer } = (await import(entrypointUrl.href)) as SupportedExports
 
-            serverRef = await startServer({
-                ...overrideConfig,
-                serverPath: fileURLToPath(astroConfig.build.server)
-            })
+            serverRef = (
+                await startServer({
+                    ...overrideConfig,
+                    serverPath: fileURLToPath(astroConfig.build.server)
+                })
+            ).server
 
             const addresses = serverRef.addresses()
 
@@ -149,11 +145,6 @@ export async function loadFixture(fixtureConfig: AstroFixtureOptions): Promise<T
             astroConfig.server.port = addresses[0]!.port
 
             return serverRef
-        },
-        async loadEntryPoint(): Promise<SupportedExports> {
-            process.env.ASTRO_NODE_FASTIFY_INTERNAL_AUTOSTART = '0'
-
-            return import(new URL(astroConfig.build.server, astroConfig.outDir).href) as Promise<SupportedExports>
         },
         async teardown(): Promise<void> {
             try {

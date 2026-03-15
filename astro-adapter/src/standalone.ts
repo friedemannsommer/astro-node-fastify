@@ -1,71 +1,56 @@
+import { readFile } from 'node:fs/promises'
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import type { SSRManifest } from 'astro'
-import { NodeApp } from 'astro/app/node'
-import type { FastifyInstance } from 'fastify'
+import { createApp } from 'astro/app/entrypoint'
+import { ADAPTER_BUILD_CONFIG } from './constants'
 import { createServer, type ServiceRuntime } from './server.js'
 import type { RuntimeArguments } from './typings/config.js'
 
 export interface SupportedExports {
-    options: RuntimeArguments
-    startServer: (options?: Partial<RuntimeArguments>) => Promise<FastifyInstance>
+    getOptions: () => Promise<RuntimeArguments>
+    startServer: (options?: Partial<RuntimeArguments>) => Promise<ServiceRuntime>
 }
 
-export function createExports(manifest: SSRManifest, options: RuntimeArguments): SupportedExports {
-    return {
-        options,
-        async startServer(optionsOverride?: Partial<RuntimeArguments>): Promise<FastifyInstance> {
-            return (
-                await createServer(
-                    new NodeApp(
-                        manifest,
-                        !(
-                            optionsOverride?.server?.disableAstroHtmlStreaming ??
-                            options.server?.disableAstroHtmlStreaming
-                        )
-                    ),
-                    {
-                        ...options,
-                        ...optionsOverride,
-                        cache: {
-                            ...options.cache,
-                            ...optionsOverride?.cache
-                        },
-                        defaultHeaders: {
-                            ...options.defaultHeaders,
-                            ...optionsOverride?.defaultHeaders
-                        },
-                        request: {
-                            ...options.request,
-                            ...optionsOverride?.request
-                        },
-                        server: {
-                            ...options.server,
-                            ...optionsOverride?.server
-                        },
-                        serverPath: getServerPath(optionsOverride?.serverPath ?? options.serverPath)
-                    }
-                )
-            ).server
-        }
-    }
+export async function getOptions(): Promise<RuntimeArguments> {
+    return JSON.parse(await readFile(new URL(`../${ADAPTER_BUILD_CONFIG}`, import.meta.url), { encoding: 'utf8' }))
 }
 
-export function start(manifest: SSRManifest, options: RuntimeArguments): void {
-    if (process.env.ASTRO_NODE_FASTIFY_INTERNAL_AUTOSTART === '0') {
-        return
-    }
-
-    // mutate in-place since there should be no need for a copy
-    options.serverPath = getServerPath(options.serverPath)
-
-    createServer(new NodeApp(manifest, !options.server?.disableAstroHtmlStreaming), options).then(
-        setupExitHandlers,
-        (err: Error): void => {
-            console.error(err)
-            process.exit(1)
-        }
+export async function startServer(optionsOverride?: Partial<RuntimeArguments>): Promise<ServiceRuntime> {
+    const options = mergeOptions(await getOptions(), optionsOverride)
+    const service = await createServer(
+        createApp({
+            streaming: !options.server?.disableAstroHtmlStreaming
+        }),
+        options
     )
+
+    setupExitHandlers(service)
+
+    return service
+}
+
+function mergeOptions(options: RuntimeArguments, optionsOverride?: Partial<RuntimeArguments>): RuntimeArguments {
+    return {
+        ...options,
+        ...optionsOverride,
+        cache: {
+            ...options.cache,
+            ...optionsOverride?.cache
+        },
+        defaultHeaders: {
+            ...options.defaultHeaders,
+            ...optionsOverride?.defaultHeaders
+        },
+        request: {
+            ...options.request,
+            ...optionsOverride?.request
+        },
+        server: {
+            ...options.server,
+            ...optionsOverride?.server
+        },
+        serverPath: getServerPath(optionsOverride?.serverPath ?? options.serverPath)
+    }
 }
 
 function setupExitHandlers({ config, server }: ServiceRuntime): void {
@@ -120,10 +105,10 @@ function getServerPath(path: string): string {
     }
 
     /**
-     * Important note: this only works if this package is included in the entrypoint.
+     * Important note: this only works if this package is NOT included in the entrypoint.
      * Otherwise, we're unable to resolve an absolute path to the client assets.
      */
-    return dirname(fileURLToPath(import.meta.url))
+    return fileURLToPath(new URL('../', import.meta.url))
 }
 
 function getCallerFile(): string | undefined {

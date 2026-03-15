@@ -5,8 +5,8 @@ import { join as pathJoin, resolve as pathResolve } from 'node:path'
 import { Readable } from 'node:stream'
 import type { ReadableStream as WebReadableStream } from 'node:stream/web'
 import fastifyStatic, { type SetHeadersResponse } from '@fastify/static'
-import type { RenderOptions } from 'astro/app'
-import { NodeApp } from 'astro/app/node'
+import type { BaseApp, RenderOptions } from 'astro/app'
+import { createRequest } from 'astro/app/node'
 import fastify, {
     type FastifyInstance,
     type FastifyListenOptions,
@@ -26,11 +26,10 @@ export interface ServiceRuntime {
     readonly config: Readonly<RuntimeOptions>
 }
 
-type AstroRequestOptions = Parameters<typeof NodeApp.createRequest>[1]
 type FastifyH2Req = FastifyRequest<RouteGenericInterface, Http2Server>
 type FastifyH2Res = FastifyReply<RouteGenericInterface, Http2Server>
 
-export async function createServer(app: NodeApp, options: RuntimeArguments): Promise<ServiceRuntime> {
+export async function createServer(app: BaseApp, options: RuntimeArguments): Promise<ServiceRuntime> {
     const config = getServerConfig(options)
     const assetRoot = pathResolve(options.serverPath, options.clientPath)
 
@@ -204,22 +203,25 @@ function setDefaultHeaders(
 }
 
 function createAppHandler(
-    app: NodeApp,
+    app: BaseApp,
     config: Required<RuntimeOptions>
 ): (req: FastifyH2Req, reply: FastifyH2Res) => Promise<void> {
     const logger = app.getAdapterLogger()
     const responseHandler = config.server?.enableAstroResponseBuffering ? bufferStreamResponse : transformStreamResponse
+    const allowedDomains = app.getAllowedDomains()
 
     return async (req: FastifyH2Req, reply: FastifyH2Res): Promise<void> => {
         let astroRequest: Request
 
         try {
-            astroRequest = NodeApp.createRequest(
+            astroRequest = createRequest(
                 // the request should have all necessary fields regardless of whether it's http or http2
                 req.raw as unknown as IncomingMessage,
-                {
-                    allowedDomains: app.getAllowedDomains()
-                } as AstroRequestOptions
+                allowedDomains
+                    ? {
+                          allowedDomains
+                      }
+                    : undefined
             )
         } catch (err) {
             logger.error(`Could not handle request: ${req.url}`)

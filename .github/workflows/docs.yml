@@ -32,7 +32,7 @@ jobs:
           fi
 
       - name: upload current docs
-        uses: actions/upload-artifact@v6.0.0
+        uses: actions/upload-artifact@v7.0.0
         with:
           if-no-files-found: error
           name: current_documentation
@@ -45,7 +45,7 @@ jobs:
       - name: checkout source
         uses: actions/checkout@v6.0.2
 
-      - uses: actions/setup-node@v6.2.0
+      - uses: actions/setup-node@v6.3.0
         with:
           cache: 'npm'
           node-version-file: '.node-version'
@@ -61,7 +61,7 @@ jobs:
         run: npm run -w astro-node-fastify docs
 
       - name: upload generated docs
-        uses: actions/upload-artifact@v6.0.0
+        uses: actions/upload-artifact@v7.0.0
         with:
           if-no-files-found: error
           name: generated_documentation
@@ -79,13 +79,13 @@ jobs:
       - uses: actions/checkout@v6.0.2
 
       - name: download current docs
-        uses: actions/download-artifact@v7.0.0
+        uses: actions/download-artifact@v8.0.1
         with:
           name: current_documentation
           path: new_documentation
 
       - name: download new docs
-        uses: actions/download-artifact@v7.0.0
+        uses: actions/download-artifact@v8.0.1
         with:
           name: generated_documentation
           path: generated_documentation

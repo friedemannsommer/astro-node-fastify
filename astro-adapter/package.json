@@ -69,7 +69,7 @@
         "directory": "astro-adapter"
     },
     "scripts": {
-        "build": "pkgroll --target=node20",
+        "build": "pkgroll --target=node22",
         "build:clean": "pkgroll --clean-dist",
         "check": "npm run check:biome && npm run check:ts",
         "check:biome": "biome check src",

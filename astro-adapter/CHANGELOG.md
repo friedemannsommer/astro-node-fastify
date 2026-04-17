@@ -1,5 +1,15 @@
 # astro-node-fastify
 
+## 0.8.0
+
+### Minor Changes
+
+- [`f04d626`](https://github.com/friedemannsommer/astro-node-fastify/commit/f04d626b267a13bf65c958b7a1b95431d55e7783) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Drop Node.js v20 support
+
+### Patch Changes
+
+- [`181aae7`](https://github.com/friedemannsommer/astro-node-fastify/commit/181aae7d24ecc6bd2a318863ce02d3c837126859) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Update Astro support to include v6.1
+
 ## 0.7.0
 
 ### Minor Changes

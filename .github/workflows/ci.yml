@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [20, 22, 24]
+        node-version: [22, 24]
     steps:
       - uses: actions/checkout@v6.0.2
       - uses: actions/setup-node@v6.3.0
@@ -51,8 +51,6 @@ jobs:
           cache: 'npm'
           node-version-file: '.node-version'
           registry-url: 'https://registry.npmjs.org'
-      - name: Update npm
-        run: npm install -g npm@latest
       - run: npm ci --no-fund --no-audit
       - name: Create release PR or publish
         uses: changesets/action@v1.7.0

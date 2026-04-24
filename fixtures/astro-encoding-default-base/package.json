@@ -1,7 +1,7 @@
 {
     "dependencies": {
-        "astro-node-fastify": "*",
-        "astro": "*"
+        "astro": "^6.1.9",
+        "astro-node-fastify": "*"
     },
     "name": "astro-encoding-default-base",
     "private": true,

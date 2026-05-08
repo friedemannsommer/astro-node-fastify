@@ -53,7 +53,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci --no-fund --no-audit
       - name: Create release PR or publish
-        uses: changesets/action@v1.7.0
+        uses: changesets/action@v1.8.0
         with:
           title: 'ci(changesets): package release'
           commit: 'ci(changesets): version package'

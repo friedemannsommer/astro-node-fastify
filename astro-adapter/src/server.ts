@@ -206,7 +206,7 @@ function createAppHandler(
     app: BaseApp,
     config: Required<RuntimeOptions>
 ): (req: FastifyH2Req, reply: FastifyH2Res) => Promise<void> {
-    const logger = app.getAdapterLogger()
+    const logger = app.adapterLogger
     const responseHandler = config.server?.enableAstroResponseBuffering ? bufferStreamResponse : transformStreamResponse
     const allowedDomains = app.getAllowedDomains()
 

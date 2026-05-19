@@ -1,5 +1,6 @@
 {
     "extensions": ["ts"],
     "spec": "src/tests/**/*.spec.ts",
-    "node-option": "import=tsx"
+    "node-option": "import=tsx",
+    "timeout": 5000
 }

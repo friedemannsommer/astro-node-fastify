@@ -190,7 +190,7 @@ describe('Astro asset compression', (): void => {
         expect(noCompression.headers.get('transfer-encoding')).not.to.be.null
         expect(noCompression.headers.get('content-length')).to.be.null
     })
-}).timeout(5_000)
+})
 
 async function assertPromiseRejected(promise: Promise<void>): Promise<void> {
     try {

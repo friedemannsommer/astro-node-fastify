@@ -1,7 +1,7 @@
 {
     "dependencies": {
-        "astro-node-fastify": "*",
-        "astro": "*"
+        "astro": "^6.3.7",
+        "astro-node-fastify": "*"
     },
     "name": "astro-ssr-default-base",
     "private": true,

@@ -1,5 +1,11 @@
 # astro-node-fastify
 
+## 0.8.2
+
+### Patch Changes
+
+- [`faaaf29`](https://github.com/friedemannsommer/astro-node-fastify/commit/faaaf2964cba8fa912971ee145e7a5c9ef54256e) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Updated Astro to v6.4
+
 ## 0.8.1
 
 ### Patch Changes

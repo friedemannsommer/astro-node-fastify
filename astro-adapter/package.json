@@ -19,7 +19,7 @@
         "get-port": "7.2.0",
         "mocha": "11.7.6",
         "pkgroll": "2.27.1",
-        "tsx": "4.22.3",
+        "tsx": "4.22.4",
         "typedoc": "0.28.19",
         "typedoc-github-theme": "0.4.0",
         "typedoc-plugin-mdn-links": "5.1.1",

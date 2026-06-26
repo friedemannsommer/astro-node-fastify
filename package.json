@@ -2,7 +2,7 @@
     "name": "main",
     "version": "0.0.0",
     "private": true,
-    "packageManager": "pnpm@11.6.0",
+    "packageManager": "pnpm@11.9.0",
     "scripts": {
         "build": "pnpm --filter astro-node-fastify build",
         "build:clean": "pnpm --filter astro-node-fastify build:clean",

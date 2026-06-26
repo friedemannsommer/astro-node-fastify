@@ -4,7 +4,7 @@
   "assigneesFromCodeOwners": true,
   "reviewersFromCodeOwners": true,
   "osvVulnerabilityAlerts": true,
-  "schedule": ["every friday"],
+  "schedule": ["on friday"],
   "ignorePaths": ["fixtures/**"],
   "postUpdateOptions": ["pnpmDedupe"],
   "lockFileMaintenance": {

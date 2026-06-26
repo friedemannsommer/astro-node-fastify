@@ -1,0 +1,41 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:best-practices"],
+  "assigneesFromCodeOwners": true,
+  "reviewersFromCodeOwners": true,
+  "osvVulnerabilityAlerts": true,
+  "schedule": ["every friday"],
+  "ignorePaths": ["fixtures/**"],
+  "postUpdateOptions": ["pnpmDedupe"],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true
+  },
+  "packageRules": [
+    {
+      "description": "Use chore commit type for all JS pkg updates",
+      "matchManagers": ["npm"],
+      "semanticCommitType": "chore",
+      "semanticCommitScope": "deps"
+    },
+    {
+      "description": "Group production dependencies",
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["dependencies", "peerDependencies"],
+      "groupName": "production-dependencies"
+    },
+    {
+      "description": "Group development dependencies",
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["devDependencies", "packageManager"],
+      "groupName": "development-dependencies"
+    },
+    {
+      "description": "Group all GitHub Actions updates",
+      "matchManagers": ["github-actions"],
+      "groupName": "github-actions",
+      "semanticCommitType": "ci",
+      "semanticCommitScope": "actions"
+    }
+  ]
+}

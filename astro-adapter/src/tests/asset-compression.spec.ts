@@ -1,10 +1,11 @@
+import { describe, it, afterEach } from 'node:test'
 import { access } from 'node:fs/promises'
 import { versions } from 'node:process'
 import { expect } from 'chai'
 import { buildFixture, previewFixture, type TestFixture } from './utils/astro-fixture.js'
 import { getFixturePath } from './utils/path.js'
 
-describe('Astro asset compression', (): void => {
+describe('Astro asset compression', { concurrency: false }, (): void => {
     const majorVersion = +versions.node.slice(0, versions.node.indexOf('.'))
     let fixture: TestFixture | undefined
 
@@ -53,7 +54,7 @@ describe('Astro asset compression', (): void => {
         await assertPromiseFulfilled(access(fixture.resolveClientPath('./lorem-ipsum.txt.gz')))
         await assertPromiseRejected(access(fixture.resolveClientPath('./lorem-ipsum.txt.br')))
     })
-    ;(majorVersion < 22 ? xit : it)('should only use Zstd compression', async (): Promise<void> => {
+    ;(majorVersion < 22 ? it.skip : it)('should only use Zstd compression', async (): Promise<void> => {
         fixture = await buildFixture(
             {
                 root: getFixturePath('./astro-asset-compression-base')

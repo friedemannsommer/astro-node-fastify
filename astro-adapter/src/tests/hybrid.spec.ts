@@ -1,8 +1,9 @@
+import { describe, it, afterEach } from 'node:test'
 import { expect } from 'chai'
 import { previewFixture, type TestFixture } from './utils/astro-fixture.js'
 import { getFixturePath } from './utils/path.js'
 
-describe('Astro hybrid output', (): void => {
+describe('Astro hybrid output', { concurrency: false }, (): void => {
     let fixture: TestFixture | undefined
 
     afterEach(async (): Promise<void> => {

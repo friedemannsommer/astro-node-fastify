@@ -1,6 +1,6 @@
-import { describe, it, afterEach } from 'node:test'
 import { access } from 'node:fs/promises'
 import { versions } from 'node:process'
+import { afterEach, describe, it } from 'node:test'
 import { expect } from 'chai'
 import { buildFixture, previewFixture, type TestFixture } from './utils/astro-fixture.js'
 import { getFixturePath } from './utils/path.js'

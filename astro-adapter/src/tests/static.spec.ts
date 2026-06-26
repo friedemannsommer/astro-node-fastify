@@ -1,4 +1,4 @@
-import { describe, it, afterEach } from 'node:test'
+import { afterEach, describe, it } from 'node:test'
 import { expect } from 'chai'
 import { createFixture, type TestFixture } from './utils/astro-fixture.js'
 import { getFixturePath } from './utils/path.js'

@@ -9,7 +9,7 @@ This document provides guidelines and instructions to help you get started.
 2. **Clone your fork**
 3. **Install dependencies**
    ```bash
-   npm install
+   pnpm install
    ```
 4. **Create a branch** for your contribution
 
@@ -19,12 +19,12 @@ This document provides guidelines and instructions to help you get started.
 
 1. Install the dependencies:
    ```bash
-   npm install
+   pnpm install
    ```
 
 2. Run the tests to ensure everything is working:
    ```bash
-   npm test
+   pnpm test
    ```
 
 ### Making Changes
@@ -33,11 +33,11 @@ This document provides guidelines and instructions to help you get started.
 2. Add or update tests to cover your changes
 3. Format and check your code:
    ```bash
-   npm run check
+   pnpm run check
    ```
 4. Run the tests to ensure they pass:
    ```bash
-   npm test
+   pnpm test
    ```
 
 ### Building the Project
@@ -45,13 +45,13 @@ This document provides guidelines and instructions to help you get started.
 You can build the project using:
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 For a clean build:
 
 ```bash
-npm run build:clean
+pnpm run build:clean
 ```
 
 ### Commit Guidelines
@@ -61,7 +61,7 @@ We use [Changesets](https://github.com/changesets/changesets) to manage versions
 1. Stage your changes
 2. Create a changeset (skip for minor changes like typo fixes):
    ```bash
-   npx changeset
+   pnpm exec changeset
    ```
    Follow the prompts to describe your changes.
 
@@ -85,7 +85,7 @@ We use [Changesets](https://github.com/changesets/changesets) to manage versions
 Run tests with:
 
 ```bash
-npm test
+pnpm test
 ```
 
 Please ensure all tests pass before submitting your PR. Add new tests for new functionality.
@@ -101,7 +101,7 @@ If you're adding new features or changing existing ones, please update the relev
 You can generate documentation using:
 
 ```bash
-npm run docs
+pnpm run docs
 ```
 
 ## Release Process
@@ -115,7 +115,7 @@ The maintainers will handle releases using Changesets. When your PR is merged:
 The release process uses:
 
 ```bash
-npm run release
+pnpm run release
 ```
 
 ## Questions?

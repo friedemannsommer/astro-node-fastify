@@ -45,20 +45,22 @@ jobs:
       - name: checkout source
         uses: actions/checkout@v6.0.2
 
+      - uses: pnpm/action-setup@v6
+
       - uses: actions/setup-node@v6.4.0
         with:
-          cache: 'npm'
+          cache: 'pnpm'
           node-version-file: '.node-version'
 
-      - run: npm ci --no-fund --no-audit
+      - run: pnpm install --frozen-lockfile
 
       - name: build documentation, with version
         if: github.ref_type == 'tag'
-        run: npm run -w astro-node-fastify docs -- --includeVersion
+        run: pnpm --filter astro-node-fastify docs -- --includeVersion
 
       - name: build documentation, without version
         if: github.ref_type != 'tag'
-        run: npm run -w astro-node-fastify docs
+        run: pnpm --filter astro-node-fastify docs
 
       - name: upload generated docs
         uses: actions/upload-artifact@v7.0.1

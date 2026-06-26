@@ -71,9 +71,9 @@
     "scripts": {
         "build": "pkgroll --target=node22",
         "build:clean": "pkgroll --clean-dist",
-        "check": "npm run check:biome && npm run check:ts",
+        "check": "pnpm run check:biome && pnpm run check:ts",
         "check:biome": "biome check src",
-        "check:ci": "biome ci src && npm run check:ts",
+        "check:ci": "biome ci src && pnpm run check:ts",
         "check:ts": "tsc -p tsconfig.json --noEmit",
         "docs": "typedoc",
         "test": "mocha --config .mocharc.json"

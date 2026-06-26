@@ -2,18 +2,15 @@
     "name": "main",
     "version": "0.0.0",
     "private": true,
-    "workspaces": [
-        "fixtures/*",
-        "astro-adapter"
-    ],
+    "packageManager": "pnpm@11.6.0",
     "scripts": {
-        "build": "npm run -w astro-node-fastify build",
-        "build:clean": "npm run -w astro-node-fastify build:clean",
-        "check": "npm run -w astro-node-fastify check",
-        "check:ci": "npm run -w astro-node-fastify check:ci",
-        "docs": "npm run -w astro-node-fastify docs",
-        "release": "npm run -w astro-node-fastify build && changeset publish",
-        "test": "npm run -w astro-node-fastify test"
+        "build": "pnpm --filter astro-node-fastify build",
+        "build:clean": "pnpm --filter astro-node-fastify build:clean",
+        "check": "pnpm --filter astro-node-fastify check",
+        "check:ci": "pnpm --filter astro-node-fastify check:ci",
+        "docs": "pnpm --filter astro-node-fastify docs",
+        "release": "pnpm --filter astro-node-fastify build && changeset publish",
+        "test": "pnpm --filter astro-node-fastify test"
     },
     "devDependencies": {
         "@changesets/changelog-github": "0.7.0",

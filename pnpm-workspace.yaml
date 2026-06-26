@@ -1,0 +1,7 @@
+packages:
+  - "fixtures/*"
+  - "astro-adapter"
+
+allowBuilds:
+  esbuild: true
+  sharp: true

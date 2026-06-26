@@ -13,7 +13,7 @@ importers:
         version: 0.7.0
       '@changesets/cli':
         specifier: 2.31.0
-        version: 2.31.0(@types/node@24.12.4)
+        version: 2.31.0(@types/node@24.13.2)
 
   astro-adapter:
     dependencies:
@@ -28,17 +28,17 @@ importers:
         version: 5.8.5
     devDependencies:
       '@biomejs/biome':
-        specifier: 2.4.15
-        version: 2.4.15
+        specifier: 2.5.1
+        version: 2.5.1
       '@types/chai':
         specifier: 5.2.3
         version: 5.2.3
       '@types/node':
-        specifier: 24.12.4
-        version: 24.12.4
+        specifier: 24.13.2
+        version: 24.13.2
       astro:
-        specifier: 6.4.6
-        version: 6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0)
+        specifier: 6.4.8
+        version: 6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0)
       chai:
         specifier: 6.2.2
         version: 6.2.2
@@ -50,10 +50,10 @@ importers:
         version: 10.3.1
       pkgroll:
         specifier: 2.27.1
-        version: 2.27.1(typescript@6.0.3)(vite@7.3.6(@types/node@24.12.4)(tsx@4.22.3)(yaml@2.9.0))
+        version: 2.27.1(typescript@6.0.3)(vite@7.3.6(@types/node@24.13.2)(tsx@4.22.4)(yaml@2.9.0))
       tsx:
-        specifier: 4.22.3
-        version: 4.22.3
+        specifier: 4.22.4
+        version: 4.22.4
       typedoc:
         specifier: 0.28.19
         version: 0.28.19(typescript@6.0.3)
@@ -74,100 +74,100 @@ importers:
     dependencies:
       astro:
         specifier: '*'
-        version: 6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0)
+        version: 6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0)
       astro-node-fastify:
         specifier: '*'
-        version: 0.8.2(astro@6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0))
+        version: 0.8.2(astro@6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0))
 
   fixtures/astro-custom-error-page:
     dependencies:
       astro:
         specifier: '*'
-        version: 6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0)
+        version: 6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0)
       astro-node-fastify:
         specifier: '*'
-        version: 0.8.2(astro@6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0))
+        version: 0.8.2(astro@6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0))
 
   fixtures/astro-encoding-default-base:
     dependencies:
       astro:
         specifier: '*'
-        version: 6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0)
+        version: 6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0)
       astro-node-fastify:
         specifier: '*'
-        version: 0.8.2(astro@6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0))
+        version: 0.8.2(astro@6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0))
 
   fixtures/astro-encoding-none-base:
     dependencies:
       astro:
         specifier: '*'
-        version: 6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0)
+        version: 6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0)
       astro-node-fastify:
         specifier: '*'
-        version: 0.8.2(astro@6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0))
+        version: 0.8.2(astro@6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0))
 
   fixtures/astro-encoding-restricted-base:
     dependencies:
       astro:
         specifier: '*'
-        version: 6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0)
+        version: 6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0)
       astro-node-fastify:
         specifier: '*'
-        version: 0.8.2(astro@6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0))
+        version: 0.8.2(astro@6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0))
 
   fixtures/astro-hybrid-default-base:
     dependencies:
       astro:
         specifier: '*'
-        version: 6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0)
+        version: 6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0)
       astro-node-fastify:
         specifier: '*'
-        version: 0.8.2(astro@6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0))
+        version: 0.8.2(astro@6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0))
 
   fixtures/astro-hybrid-headers-base:
     dependencies:
       astro:
         specifier: '*'
-        version: 6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0)
+        version: 6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0)
       astro-node-fastify:
         specifier: '*'
-        version: 0.8.2(astro@6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0))
+        version: 0.8.2(astro@6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0))
 
   fixtures/astro-ssr-default-base:
     dependencies:
       astro:
         specifier: '*'
-        version: 6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0)
+        version: 6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0)
       astro-node-fastify:
         specifier: '*'
-        version: 0.8.2(astro@6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0))
+        version: 0.8.2(astro@6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0))
 
   fixtures/astro-ssr-dot-prefix:
     dependencies:
       astro:
         specifier: '*'
-        version: 6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0)
+        version: 6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0)
       astro-node-fastify:
         specifier: '*'
-        version: 0.8.2(astro@6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0))
+        version: 0.8.2(astro@6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0))
 
   fixtures/astro-ssr-headers-base:
     dependencies:
       astro:
         specifier: '*'
-        version: 6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0)
+        version: 6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0)
       astro-node-fastify:
         specifier: '*'
-        version: 0.8.2(astro@6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0))
+        version: 0.8.2(astro@6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0))
 
   fixtures/astro-static-default-base:
     dependencies:
       astro:
         specifier: '*'
-        version: 6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0)
+        version: 6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0)
       astro-node-fastify:
         specifier: '*'
-        version: 0.8.2(astro@6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0))
+        version: 0.8.2(astro@6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0))
 
 packages:
 
@@ -209,59 +209,59 @@ packages:
     resolution: {integrity: sha512-4zBIxpPzowiZpusoFkyGVwakdRJUyuH5PxQ/PrqghfdFWWasvnCdPfQXHrenDai+gyLARulZjZowCOj6fjT4pA==}
     engines: {node: '>=6.9.0'}
 
-  '@biomejs/biome@2.4.15':
-    resolution: {integrity: sha512-j5VH3a/h/HXTKBM50MDMxRCzkeLv9S2XJcW2WgnZT1+xyisi+0bISrXR82gCX+8S9lvK0skEvHJRN+3Ktr2hlw==}
+  '@biomejs/biome@2.5.1':
+    resolution: {integrity: sha512-IXWLCxKmae+rI7LOHS1B3EbVisQ6GRAWbhN9msa6KjNCyFWrvKZWR4oUdinaNssrV852OrSHuSPa95h1GPJc7Q==}
     engines: {node: '>=14.21.3'}
     hasBin: true
 
-  '@biomejs/cli-darwin-arm64@2.4.15':
-    resolution: {integrity: sha512-rF3PPqLq1yoST79zaQbDjVJwsuIeci/O+9bgNmC5QpgOqz6aqYuzA4abyAGx+mgyiDXn4A049xAN8gijbuR1Qg==}
+  '@biomejs/cli-darwin-arm64@2.5.1':
+    resolution: {integrity: sha512-npqDzvqv7vFaWRiNN1Te71siRgPaqS9MpqgYCdP/CrUbkJ7ApezaeaKjueKHRN/JH/6lRjJQAHi8acQDCAz22w==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [darwin]
 
-  '@biomejs/cli-darwin-x64@2.4.15':
-    resolution: {integrity: sha512-/5KHXYMfSJs1fNXiX30xFtI8JcCFV6zaVVLxOa0M2sfqBKHkpQhRTv94yxQWxeTY2lzo2OuTlNvPC+hDQt2wcQ==}
+  '@biomejs/cli-darwin-x64@2.5.1':
+    resolution: {integrity: sha512-RgwTqPAM8g2tn1j+b5oRjF/DbSBX8a4gwojtuG9XuhfK7GgomvZ9+T+tqjXiVbjLEeGJOoL6VEk8mvRTVeSybw==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [darwin]
 
-  '@biomejs/cli-linux-arm64-musl@2.4.15':
-    resolution: {integrity: sha512-ZPcxznxm0pogHBLZhYntyR3sR+MrZjqJIKEr7ZqVen0Rl+P/4upVmfYXjftizi9RoqZntg33fv/1fbdhbYXpEQ==}
+  '@biomejs/cli-linux-arm64-musl@2.5.1':
+    resolution: {integrity: sha512-WMcvMLgByyTqVxGlq918NBBYliq9FRR9GAQVETHb+VjGVqXCZFfHlZHC1FX4ibuYY/Hg6TJE3rHU0xVrdJXNRw==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [linux]
     libc: [musl]
 
-  '@biomejs/cli-linux-arm64@2.4.15':
-    resolution: {integrity: sha512-owaAMZD/T4LrD0ELNCk0Km3qrRHuM0X6EAyVE1FSqGY0rbLoiDLrO4Us2tllm6cAeB2Ioa9C2C08NZPdr8+0Ug==}
+  '@biomejs/cli-linux-arm64@2.5.1':
+    resolution: {integrity: sha512-yhV35CzZh38VyMvTEXi3JTjxZBs++oCKK9KG8vB6VI5+uvQvZNR3BFWEKKzuOmx9DJJj7sQpZ4LQJcmbGTs3+Q==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [linux]
     libc: [glibc]
 
-  '@biomejs/cli-linux-x64-musl@2.4.15':
-    resolution: {integrity: sha512-CNq/9W38SYSH023lfcQ4KKU8K0YX8T//FZUhcgtMMRABDojx5XsMV7jlweAvGSl389wJQB29Qo6Zb/a+jdvt+w==}
+  '@biomejs/cli-linux-x64-musl@2.5.1':
+    resolution: {integrity: sha512-ANTowtlLmPYm5yeMckWY8Xzb9Ix+JJP3tgHR/n6xRj1VWyIzzWtfRfih9hv9VmClwadpBvZduISZIbBsIlYG3A==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [linux]
     libc: [musl]
 
-  '@biomejs/cli-linux-x64@2.4.15':
-    resolution: {integrity: sha512-0jj7THz12GbUOLmMibktK6DZjqz2zV64KFxyBtcFTKPiiOIY0a7vns1elpO1dERvxpsZ5ik0oFfz0oGwFde1+g==}
+  '@biomejs/cli-linux-x64@2.5.1':
+    resolution: {integrity: sha512-J/7uHSX7NfoYDI7HijAkd8lnQIOrRb2W7j3X+tw4R+N5ExvXGsyXFiGdQcfcxfOmNQmZVSQOCDk757fwpzqQcg==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
 
-  '@biomejs/cli-win32-arm64@2.4.15':
-    resolution: {integrity: sha512-ouhkYdlhp/1GghEJPdWwD/Vi3gQ1nFxuSpMolWsbq3Lsq3QUR4jl6UdhhscdCugKU5vOEuMiJhvKj66O0OCq+w==}
+  '@biomejs/cli-win32-arm64@2.5.1':
+    resolution: {integrity: sha512-zgXnKNgWPC4iPF7Y1lR3STUeCUuZRpD6IiOrC7TZTlh0Lx6FiVUT05myuMQHQ9D+1cc7uyMldi4forE6lp0ivQ==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [win32]
 
-  '@biomejs/cli-win32-x64@2.4.15':
-    resolution: {integrity: sha512-zBrGq5mx5wwpnow4+2BxUvleDM+GNd4sLbPaMapsSLQLD0NGRCquqPBTgN+7XkUteHvj7M+BstuI8tmnV7+HgQ==}
+  '@biomejs/cli-win32-x64@2.5.1':
+    resolution: {integrity: sha512-6uxpR9hvaglANkZemeSiN/FhYgkGasrEGn267eXIWvjrjJ2LhDlk251IhjVJq6MXzkV2/bcXwLwSroLyPtqRZg==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [win32]
@@ -1298,8 +1298,8 @@ packages:
   '@types/node@12.20.55':
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
 
-  '@types/node@24.12.4':
-    resolution: {integrity: sha512-GUUEShf+PBCGW2KaXwcIt3Yk+e3pkKwWKb9GSyM9WQVE+ep2jzmHdGsHzu4wgcZy5fN9FBdVzjpBQsYlpfpgLA==}
+  '@types/node@24.13.2':
+    resolution: {integrity: sha512-fRa09kZTgu8o71KFcDjUFuc7F+dEbZYZmkI0mg5YBTRs0yMKjYHsq/c0urDKeDb+D5qVgXOdFcuu+DZPKOITwA==}
 
   '@types/resolve@1.20.2':
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
@@ -1371,8 +1371,8 @@ packages:
     peerDependencies:
       astro: ~6.4
 
-  astro@6.4.6:
-    resolution: {integrity: sha512-48OBTBKR9ctbf+DQxpOuxGl8ebfn59zTuNQMBzptmG/Mi/H8IdfMSbJgGuX1I/4U6g9yazG1p4BHlf4+2hWU4Q==}
+  astro@6.4.8:
+    resolution: {integrity: sha512-KK5lX90uU9EeVaTjINyj3sy9/NFXVa59aowaqbWBDDKLXZh4rr7GwIaCFYVetE22MJtsCNFerQXn0vlCLmpP/Q==}
     engines: {node: '>=22.12.0', npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -2638,8 +2638,8 @@ packages:
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
 
-  tsx@4.22.3:
-    resolution: {integrity: sha512-mdoNxBC/cSQObGGVQ5Bpn5i+yv7j68gk3Nfm3wFjcJg3Z0Mix9jzAFfP12prmm5eVGmDKtp0yyArrs0Q+8gZHg==}
+  tsx@4.22.4:
+    resolution: {integrity: sha512-X8EX+XV4QR5xCsrgxaED954zTDfY8KqlDtskKEL0cHhyS/P8b4IFOvGDQpsC9Q1XnLq915wEfwwY/zzskCtmhg==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -2683,8 +2683,8 @@ packages:
   uncrypto@0.1.3:
     resolution: {integrity: sha512-Ql87qFHB3s/De2ClA9e0gsnS6zXG27SkTiSJwjCc9MebbfapQfuPzumMIUMi38ezPZVNFcHI9sUIepeQfw8J8Q==}
 
-  undici-types@7.16.0:
-    resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
+  undici-types@7.18.2:
+    resolution: {integrity: sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w==}
 
   unified@11.0.5:
     resolution: {integrity: sha512-xKvGhPWw3k84Qjh8bI3ZeJjqnyadK+GEFtazSfZv/rKeTkTjOJho6mFqh2SM96iIcZokxiOpg78GazTSg8+KHA==}
@@ -2956,39 +2956,39 @@ snapshots:
       '@babel/helper-string-parser': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
 
-  '@biomejs/biome@2.4.15':
+  '@biomejs/biome@2.5.1':
     optionalDependencies:
-      '@biomejs/cli-darwin-arm64': 2.4.15
-      '@biomejs/cli-darwin-x64': 2.4.15
-      '@biomejs/cli-linux-arm64': 2.4.15
-      '@biomejs/cli-linux-arm64-musl': 2.4.15
-      '@biomejs/cli-linux-x64': 2.4.15
-      '@biomejs/cli-linux-x64-musl': 2.4.15
-      '@biomejs/cli-win32-arm64': 2.4.15
-      '@biomejs/cli-win32-x64': 2.4.15
+      '@biomejs/cli-darwin-arm64': 2.5.1
+      '@biomejs/cli-darwin-x64': 2.5.1
+      '@biomejs/cli-linux-arm64': 2.5.1
+      '@biomejs/cli-linux-arm64-musl': 2.5.1
+      '@biomejs/cli-linux-x64': 2.5.1
+      '@biomejs/cli-linux-x64-musl': 2.5.1
+      '@biomejs/cli-win32-arm64': 2.5.1
+      '@biomejs/cli-win32-x64': 2.5.1
 
-  '@biomejs/cli-darwin-arm64@2.4.15':
+  '@biomejs/cli-darwin-arm64@2.5.1':
     optional: true
 
-  '@biomejs/cli-darwin-x64@2.4.15':
+  '@biomejs/cli-darwin-x64@2.5.1':
     optional: true
 
-  '@biomejs/cli-linux-arm64-musl@2.4.15':
+  '@biomejs/cli-linux-arm64-musl@2.5.1':
     optional: true
 
-  '@biomejs/cli-linux-arm64@2.4.15':
+  '@biomejs/cli-linux-arm64@2.5.1':
     optional: true
 
-  '@biomejs/cli-linux-x64-musl@2.4.15':
+  '@biomejs/cli-linux-x64-musl@2.5.1':
     optional: true
 
-  '@biomejs/cli-linux-x64@2.4.15':
+  '@biomejs/cli-linux-x64@2.5.1':
     optional: true
 
-  '@biomejs/cli-win32-arm64@2.4.15':
+  '@biomejs/cli-win32-arm64@2.5.1':
     optional: true
 
-  '@biomejs/cli-win32-x64@2.4.15':
+  '@biomejs/cli-win32-x64@2.5.1':
     optional: true
 
   '@capsizecss/unpack@4.0.1':
@@ -3032,7 +3032,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@changesets/cli@2.31.0(@types/node@24.12.4)':
+  '@changesets/cli@2.31.0(@types/node@24.13.2)':
     dependencies:
       '@changesets/apply-release-plan': 7.1.1
       '@changesets/assemble-release-plan': 6.0.10
@@ -3048,7 +3048,7 @@ snapshots:
       '@changesets/should-skip-package': 0.1.2
       '@changesets/types': 6.1.0
       '@changesets/write': 0.4.0
-      '@inquirer/external-editor': 1.0.3(@types/node@24.12.4)
+      '@inquirer/external-editor': 1.0.3(@types/node@24.13.2)
       '@manypkg/get-packages': 1.1.3
       ansi-colors: 4.1.3
       enquirer: 2.4.1
@@ -3562,12 +3562,12 @@ snapshots:
   '@img/sharp-win32-x64@0.34.5':
     optional: true
 
-  '@inquirer/external-editor@1.0.3(@types/node@24.12.4)':
+  '@inquirer/external-editor@1.0.3(@types/node@24.13.2)':
     dependencies:
       chardet: 2.2.0
       iconv-lite: 0.7.2
     optionalDependencies:
-      '@types/node': 24.12.4
+      '@types/node': 24.13.2
 
   '@jridgewell/sourcemap-codec@1.5.5': {}
 
@@ -3817,9 +3817,9 @@ snapshots:
 
   '@types/node@12.20.55': {}
 
-  '@types/node@24.12.4':
+  '@types/node@24.13.2':
     dependencies:
-      undici-types: 7.16.0
+      undici-types: 7.18.2
 
   '@types/resolve@1.20.2': {}
 
@@ -3869,14 +3869,14 @@ snapshots:
 
   astring@1.9.0: {}
 
-  astro-node-fastify@0.8.2(astro@6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0)):
+  astro-node-fastify@0.8.2(astro@6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0)):
     dependencies:
       '@fastify/compress': 8.3.1
       '@fastify/static': 9.1.3
-      astro: 6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0)
+      astro: 6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0)
       fastify: 5.8.5
 
-  astro@6.4.6(@types/node@24.12.4)(rollup@4.62.2)(tsx@4.22.3)(yaml@2.9.0):
+  astro@6.4.8(@types/node@24.13.2)(rollup@4.62.2)(tsx@4.22.4)(yaml@2.9.0):
     dependencies:
       '@astrojs/compiler': 4.0.0
       '@astrojs/internal-helpers': 0.10.0
@@ -3928,8 +3928,8 @@ snapshots:
       unist-util-visit: 5.1.0
       unstorage: 1.17.5
       vfile: 6.0.3
-      vite: 7.3.6(@types/node@24.12.4)(tsx@4.22.3)(yaml@2.9.0)
-      vitefu: 1.1.3(vite@7.3.6(@types/node@24.12.4)(tsx@4.22.3)(yaml@2.9.0))
+      vite: 7.3.6(@types/node@24.13.2)(tsx@4.22.4)(yaml@2.9.0)
+      vitefu: 1.1.3(vite@7.3.6(@types/node@24.13.2)(tsx@4.22.4)(yaml@2.9.0))
       xxhash-wasm: 1.1.0
       yargs-parser: 22.0.0
       zod: 4.4.3
@@ -5132,7 +5132,7 @@ snapshots:
       sonic-boom: 4.2.1
       thread-stream: 4.2.0
 
-  pkgroll@2.27.1(typescript@6.0.3)(vite@7.3.6(@types/node@24.12.4)(tsx@4.22.3)(yaml@2.9.0)):
+  pkgroll@2.27.1(typescript@6.0.3)(vite@7.3.6(@types/node@24.13.2)(tsx@4.22.4)(yaml@2.9.0)):
     dependencies:
       '@rollup/plugin-alias': 6.0.0(rollup@4.62.2)
       '@rollup/plugin-commonjs': 29.0.3(rollup@4.62.2)
@@ -5143,7 +5143,7 @@ snapshots:
       esbuild: 0.26.0
       magic-string: 0.30.21
       rollup: 4.62.2
-      rollup-plugin-import-trace: 1.0.1(rollup@4.62.2)(vite@7.3.6(@types/node@24.12.4)(tsx@4.22.3)(yaml@2.9.0))
+      rollup-plugin-import-trace: 1.0.1(rollup@4.62.2)(vite@7.3.6(@types/node@24.13.2)(tsx@4.22.4)(yaml@2.9.0))
       rollup-pluginutils: 2.8.2
       yaml: 2.9.0
     optionalDependencies:
@@ -5349,10 +5349,10 @@ snapshots:
 
   rfdc@1.4.1: {}
 
-  rollup-plugin-import-trace@1.0.1(rollup@4.62.2)(vite@7.3.6(@types/node@24.12.4)(tsx@4.22.3)(yaml@2.9.0)):
+  rollup-plugin-import-trace@1.0.1(rollup@4.62.2)(vite@7.3.6(@types/node@24.13.2)(tsx@4.22.4)(yaml@2.9.0)):
     optionalDependencies:
       rollup: 4.62.2
-      vite: 7.3.6(@types/node@24.12.4)(tsx@4.22.3)(yaml@2.9.0)
+      vite: 7.3.6(@types/node@24.13.2)(tsx@4.22.4)(yaml@2.9.0)
 
   rollup-pluginutils@2.8.2:
     dependencies:
@@ -5563,7 +5563,7 @@ snapshots:
   tslib@2.8.1:
     optional: true
 
-  tsx@4.22.3:
+  tsx@4.22.4:
     dependencies:
       esbuild: 0.28.1
     optionalDependencies:
@@ -5600,7 +5600,7 @@ snapshots:
 
   uncrypto@0.1.3: {}
 
-  undici-types@7.16.0: {}
+  undici-types@7.18.2: {}
 
   unified@11.0.5:
     dependencies:
@@ -5690,7 +5690,7 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.3
 
-  vite@7.3.6(@types/node@24.12.4)(tsx@4.22.3)(yaml@2.9.0):
+  vite@7.3.6(@types/node@24.13.2)(tsx@4.22.4)(yaml@2.9.0):
     dependencies:
       esbuild: 0.28.1
       fdir: 6.5.0(picomatch@4.0.4)
@@ -5699,14 +5699,14 @@ snapshots:
       rollup: 4.62.2
       tinyglobby: 0.2.17
     optionalDependencies:
-      '@types/node': 24.12.4
+      '@types/node': 24.13.2
       fsevents: 2.3.3
-      tsx: 4.22.3
+      tsx: 4.22.4
       yaml: 2.9.0
 
-  vitefu@1.1.3(vite@7.3.6(@types/node@24.12.4)(tsx@4.22.3)(yaml@2.9.0)):
+  vitefu@1.1.3(vite@7.3.6(@types/node@24.13.2)(tsx@4.22.4)(yaml@2.9.0)):
     optionalDependencies:
-      vite: 7.3.6(@types/node@24.12.4)(tsx@4.22.3)(yaml@2.9.0)
+      vite: 7.3.6(@types/node@24.13.2)(tsx@4.22.4)(yaml@2.9.0)
 
   web-namespaces@2.0.1: {}
 

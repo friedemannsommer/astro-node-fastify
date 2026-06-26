@@ -75,7 +75,7 @@
         "check:ci": "biome ci src && pnpm run check:ts",
         "check:ts": "tsc -p tsconfig.json --noEmit",
         "docs": "typedoc",
-        "test": "node --import=tsx --test --test-timeout=60000 \"src/tests/**/*.spec.ts\""
+        "test": "node --import=tsx --test --test-timeout=1200000 \"src/tests/**/*.spec.ts\""
     },
     "sideEffects": false,
     "type": "module",

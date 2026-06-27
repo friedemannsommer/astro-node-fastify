@@ -5,7 +5,6 @@
     "packageManager": "pnpm@11.9.0",
     "scripts": {
         "build": "pnpm --filter astro-node-fastify build",
-        "build:clean": "pnpm --filter astro-node-fastify build:clean",
         "check": "pnpm --filter astro-node-fastify check",
         "check:ci": "pnpm --filter astro-node-fastify check:ci",
         "docs": "pnpm --filter astro-node-fastify run docs",

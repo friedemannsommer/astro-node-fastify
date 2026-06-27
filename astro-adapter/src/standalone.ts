@@ -12,7 +12,7 @@ export interface SupportedExports {
 }
 
 export async function getOptions(): Promise<RuntimeArguments> {
-    return JSON.parse(await readFile(new URL(`../${ADAPTER_BUILD_CONFIG}`, import.meta.url), { encoding: 'utf8' }))
+    return JSON.parse(await readFile(new URL(ADAPTER_BUILD_CONFIG, import.meta.url), { encoding: 'utf8' }))
 }
 
 export async function startServer(optionsOverride?: Partial<RuntimeArguments>): Promise<ServiceRuntime> {

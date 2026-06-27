@@ -39,7 +39,7 @@ describe('Astro hybrid output', { concurrency: false }, (): void => {
         expect(echoReply.headers.get('content-type')).to.eq('text/plain')
 
         expect(await indexRender.text()).to.eq(
-            '<!DOCTYPE html><html lang="en"> <head><title>fixture</title></head> <body> <h1>Hello World</h1> </body></html>'
+            '<!DOCTYPE html><html lang="en"><head><title>fixture</title></head><body><h1>Hello World</h1></body></html>'
         )
         expect(await preRender.text()).to.eq('Hello World!')
         expect(await echoReply.text()).to.eq('Test')

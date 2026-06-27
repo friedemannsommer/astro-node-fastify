@@ -1,5 +1,15 @@
 # astro-node-fastify
 
+## 0.9.0
+
+### Minor Changes
+
+- [`7417afc`](https://github.com/friedemannsommer/astro-node-fastify/commit/7417afcd56c5aeecf256b05df5131042e364056d) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Bump Astro to v7.0 and Fastify/compress to v9.0
+
+### Patch Changes
+
+- [`65deec9`](https://github.com/friedemannsommer/astro-node-fastify/commit/65deec9df8ce391663873149885f2c72b43a73ae) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Bump Astro to v6.4.6
+
 ## 0.8.2
 
 ### Patch Changes

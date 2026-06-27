@@ -3,7 +3,19 @@
     "baseBranch": "main",
     "changelog": ["@changesets/changelog-github", { "repo": "friedemannsommer/astro-node-fastify" }],
     "commit": false,
-    "ignore": [],
+    "ignore": [
+        "astro-asset-compression-base",
+        "astro-404-custom-error-page",
+        "astro-encoding-default-base",
+        "astro-encoding-none-base",
+        "astro-encoding-restricted-base",
+        "astro-hybrid-default-base",
+        "astro-hybrid-headers-base",
+        "astro-ssr-default-base",
+        "astro-ssr-dot-prefix",
+        "astro-ssr-headers-base",
+        "astro-static-default-base"
+    ],
     "linked": [],
     "updateInternalDependencies": "patch"
 }

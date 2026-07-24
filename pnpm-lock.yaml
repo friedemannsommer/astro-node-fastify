@@ -8,7 +8,7 @@ catalogs:
   default:
     astro:
       specifier: ^7.0.3
-      version: 7.1.0
+      version: 7.1.3
 
 importers:
 
@@ -46,8 +46,8 @@ importers:
         specifier: 24.13.3
         version: 24.13.3
       astro:
-        specifier: 7.1.0
-        version: 7.1.0(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0)
+        specifier: 7.1.3
+        version: 7.1.3(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0)
       chai:
         specifier: 6.2.2
         version: 6.2.2
@@ -61,8 +61,8 @@ importers:
         specifier: 0.3.21
         version: 0.3.21
       tsdown:
-        specifier: 0.22.12
-        version: 0.22.12(@arethetypeswrong/core@0.18.5)(publint@0.3.21)(tsx@4.23.1)(typescript@6.0.3)(unplugin-unused@0.5.7(esbuild@0.28.1)(rolldown@1.2.0)(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(tsx@4.23.1)(yaml@2.9.0)))
+        specifier: 0.22.13
+        version: 0.22.13(@arethetypeswrong/core@0.18.5)(publint@0.3.21)(tsx@4.23.1)(typescript@6.0.3)(unplugin-unused@0.5.7(esbuild@0.28.1)(rolldown@1.2.0)(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(tsx@4.23.1)(yaml@2.9.0)))
       tsx:
         specifier: 4.23.1
         version: 4.23.1
@@ -89,7 +89,7 @@ importers:
     dependencies:
       astro:
         specifier: 'catalog:'
-        version: 7.1.0(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0)
+        version: 7.1.3(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0)
       astro-node-fastify:
         specifier: workspace:*
         version: link:../../astro-adapter
@@ -98,7 +98,7 @@ importers:
     dependencies:
       astro:
         specifier: 'catalog:'
-        version: 7.1.0(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0)
+        version: 7.1.3(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0)
       astro-node-fastify:
         specifier: workspace:*
         version: link:../../astro-adapter
@@ -107,7 +107,7 @@ importers:
     dependencies:
       astro:
         specifier: 'catalog:'
-        version: 7.1.0(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0)
+        version: 7.1.3(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0)
       astro-node-fastify:
         specifier: workspace:*
         version: link:../../astro-adapter
@@ -116,7 +116,7 @@ importers:
     dependencies:
       astro:
         specifier: 'catalog:'
-        version: 7.1.0(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0)
+        version: 7.1.3(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0)
       astro-node-fastify:
         specifier: workspace:*
         version: link:../../astro-adapter
@@ -125,7 +125,7 @@ importers:
     dependencies:
       astro:
         specifier: 'catalog:'
-        version: 7.1.0(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0)
+        version: 7.1.3(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0)
       astro-node-fastify:
         specifier: workspace:*
         version: link:../../astro-adapter
@@ -134,7 +134,7 @@ importers:
     dependencies:
       astro:
         specifier: 'catalog:'
-        version: 7.1.0(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0)
+        version: 7.1.3(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0)
       astro-node-fastify:
         specifier: workspace:*
         version: link:../../astro-adapter
@@ -143,7 +143,7 @@ importers:
     dependencies:
       astro:
         specifier: 'catalog:'
-        version: 7.1.0(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0)
+        version: 7.1.3(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0)
       astro-node-fastify:
         specifier: workspace:*
         version: link:../../astro-adapter
@@ -152,7 +152,7 @@ importers:
     dependencies:
       astro:
         specifier: 'catalog:'
-        version: 7.1.0(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0)
+        version: 7.1.3(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0)
       astro-node-fastify:
         specifier: workspace:*
         version: link:../../astro-adapter
@@ -161,7 +161,7 @@ importers:
     dependencies:
       astro:
         specifier: 'catalog:'
-        version: 7.1.0(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0)
+        version: 7.1.3(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0)
       astro-node-fastify:
         specifier: workspace:*
         version: link:../../astro-adapter
@@ -170,7 +170,7 @@ importers:
     dependencies:
       astro:
         specifier: 'catalog:'
-        version: 7.1.0(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0)
+        version: 7.1.3(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0)
       astro-node-fastify:
         specifier: workspace:*
         version: link:../../astro-adapter
@@ -179,7 +179,7 @@ importers:
     dependencies:
       astro:
         specifier: 'catalog:'
-        version: 7.1.0(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0)
+        version: 7.1.3(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0)
       astro-node-fastify:
         specifier: workspace:*
         version: link:../../astro-adapter
@@ -1378,8 +1378,8 @@ packages:
     resolution: {integrity: sha512-Izi8RQcffqCeNVgFigKli1ssklIbpHnCYc6AknXGYoB6grJqyeby7jv12JUQgmTAnIDnbck1uxksT4dzN3PWBA==}
     engines: {node: '>=12'}
 
-  astro@7.1.0:
-    resolution: {integrity: sha512-jXHNZXpO0HOuANLwv5uLg5WFXFmIMyDTMlokIb8sv10y8QItOFaikwrqvp6+Pe0MSqvp+aO7V1SfVriFcCEKgA==}
+  astro@7.1.3:
+    resolution: {integrity: sha512-4dhPyAAXthf3xLEYnG8SeL7yr/nTPPABfY7e9YF0yuO+vK9Xp+8Q5j4xzsmL3GueukQv4oNwGNTBepLOiDGeJA==}
     engines: {node: '>=22.12.0', npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
     peerDependencies:
@@ -1483,6 +1483,10 @@ packages:
   cookie@1.1.1:
     resolution: {integrity: sha512-ei8Aos7ja0weRpFzJnEA9UHJ/7XQmqglbRwnf2ATjcB9Wq874VKH9kfjjirM6UhU2/E5fFYadylyhFldcqSidQ==}
     engines: {node: '>=18'}
+
+  cookie@2.0.1:
+    resolution: {integrity: sha512-yuToqVvRrj6pfDXREyQAAv8SkAEk/8GS3jQRTiUMm66TVtBYmqQeoEjL2Lmq8Rpo6271vH76InTChTitEAm65w==}
+    engines: {node: '>=22'}
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -2043,8 +2047,8 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  neotraverse@0.6.18:
-    resolution: {integrity: sha512-Z4SmBUweYa09+o6pG+eASabEpP6QkQ70yHj351pQoEXIs8uHbaU2DWVmzBANKgflPa47A50PtB2+NgRpQvr7vA==}
+  neotraverse@1.0.1:
+    resolution: {integrity: sha512-WmmLty1YWwJl9yZi77v2dVIV6X2kuYV8YYBI/G3LWGKdGHmHUvL1z7FW0iDvEvGAwNEoc5x1tOOOyDnf5jJw/w==}
     engines: {node: '>= 10'}
 
   nlcst-to-string@4.0.0:
@@ -2485,14 +2489,14 @@ packages:
   trough@2.2.0:
     resolution: {integrity: sha512-tmMpK00BjZiUyVyvrBK7knerNgmgvcV/KLVyuma/SC+TQN167GrMRciANTz09+k3zW8L8t60jWO1GpfkZdjTaw==}
 
-  tsdown@0.22.12:
-    resolution: {integrity: sha512-IzGRfGwSsufXJWOcQ0tmECKMG/dbxhUwDOySTS7JE1AM8pkB9+bpcTPs8bTxxSNrSvGocSczrBlOh97tZObq9Q==}
+  tsdown@0.22.13:
+    resolution: {integrity: sha512-XaYFhtiKRUvTpXv/YAehsHdbEb3LN/iMlzjSINbjlaATtXN2zVPKox2STKhcyFPlh++8Zg7suNN27E679IfAUA==}
     engines: {node: ^22.18.0 || >=24.11.0}
     hasBin: true
     peerDependencies:
       '@arethetypeswrong/core': ^0.18.1
-      '@tsdown/css': 0.22.12
-      '@tsdown/exe': 0.22.12
+      '@tsdown/css': 0.22.13
+      '@tsdown/exe': 0.22.13
       '@vitejs/devtools': '*'
       publint: ^0.3.8
       tsx: '*'
@@ -3850,7 +3854,7 @@ snapshots:
 
   assertion-error@2.0.1: {}
 
-  astro@7.1.0(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0):
+  astro@7.1.3(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@24.13.3)(tsx@4.23.1)(yaml@2.9.0):
     dependencies:
       '@astrojs/compiler-rs': 0.3.1(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)
       '@astrojs/internal-helpers': 0.10.1
@@ -3866,7 +3870,7 @@ snapshots:
       ci-info: 4.4.0
       clsx: 2.1.1
       common-ancestor-path: 2.0.0
-      cookie: 1.1.1
+      cookie: 2.0.1
       devalue: 5.8.2
       diff: 8.0.4
       dset: 3.1.4
@@ -3883,7 +3887,7 @@ snapshots:
       magic-string: 0.30.21
       magicast: 0.5.3
       mrmime: 2.0.1
-      neotraverse: 0.6.18
+      neotraverse: 1.0.1
       obug: 2.1.4
       p-limit: 7.3.1
       p-queue: 9.3.3
@@ -4009,6 +4013,8 @@ snapshots:
   cookie-es@1.2.3: {}
 
   cookie@1.1.1: {}
+
+  cookie@2.0.1: {}
 
   cross-spawn@7.0.6:
     dependencies:
@@ -4581,7 +4587,7 @@ snapshots:
 
   nanoid@3.3.15: {}
 
-  neotraverse@0.6.18: {}
+  neotraverse@1.0.1: {}
 
   nlcst-to-string@4.0.0:
     dependencies:
@@ -5026,7 +5032,7 @@ snapshots:
 
   trough@2.2.0: {}
 
-  tsdown@0.22.12(@arethetypeswrong/core@0.18.5)(publint@0.3.21)(tsx@4.23.1)(typescript@6.0.3)(unplugin-unused@0.5.7(esbuild@0.28.1)(rolldown@1.2.0)(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(tsx@4.23.1)(yaml@2.9.0))):
+  tsdown@0.22.13(@arethetypeswrong/core@0.18.5)(publint@0.3.21)(tsx@4.23.1)(typescript@6.0.3)(unplugin-unused@0.5.7(esbuild@0.28.1)(rolldown@1.2.0)(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(tsx@4.23.1)(yaml@2.9.0))):
     dependencies:
       ansis: 4.3.1
       cac: 7.0.0

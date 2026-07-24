@@ -14,7 +14,7 @@
         "@biomejs/biome": "2.5.5",
         "@types/chai": "5.2.3",
         "@types/node": "24.13.3",
-        "astro": "7.0.6",
+        "astro": "7.1.0",
         "chai": "6.2.2",
         "get-port": "7.2.0",
         "pino": "10.3.1",
@@ -59,7 +59,7 @@
     "main": "./dist/index.mjs",
     "name": "astro-node-fastify",
     "peerDependencies": {
-        "astro": "~7.0"
+        "astro": "~7.1.0"
     },
     "publishConfig": {
         "access": "public",

@@ -8,11 +8,11 @@ import fastifyStatic from '@fastify/static'
 import type { BaseApp, RenderOptions } from 'astro/app'
 import { createRequest } from 'astro/app/node'
 import fastify, {
-    LogController,
     type FastifyInstance,
     type FastifyListenOptions,
     type FastifyReply,
     type FastifyRequest,
+    LogController,
     type RouteHandlerMethod,
     type RouteShorthandOptions
 } from 'fastify'
@@ -175,6 +175,7 @@ function setAssetHeaders(
         }
 
         if (headerKeys && headerKeys.length > 0) {
+            // biome-ignore lint/style/noNonNullAssertion: if `headerKeys` is defined, `headers` must be non-null
             res.headers(headers!)
         }
     }

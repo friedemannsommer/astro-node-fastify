@@ -1,5 +1,12 @@
 # astro-node-fastify
 
+## 0.10.0
+
+### Minor Changes
+
+- [`93e6e99`](https://github.com/friedemannsommer/astro-node-fastify/commit/93e6e992dc1f6f0e7b5ef28e7c1e83458070f229) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Update dependencies: `fastify` to ^5.11.2 (adopting its `LogController` API for request-logging configuration), `@fastify/static` to v10, and `@fastify/compress` to ^9.2.0.
+  Widen the `astro` peer dependency range to `>= 7.0 <= 7.2`.
+
 ## 0.9.0
 
 ### Minor Changes

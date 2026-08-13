@@ -15,7 +15,7 @@ describe('Astro hybrid output', { concurrency: false }, (): void => {
 
     it('should start with default options', async (): Promise<void> => {
         fixture = await previewFixture({
-            root: getFixturePath('./astro-hybrid-default-base')
+            root: getFixturePath('./astro-hybrid-base')
         })
 
         const [indexRender, preRender, echoReply] = await Promise.all([
@@ -48,7 +48,7 @@ describe('Astro hybrid output', { concurrency: false }, (): void => {
     it('should return the configured default headers', async (): Promise<void> => {
         fixture = await previewFixture(
             {
-                root: getFixturePath('./astro-hybrid-headers-base')
+                root: getFixturePath('./astro-hybrid-base')
             },
             {
                 defaultHeaders: {
@@ -63,7 +63,7 @@ describe('Astro hybrid output', { concurrency: false }, (): void => {
             }
         )
 
-        const [assetReply, serverReply] = await Promise.all([fixture.fetch('/robots.txt'), fixture.fetch('/')])
+        const [assetReply, serverReply] = await Promise.all([fixture.fetch('/robots.txt'), fixture.fetch('/headers')])
 
         expect(assetReply.status).to.eq(200)
         expect(serverReply.status).to.eq(200)

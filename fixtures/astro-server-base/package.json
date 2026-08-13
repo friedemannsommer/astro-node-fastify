@@ -1,0 +1,10 @@
+{
+    "dependencies": {
+        "astro-node-fastify": "workspace:*",
+        "astro": "catalog:"
+    },
+    "name": "astro-server-base",
+    "private": true,
+    "type": "module",
+    "version": "0.0.0"
+}

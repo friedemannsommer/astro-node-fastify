@@ -18,7 +18,7 @@ describe('Astro asset compression', { concurrency: false }, (): void => {
 
     it('should compress with default options', async (): Promise<void> => {
         fixture = await buildFixture({
-            root: getFixturePath('./astro-asset-compression-base')
+            root: getFixturePath('./astro-server-base')
         })
 
         await assertPromiseRejected(access(fixture.resolveClientPath('./robots.txt.gz')))
@@ -30,7 +30,7 @@ describe('Astro asset compression', { concurrency: false }, (): void => {
     it('should only use brotli compression', async (): Promise<void> => {
         fixture = await buildFixture(
             {
-                root: getFixturePath('./astro-asset-compression-base')
+                root: getFixturePath('./astro-server-base')
             },
             {
                 supportedEncodings: ['br']
@@ -44,7 +44,7 @@ describe('Astro asset compression', { concurrency: false }, (): void => {
     it('should only use gzip compression', async (): Promise<void> => {
         fixture = await buildFixture(
             {
-                root: getFixturePath('./astro-asset-compression-base')
+                root: getFixturePath('./astro-server-base')
             },
             {
                 supportedEncodings: ['gzip']
@@ -57,7 +57,7 @@ describe('Astro asset compression', { concurrency: false }, (): void => {
     ;(majorVersion < 22 ? it.skip : it)('should only use Zstd compression', async (): Promise<void> => {
         fixture = await buildFixture(
             {
-                root: getFixturePath('./astro-asset-compression-base')
+                root: getFixturePath('./astro-server-base')
             },
             {
                 supportedEncodings: ['zstd']
@@ -72,7 +72,7 @@ describe('Astro asset compression', { concurrency: false }, (): void => {
     it('should not pre-compress client assets', async (): Promise<void> => {
         fixture = await buildFixture(
             {
-                root: getFixturePath('./astro-asset-compression-base')
+                root: getFixturePath('./astro-server-base')
             },
             {
                 preCompressed: false
@@ -86,7 +86,7 @@ describe('Astro asset compression', { concurrency: false }, (): void => {
     it('should only compress specified file extension', async (): Promise<void> => {
         fixture = await buildFixture(
             {
-                root: getFixturePath('./astro-asset-compression-base')
+                root: getFixturePath('./astro-server-base')
             },
             {
                 assetCompression: {
@@ -104,7 +104,7 @@ describe('Astro asset compression', { concurrency: false }, (): void => {
     it('should not compress route response if disabled via config option', async (): Promise<void> => {
         fixture = await previewFixture(
             {
-                root: getFixturePath('./astro-asset-compression-base')
+                root: getFixturePath('./astro-server-base')
             },
             {
                 routesWithoutCompression: ['/no-compression']
@@ -122,7 +122,7 @@ describe('Astro asset compression', { concurrency: false }, (): void => {
     it('should not compress Fastify responses if disabled via config option', async (): Promise<void> => {
         fixture = await previewFixture(
             {
-                root: getFixturePath('./astro-asset-compression-base')
+                root: getFixturePath('./astro-server-base')
             },
             {
                 server: {
@@ -154,7 +154,7 @@ describe('Astro asset compression', { concurrency: false }, (): void => {
     it('should not stream Astro responses if disabled via config option', async (): Promise<void> => {
         fixture = await previewFixture(
             {
-                root: getFixturePath('./astro-asset-compression-base')
+                root: getFixturePath('./astro-server-base')
             },
             {
                 server: {
@@ -175,7 +175,7 @@ describe('Astro asset compression', { concurrency: false }, (): void => {
     it('should compress stream Astro responses even if streaming is disabled via config option', async (): Promise<void> => {
         fixture = await previewFixture(
             {
-                root: getFixturePath('./astro-asset-compression-base')
+                root: getFixturePath('./astro-server-base')
             },
             {
                 server: {

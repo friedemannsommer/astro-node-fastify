@@ -15,7 +15,7 @@ describe('Astro SSR output', { concurrency: false }, (): void => {
 
     it('should start with default options', async (): Promise<void> => {
         fixture = await previewFixture({
-            root: getFixturePath('./astro-ssr-default-base')
+            root: getFixturePath('./astro-server-base')
         })
 
         const [indexRender, echoReply] = await Promise.all([
@@ -29,7 +29,7 @@ describe('Astro SSR output', { concurrency: false }, (): void => {
             })
         ])
 
-        expect(indexRender.status).to.eq(404)
+        expect(indexRender.status).to.eq(200)
         expect(echoReply.status).to.eq(200)
 
         expect(echoReply.headers.get('content-type')).to.eq('text/plain')
@@ -40,10 +40,13 @@ describe('Astro SSR output', { concurrency: false }, (): void => {
     it('should return the configured default headers', async (): Promise<void> => {
         fixture = await previewFixture(
             {
-                root: getFixturePath('./astro-ssr-headers-base')
+                root: getFixturePath('./astro-server-base')
             },
             {
                 defaultHeaders: {
+                    assets: {
+                        'X-Asset': 'test'
+                    },
                     server: {
                         'X-Test': '1',
                         'X-Another': 'one'
@@ -54,14 +57,13 @@ describe('Astro SSR output', { concurrency: false }, (): void => {
 
         const [assetReply, serverReply] = await Promise.all([
             fixture.fetch('/robots.txt'),
-            fixture.fetch('/?header=example')
+            fixture.fetch('/headers?header=example')
         ])
 
-        expect(assetReply.status).to.eq(404)
+        expect(assetReply.status).to.eq(200)
         expect(serverReply.status).to.eq(200)
 
-        expect(assetReply.headers.get('x-test')).to.eq('1')
-        expect(assetReply.headers.get('x-another')).to.eq('one')
+        expect(assetReply.headers.get('x-asset')).to.eq('test')
         expect(serverReply.headers.get('content-type')).to.eq('text/plain')
         expect(serverReply.headers.get('x-param')).to.eq('example')
         expect(serverReply.headers.get('x-test')).to.eq('1')
@@ -72,7 +74,7 @@ describe('Astro SSR output', { concurrency: false }, (): void => {
 
     it('should serve content from .well-known path', async () => {
         fixture = await previewFixture({
-            root: getFixturePath('./astro-ssr-dot-prefix')
+            root: getFixturePath('./astro-server-base')
         })
 
         const [wellKnown, apiDotFile, apiTextFile] = await Promise.all([
@@ -92,7 +94,7 @@ describe('Astro SSR output', { concurrency: false }, (): void => {
     it('should not serve content from .well-known path', async () => {
         fixture = await previewFixture(
             {
-                root: getFixturePath('./astro-ssr-dot-prefix')
+                root: getFixturePath('./astro-server-base')
             },
             {
                 dotPrefixes: []
@@ -115,7 +117,7 @@ describe('Astro SSR output', { concurrency: false }, (): void => {
     it('should only serve content from api path', async () => {
         fixture = await previewFixture(
             {
-                root: getFixturePath('./astro-ssr-dot-prefix')
+                root: getFixturePath('./astro-server-base')
             },
             {
                 dotPrefixes: ['/api/']
@@ -138,7 +140,7 @@ describe('Astro SSR output', { concurrency: false }, (): void => {
 
     it('should serve the custom 404 page', async () => {
         fixture = await previewFixture({
-            root: getFixturePath('./astro-custom-error-page')
+            root: getFixturePath('./astro-server-base')
         })
 
         const expectedBody = 'Page not found'
@@ -158,7 +160,7 @@ describe('Astro SSR output', { concurrency: false }, (): void => {
 
     it('should serve the custom 500 page', async () => {
         fixture = await previewFixture({
-            root: getFixturePath('./astro-custom-error-page')
+            root: getFixturePath('./astro-server-base')
         })
 
         const expectedBody = 'Something went wrong internally...'

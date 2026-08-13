@@ -15,7 +15,7 @@ describe('Response encoding', { concurrency: false }, (): void => {
 
     it('should compress with default options', async (): Promise<void> => {
         fixture = await previewFixture({
-            root: getFixturePath('./astro-encoding-default-base')
+            root: getFixturePath('./astro-server-base')
         })
 
         const [smallReply, largeReply] = await Promise.all([
@@ -51,7 +51,7 @@ describe('Response encoding', { concurrency: false }, (): void => {
     it('should not compress anything', async (): Promise<void> => {
         fixture = await previewFixture(
             {
-                root: getFixturePath('./astro-encoding-none-base')
+                root: getFixturePath('./astro-server-base')
             },
             {
                 supportedEncodings: []
@@ -96,7 +96,7 @@ describe('Response encoding', { concurrency: false }, (): void => {
     it('should only compress using the specified encodings', async (): Promise<void> => {
         fixture = await previewFixture(
             {
-                root: getFixturePath('./astro-encoding-restricted-base')
+                root: getFixturePath('./astro-server-base')
             },
             {
                 supportedEncodings: ['gzip']

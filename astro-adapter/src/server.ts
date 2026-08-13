@@ -4,10 +4,11 @@ import type { Http2Server, Http2ServerRequest, Http2ServerResponse } from 'node:
 import { join as pathJoin, resolve as pathResolve } from 'node:path'
 import { Readable } from 'node:stream'
 import type { ReadableStream as WebReadableStream } from 'node:stream/web'
-import fastifyStatic, { type SetHeadersResponse } from '@fastify/static'
+import fastifyStatic from '@fastify/static'
 import type { BaseApp, RenderOptions } from 'astro/app'
 import { createRequest } from 'astro/app/node'
 import fastify, {
+    LogController,
     type FastifyInstance,
     type FastifyListenOptions,
     type FastifyReply,
@@ -46,7 +47,9 @@ export async function createServer(app: BaseApp, options: RuntimeArguments): Pro
     const server = fastify({
         bodyLimit: config.request?.bodyLimit,
         connectionTimeout: config.server?.connectionTimeout,
-        disableRequestLogging: config.server?.accessLogging === false,
+        logController: new LogController({
+            disableRequestLogging: config.server?.accessLogging === false
+        }),
         // @ts-expect-error - the underlying type doesn't explicitly allow `http2: undefined`
         http2: config.server?.http2 === true ? true : undefined,
         https: config.https
@@ -160,22 +163,19 @@ function setAssetHeaders(
     staticPrefix: string,
     headers?: OutgoingHttpHeaders,
     cache?: RuntimeOptions['cache']
-): (res: SetHeadersResponse, path: string) => void {
+): (res: FastifyReply, path: string) => void {
     const headerKeys: string[] | undefined = headers ? Object.keys(headers) : undefined
     const dynamicAssetCacheControl = createCacheControlHeader(cache)
 
-    return (res: SetHeadersResponse, path: string): void => {
+    return (res: FastifyReply, path: string): void => {
         if (path.startsWith(staticPrefix)) {
-            res.setHeader('Cache-Control', 'public, max-age=31536000, immutable')
+            res.header('Cache-Control', 'public, max-age=31536000, immutable')
         } else if (dynamicAssetCacheControl !== undefined) {
-            res.setHeader('Cache-Control', dynamicAssetCacheControl)
+            res.header('Cache-Control', dynamicAssetCacheControl)
         }
 
-        if (headerKeys) {
-            for (const header of headerKeys) {
-                // biome-ignore lint/style/noNonNullAssertion: if `headerKeys` is defined, `headers` is as well
-                res.setHeader(header, headers![header])
-            }
+        if (headerKeys && headerKeys.length > 0) {
+            res.headers(headers!)
         }
     }
 }

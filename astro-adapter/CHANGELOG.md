@@ -1,5 +1,11 @@
 # astro-node-fastify
 
+## 0.10.1
+
+### Patch Changes
+
+- [`c178c72`](https://github.com/friedemannsommer/astro-node-fastify/commit/c178c7228c3705cb8be319db3419b12a8fd8f862) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Fix the client assets path resolution when starting the standalone entry (`node <build directory>/entry.mjs`) without an explicit `serverPath` override.
+
 ## 0.10.0
 
 ### Minor Changes

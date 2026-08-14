@@ -105,10 +105,11 @@ function getServerPath(path: string): string {
     }
 
     /**
-     * Important note: this only works if this package is NOT included in the entrypoint.
-     * Otherwise, we're unable to resolve an absolute path to the client assets.
+     * Assumes this package is bundled into Astro's emitted entrypoint:
+     * the runtime config is written next to the entrypoint,
+     * so this module's directory resolves to `config.build.server`.
      */
-    return fileURLToPath(new URL('../', import.meta.url))
+    return dirname(fileURLToPath(import.meta.url))
 }
 
 function getCallerFile(): string | undefined {

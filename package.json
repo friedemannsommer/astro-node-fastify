@@ -2,7 +2,7 @@
     "name": "main",
     "version": "0.0.0",
     "private": true,
-    "packageManager": "pnpm@11.25.0",
+    "packageManager": "pnpm@11.26.0",
     "scripts": {
         "build": "pnpm --filter astro-node-fastify build",
         "check": "pnpm --filter astro-node-fastify check",
@@ -12,7 +12,7 @@
         "test": "pnpm --filter astro-node-fastify test"
     },
     "devDependencies": {
-        "@changesets/changelog-github": "1.0.0",
-        "@changesets/cli": "3.0.1"
+        "@changesets/changelog-github": "1.0.1",
+        "@changesets/cli": "3.0.2"
     }
 }

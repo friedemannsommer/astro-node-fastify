@@ -1,5 +1,11 @@
 # astro-node-fastify
 
+## 0.10.2
+
+### Patch Changes
+
+- [`9f3149e`](https://github.com/friedemannsommer/astro-node-fastify/commit/9f3149e169a738e4fa69025f796047586bb748ec) Thanks [@friedemannsommer](https://github.com/friedemannsommer)! - Updated Astro peer range to include v7.3
+
 ## 0.10.1
 
 ### Patch Changes

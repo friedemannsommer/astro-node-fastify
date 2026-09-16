@@ -59,7 +59,7 @@
     "main": "./dist/index.mjs",
     "name": "astro-node-fastify",
     "peerDependencies": {
-        "astro": "~7.2 || ~7.3.0"
+        "astro": "~7.2 || ~7.3"
     },
     "publishConfig": {
         "access": "public",

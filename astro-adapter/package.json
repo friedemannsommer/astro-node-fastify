@@ -25,7 +25,7 @@
         "typedoc-github-theme": "0.4.0",
         "typedoc-plugin-mdn-links": "5.1.1",
         "typedoc-plugin-missing-exports": "4.1.4",
-        "typescript": "6.0.3",
+        "typescript": "7.0.2",
         "unplugin-unused": "0.6.0"
     },
     "engines": {

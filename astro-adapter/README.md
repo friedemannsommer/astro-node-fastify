@@ -11,29 +11,29 @@
 ## Table of contents
 
 <!-- TOC -->
-* [Astro Node.js Fastify](#astro-nodejs-fastify)
-  * [Table of contents](#table-of-contents)
-  * [Quickstart](#quickstart)
-  * [Usage](#usage)
-  * [Configuration Example](#configuration-example)
-  * [Configuration](#configuration)
-  * [Troubleshooting](#troubleshooting)
-    * [Common Issues and Solutions](#common-issues-and-solutions)
-      * [Compression Not Working](#compression-not-working)
-      * [404 Errors for Assets in Dot Files/Directories](#404-errors-for-assets-in-dot-filesdirectories)
-      * [Static Assets Not Caching Properly](#static-assets-not-caching-properly)
-      * [Server Running Out of Memory](#server-running-out-of-memory)
-      * [Issues Behind a Reverse Proxy](#issues-behind-a-reverse-proxy)
-    * [Getting Help](#getting-help)
+- [Astro Node.js Fastify](#astro-nodejs-fastify)
+  - [Table of contents](#table-of-contents)
+  - [Quickstart](#quickstart)
+  - [Usage](#usage)
+  - [Configuration Example](#configuration-example)
+  - [Configuration](#configuration)
+  - [Troubleshooting](#troubleshooting)
+    - [Common Issues and Solutions](#common-issues-and-solutions)
+      - [Compression Not Working](#compression-not-working)
+      - [404 Errors for Assets in Dot Files/Directories](#404-errors-for-assets-in-dot-filesdirectories)
+      - [Static Assets Not Caching Properly](#static-assets-not-caching-properly)
+      - [Server Running Out of Memory](#server-running-out-of-memory)
+      - [Issues Behind a Reverse Proxy](#issues-behind-a-reverse-proxy)
+    - [Getting Help](#getting-help)
 <!-- TOC -->
 
 ## Quickstart
 
 1. Install via the package manager of your choice
-    * Example via NPM: `npm i --save-prod astro-node-fastify`
-    * Or via
-      the [Astro CLI](https://docs.astro.build/en/guides/integrations-guide/#automatic-integration-setup):
-      `astro add astro-node-fastify`
+   - Example via NPM: `npm i --save-prod astro-node-fastify`
+   - Or via
+     the [Astro CLI](https://docs.astro.build/en/guides/integrations-guide/#automatic-integration-setup):
+     `astro add astro-node-fastify`
 2. Build your site
 3. Either start a [preview](https://docs.astro.build/en/reference/cli-reference/#astro-preview) or
    the [standalone entry](https://docs.astro.build/en/reference/configuration-reference/#buildserverentry).
@@ -57,8 +57,8 @@ algorithms like gzip or brotli.
 
 ```javascript
 // astro.config.mjs
-import {defineConfig} from 'astro/config';
-import nodeFastify from 'astro-node-fastify';
+import { defineConfig } from 'astro/config'
+import nodeFastify from 'astro-node-fastify'
 
 export default defineConfig({
     output: 'server',
@@ -125,7 +125,7 @@ export default defineConfig({
         // want to add additional paths or remove the default.
         dotPrefixes: ['/.well-known/']
     })
-});
+})
 ```
 </details>
 
@@ -184,10 +184,10 @@ The configuration documentation can be found here:
 
 - Configure the `server.trustProxy` setting to properly identify trusted proxy servers
 - Ensure your reverse proxy (nginx, Apache, etc.) is correctly configured to pass the required headers:
-    - `X-Forwarded-For`: Original client IP address
-    - `X-Forwarded-Proto`: Original protocol (http/https)
-    - `X-Forwarded-Host`: Original host requested by the client
-    - `X-Real-IP`: Alternative client IP header used by some proxies
+  - `X-Forwarded-For`: Original client IP address
+  - `X-Forwarded-Proto`: Original protocol (http/https)
+  - `X-Forwarded-Host`: Original host requested by the client
+  - `X-Real-IP`: Alternative client IP header used by some proxies
 
 ### Getting Help
 
@@ -196,9 +196,9 @@ If you encounter issues not covered here:
 1. Check the [GitHub Issues](https://github.com/friedemannsommer/astro-node-fastify/issues) to see if your problem has
    been reported
 2. Before opening a new issue:
-    - Make sure the issue is related to this adapter specifically, not your Astro project or deployment environment
-    - Create a minimal reproduction that isolates the problem to this adapter's functionality
-    - Include your adapter configuration and relevant environment details (Node.js version, OS, etc.)
+   - Make sure the issue is related to this adapter specifically, not your Astro project or deployment environment
+   - Create a minimal reproduction that isolates the problem to this adapter's functionality
+   - Include your adapter configuration and relevant environment details (Node.js version, OS, etc.)
 
 **Support Scope**:
 

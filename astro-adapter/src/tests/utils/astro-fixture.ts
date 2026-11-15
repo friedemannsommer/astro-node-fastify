@@ -1,4 +1,5 @@
 import { rm } from 'node:fs/promises'
+import type { AddressInfo } from 'node:net'
 import { fileURLToPath } from 'node:url'
 import type { AstroConfig, AstroInlineConfig } from 'astro'
 import type { FastifyInstance } from 'fastify'
@@ -140,9 +141,10 @@ export async function loadFixture(fixtureConfig: AstroFixtureOptions): Promise<T
             }
 
             // biome-ignore lint/style/noNonNullAssertion: array contains at least one element
-            astroConfig.server.host = addresses[0]!.address
-            // biome-ignore lint/style/noNonNullAssertion: array contains at least one element
-            astroConfig.server.port = addresses[0]!.port
+            const { address: host, port } = addresses[0]! as AddressInfo
+
+            astroConfig.server.host = host
+            astroConfig.server.port = port
 
             return serverRef
         },

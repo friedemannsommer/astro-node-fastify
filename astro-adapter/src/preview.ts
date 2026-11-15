@@ -1,3 +1,4 @@
+import type { AddressInfo } from 'node:net'
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { CreatePreviewServer, PreviewServer } from 'astro'
@@ -28,7 +29,7 @@ const createPreviewServer: CreatePreviewServer = async (previewParams): Promise<
     }
 
     // biome-ignore lint/style/noNonNullAssertion: it is guaranteed that the array is not empty
-    const address = serverAddresses[0]!
+    const address = serverAddresses[0]! as AddressInfo
 
     port = address.port
     host = address.address

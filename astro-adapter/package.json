@@ -11,10 +11,10 @@
     "description": "Astro Fastify integration for Node.js",
     "devDependencies": {
         "@arethetypeswrong/core": "0.18.5",
-        "@biomejs/biome": "2.6.7",
+        "@biomejs/biome": "2.6.9",
         "@types/chai": "5.2.3",
-        "@types/node": "24.19.2",
-        "astro": "7.4.12",
+        "@types/node": "24.19.4",
+        "astro": "7.4.13",
         "chai": "6.3.0",
         "get-port": "7.2.0",
         "pino": "10.4.0",
